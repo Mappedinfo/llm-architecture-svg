@@ -139,3 +139,34 @@ The diagram displays:
 - data/residual/dependency edges
 - inferred tensor shape labels
 - parameter count summary
+
+## Profiles
+
+Use `profile` when you want a complete visual and structural preset. Profiles control default detail level, grid/header visibility, typography, stroke width, corner radius, icon style, and edge routing.
+
+```ts
+renderGptArchitectureSvg(params, { profile: "textbook-overview" });
+renderGptArchitectureSvg(params, { profile: "gpt-overview" });
+renderGptArchitectureSvg(params, { profile: "expanded-gpt-block" });
+renderGptArchitectureSvg(params, { profile: "teaching-debug" });
+renderGptArchitectureSvg(params, { profile: "slide-dark" });
+```
+
+`textbook-overview` is a presentation adapter over the GPT architecture. It does not change the saved `ArchitectureSpec`; it renders a concept-level Transformer diagram with Input Embedding, Positional Encoding, Multi-Head Attention, Add & Norm, Feed Forward, Linear, Softmax, and Output Probabilities.
+
+The legacy options still override profile defaults when provided:
+
+```ts
+renderGptArchitectureSvg(params, {
+  profile: "expanded-gpt-block",
+  expandedGroups: ["block_0", "block_1"],
+  showParamCounts: false
+});
+```
+
+CLI:
+
+```bash
+llm-architecture-svg --preset gpt --profile textbook-overview --out textbook.svg
+llm-architecture-svg --preset gpt --profile teaching-debug --out debug.svg
+```

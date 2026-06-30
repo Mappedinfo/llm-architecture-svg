@@ -86,3 +86,29 @@ npx llm-architecture-svg --preset gpt --T 64 --C 192 --nHeads 3 --nBlocks 3 --vo
 ```bash
 npx llm-architecture-svg --preset gpt --expand block_0 --theme blueprint --out artifacts/demo/direct-expanded.svg
 ```
+
+## Profile gallery commands
+
+Generate all built-in profile demos:
+
+```bash
+npm run demo:profiles
+```
+
+Expected outputs:
+
+```text
+artifacts/demo/profiles/textbook-overview.svg
+artifacts/demo/profiles/gpt-overview.svg
+artifacts/demo/profiles/expanded-gpt-block.svg
+artifacts/demo/profiles/teaching-debug.svg
+artifacts/demo/profiles/slide-dark.svg
+```
+
+Single-file CLI examples:
+
+```bash
+npm run export -- --preset gpt --profile textbook-overview --out artifacts/demo/profiles/textbook-cli.svg
+npm run export -- --preset gpt --profile expanded-gpt-block --out artifacts/demo/profiles/expanded-cli.svg
+npm run export -- --preset gpt --profile slide-dark --out artifacts/demo/profiles/slide-dark-cli.svg
+```

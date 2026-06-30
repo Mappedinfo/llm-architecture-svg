@@ -73,6 +73,8 @@ function generateFromParams(params: GptTemplateParams, title?: string): Architec
 }
 
 function optionsFromArgs(args: Record<string, string | boolean | string[]>, fallbackTitle: string): RenderArchitectureSvgOptions {
+  const theme = getString(args.theme);
+  const profile = getString(args.profile);
   return {
     title: getString(args.title) ?? fallbackTitle,
     width: getNumber(args.width, 1100),
@@ -80,7 +82,8 @@ function optionsFromArgs(args: Record<string, string | boolean | string[]>, fall
     showShapes: getBool(args.showShapes, true),
     showParamCounts: getBool(args.showParamCounts, true),
     expandedGroups: getList(args.expand),
-    theme: getString(args.theme) === "blueprint" ? "blueprint" : "paper"
+    theme: theme === "blueprint" ? "blueprint" : theme === "paper" ? "paper" : undefined,
+    profile: profile as RenderArchitectureSvgOptions["profile"]
   };
 }
 
@@ -110,6 +113,8 @@ function printUsage(): void {
     "Usage:",
     "  llm-architecture-svg --preset gpt --T 64 --C 192 --nHeads 3 --nBlocks 3 --vocabSize 1000 --out artifacts/svg/gpt.svg",
     "  llm-architecture-svg --preset gpt --expand block_0 --out artifacts/svg/gpt-expanded.svg",
+    "  llm-architecture-svg --preset gpt --profile textbook-overview --out artifacts/svg/textbook.svg",
+    "  llm-architecture-svg --preset gpt --profile slide-dark --out artifacts/svg/slide-dark.svg",
     "  llm-architecture-svg --batch examples/llm-svg-batch.json --out artifacts/svg"
   ].join("\n"));
 }

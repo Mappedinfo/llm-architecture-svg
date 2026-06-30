@@ -2,7 +2,23 @@
   "name": "@mappedinfo/llm-architecture-svg",
   "version": "0.1.0",
   "description": "Generate standalone SVG diagrams for GPT/LLM architectures without model weights.",
+  "keywords": [
+    "llm",
+    "gpt",
+    "transformer",
+    "architecture",
+    "svg",
+    "visualization"
+  ],
   "license": "MIT",
+  "homepage": "https://github.com/Mappedinfo/llm-architecture-svg#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mappedinfo/llm-architecture-svg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mappedinfo/llm-architecture-svg/issues"
+  },
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,6 +37,12 @@
     "docs",
     "examples"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -28,6 +50,7 @@
     "demo:basic": "tsx examples/api-basic.ts",
     "demo:expanded": "tsx examples/api-expanded.ts",
     "demo:custom": "tsx examples/api-custom-spec.ts",
+    "demo:profiles": "tsx examples/api-profiles.ts",
     "demo:batch": "tsx src/cli.ts --batch examples/llm-svg-batch.json --out artifacts/demo/batch",
     "prepare": "npm run build"
   },

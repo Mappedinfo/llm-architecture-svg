@@ -4,18 +4,18 @@ Generate standalone SVG diagrams for GPT/LLM architectures without model weights
 
 This package computes architecture layout, tensor shapes, and parameter counts. It does **not** load weights, run inference, or depend on React, DOM, Canvas, WebGL, or Next.js.
 
-## Install from GitHub
+## Install
 
-This package is currently installed directly from GitHub, not npmjs.com:
-
-```bash
-npm install github:Mappedinfo/llm-architecture-svg
-```
-
-After npmjs publishing is added later, the install command can become:
+After the package is published to npm:
 
 ```bash
 npm install @mappedinfo/llm-architecture-svg
+```
+
+Before the npm package exists, install directly from GitHub:
+
+```bash
+npm install github:Mappedinfo/llm-architecture-svg
 ```
 
 ## CLI quick start
@@ -130,3 +130,80 @@ With tied embeddings, `lm_head` contributes `0` additional parameters because it
 ## 中文说明
 
 这个包只生成解释图：它不会保存模型权重、不会导入权重、不会执行推理。它根据 GPT 超参数推导 block、tensor shape 和参数量，然后输出可直接放进论文、PPT 或网页的 standalone SVG。
+
+## Profile-based styles
+
+The renderer supports profile presets so diagram intent can be selected with one option instead of many low-level style flags.
+
+```ts
+import { renderGptArchitectureSvg } from "@mappedinfo/llm-architecture-svg";
+
+const svg = renderGptArchitectureSvg(params, {
+  profile: "textbook-overview"
+});
+```
+
+Built-in profiles:
+
+| Profile | Use case |
+| --- | --- |
+| `textbook-overview` | Concept-level Transformer diagram similar to textbook figures, with `+` circle, sine positional icon, right-side residual loops, no grid, and no shape/parameter labels. |
+| `gpt-overview` | Clean GPT architecture overview with shape and parameter summaries. |
+| `expanded-gpt-block` | Expands `block_0` and shows Q/K/V, attention scores/probs, and MLP internals. |
+| `teaching-debug` | Shows expected-vs-actual shape mismatch warnings for teaching/debugging. |
+| `slide-dark` | High-contrast dark style for slides and videos. |
+
+CLI examples:
+
+```bash
+npx llm-architecture-svg --preset gpt --profile textbook-overview --out artifacts/svg/textbook.svg
+npx llm-architecture-svg --preset gpt --profile expanded-gpt-block --out artifacts/svg/expanded.svg
+npx llm-architecture-svg --preset gpt --profile slide-dark --out artifacts/svg/slide-dark.svg
+```
+
+Backward compatibility: `--theme paper` and `--theme blueprint` still work. Prefer `--profile` for new diagrams.
+
+Generate all profile demos locally:
+
+```bash
+npm run demo:profiles
+```
+
+## Publishing
+
+This repository is configured for public npm publishing as `@mappedinfo/llm-architecture-svg`.
+
+Manual first publish:
+
+```bash
+npm login
+npm whoami
+npm run typecheck
+npm run build
+npm pack --dry-run
+npm publish --access public
+```
+
+Automated publish uses GitHub Actions:
+
+- Workflow: `.github/workflows/publish.yml`
+- Triggers: GitHub Release published, or manual `workflow_dispatch`
+- Required GitHub secret: `NPM_TOKEN`
+- Publish command: `npm publish --access public --provenance`
+
+To enable it, create an npm token with publish permission, then add it in GitHub:
+
+```text
+GitHub repository -> Settings -> Secrets and variables -> Actions -> New repository secret
+Name: NPM_TOKEN
+Value: <your npm token>
+```
+
+For each release, update the package version first:
+
+```bash
+npm version patch
+git push --follow-tags
+```
+
+Then publish a GitHub Release for that tag, or run the `Publish to npm` workflow manually. npm will reject publishing the same `name@version` twice.
