@@ -59,7 +59,8 @@ const DEFAULT_CUSTOM_SPEC = createNgramEmbeddingFigureSpec();
 export function App(): JSX.Element {
   const [mode, setMode] = useState<PlaygroundMode>("gpt");
   const [gptParams, setGptParams] = useState<GptTemplateParams>(DEFAULT_GPT_TEMPLATE_PARAMS);
-  const [architectureProfile, setArchitectureProfile] = useState<ArchitectureSvgProfileName>("gpt-overview");
+  const [architectureProfile, setArchitectureProfile] = useState<ArchitectureSvgProfileName>("expanded-gpt-block");
+  const [expandedBlockId, setExpandedBlockId] = useState("block_0");
   const [figurePreset, setFigurePreset] = useState<FigurePresetName>("ngram-embedding");
   const [figureProfile, setFigureProfile] = useState<LlmFigureProfileName>("drawio-mechanism");
   const [customJson, setCustomJson] = useState(() => JSON.stringify(DEFAULT_CUSTOM_SPEC, null, 2));
@@ -73,8 +74,15 @@ export function App(): JSX.Element {
           return { svg: "", json: JSON.stringify({ params: gptParams }, null, 2), error: issues.join(" ") };
         }
         const spec = generateGptArchitecture(gptParams);
+        const activeExpandedBlockId = normalizeExpandedBlockId(expandedBlockId, gptParams.nBlocks);
         return {
-          svg: renderArchitectureSvg(spec, { profile: architectureProfile, title: spec.name, width: 1120, padding: 36 }),
+          svg: renderArchitectureSvg(spec, {
+            profile: architectureProfile,
+            title: spec.name,
+            width: 1120,
+            padding: 36,
+            expandedGroups: activeExpandedBlockId === "none" ? [] : [activeExpandedBlockId]
+          }),
           json: JSON.stringify(spec, null, 2),
           error: ""
         };
@@ -93,7 +101,7 @@ export function App(): JSX.Element {
         error: error instanceof Error ? error.message : String(error)
       };
     }
-  }, [architectureProfile, customJson, figurePreset, figureProfile, gptParams, mode]);
+  }, [architectureProfile, customJson, expandedBlockId, figurePreset, figureProfile, gptParams, mode]);
 
   const activeJson = mode === "custom" ? customJson : renderState.json;
   const activeProfile = mode === "gpt" ? architectureProfile : figureProfile;
@@ -101,6 +109,7 @@ export function App(): JSX.Element {
   function applyAutoStyle(): void {
     if (mode === "gpt") {
       setArchitectureProfile(gptParams.nBlocks > 4 ? "expanded-gpt-block" : "gpt-overview");
+      setExpandedBlockId("block_0");
       return;
     }
     setFigureProfile(FIGURE_PRESETS.find((preset) => preset.value === figurePreset)?.preferredProfile ?? "architecture-paper");
@@ -178,7 +187,7 @@ export function App(): JSX.Element {
       <section className="workspace">
         <aside className="left-pane">
           {mode === "gpt" ? (
-            <GptParamPanel params={gptParams} onChange={setGptParams} />
+            <GptParamPanel params={gptParams} expandedBlockId={expandedBlockId} onExpandedBlockChange={setExpandedBlockId} onChange={setGptParams} />
           ) : (
             <div className="panel-card">
               <h2>{mode === "figure" ? "Preset config" : "Custom LlmFigureSpec"}</h2>
@@ -225,10 +234,22 @@ export function App(): JSX.Element {
   );
 }
 
-function GptParamPanel({ params, onChange }: { params: GptTemplateParams; onChange: (params: GptTemplateParams) => void }): JSX.Element {
+function GptParamPanel({
+  params,
+  expandedBlockId,
+  onExpandedBlockChange,
+  onChange
+}: {
+  params: GptTemplateParams;
+  expandedBlockId: string;
+  onExpandedBlockChange: (id: string) => void;
+  onChange: (params: GptTemplateParams) => void;
+}): JSX.Element {
   function setNumber(key: keyof Pick<GptTemplateParams, "T" | "C" | "nHeads" | "nBlocks" | "vocabSize">, value: string): void {
     onChange({ ...params, [key]: Number(value) });
   }
+
+  const activeExpandedBlockId = normalizeExpandedBlockId(expandedBlockId, params.nBlocks);
 
   return (
     <div className="panel-card param-grid">
@@ -238,6 +259,13 @@ function GptParamPanel({ params, onChange }: { params: GptTemplateParams; onChan
       <NumberField label="nHeads" value={params.nHeads} min={1} max={96} onChange={(value) => setNumber("nHeads", value)} />
       <NumberField label="nBlocks" value={params.nBlocks} min={1} max={96} onChange={(value) => setNumber("nBlocks", value)} />
       <NumberField label="vocabSize" value={params.vocabSize} min={1} max={100000} onChange={(value) => setNumber("vocabSize", value)} />
+      <label>
+        Expanded block
+        <select value={activeExpandedBlockId} onChange={(event) => onExpandedBlockChange(event.target.value)}>
+          <option value="none">Overview only</option>
+          {Array.from({ length: params.nBlocks }, (_, index) => `block_${index}`).map((id) => <option key={id} value={id}>{id}</option>)}
+        </select>
+      </label>
       <label className="check-row">
         <input type="checkbox" checked={params.bias} onChange={(event) => onChange({ ...params, bias: event.target.checked })} />
         bias
@@ -248,6 +276,14 @@ function GptParamPanel({ params, onChange }: { params: GptTemplateParams; onChan
       </label>
     </div>
   );
+}
+
+function normalizeExpandedBlockId(value: string, nBlocks: number): string {
+  if (value === "none") return value;
+  const match = /^block_(\d+)$/.exec(value);
+  if (!match) return "none";
+  const index = Number(match[1]);
+  return index >= 0 && index < nBlocks ? value : "none";
 }
 
 function NumberField({ label, value, min, max, onChange }: { label: string; value: number; min: number; max: number; onChange: (value: string) => void }): JSX.Element {
@@ -296,4 +332,3 @@ function downloadText(filename: string, content: string, type: string): void {
   anchor.click();
   URL.revokeObjectURL(url);
 }
-

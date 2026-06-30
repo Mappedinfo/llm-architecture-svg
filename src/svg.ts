@@ -47,6 +47,9 @@ interface NodeRect {
   h: number;
 }
 
+const COLLAPSED_GROUP_HEIGHT = 72;
+const OUTER_GROUP_MARGIN_Y = 42;
+
 export function renderGptArchitectureSvg(params: GptTemplateParams, options: RenderArchitectureSvgOptions = {}): string {
   return renderArchitectureSvg(generateGptArchitecture(params), options);
 }
@@ -55,7 +58,7 @@ export function renderArchitectureSvg(architecture: ArchitectureSpec, options: R
   const opts = resolveOptions(architecture, options);
   const architectureForRender = adaptArchitectureForProfile(architecture, opts.profile);
   const expanded = new Set(opts.expandedGroups);
-  const renderNodes = collectVisibleNodes(architectureForRender.nodes, expanded);
+  const renderNodes = createRenderNodes(architectureForRender.nodes, expanded);
   const visibleNodeIds = new Set(renderNodes.map((item) => item.node.id));
   const bounds = calcBounds(renderNodes.map((item) => item.node));
   const contentWidth = Math.max(1, bounds.maxX - bounds.minX);
@@ -456,13 +459,62 @@ function diagramEdge(source: string, target: string, kind: ArchitectureEdge["kin
   return { id: `edge-${source}-${target}-${kind}`, source, target, kind, label };
 }
 
-function collectVisibleNodes(nodes: ArchitectureNode[], expanded: Set<string>, depth = 0): RenderNode[] {
-  const result: RenderNode[] = [];
+interface PreparedNodeResult {
+  nodes: RenderNode[];
+  savedHeight: number;
+}
+
+function createRenderNodes(nodes: ArchitectureNode[], expanded: Set<string>): RenderNode[] {
+  const renderNodes: RenderNode[] = [];
+  let yOffset = 0;
   for (const node of nodes) {
-    result.push({ node, depth });
-    if (node.children && (expanded.has(node.id) || node.id === "transformer_group")) result.push(...collectVisibleNodes(node.children, expanded, depth + 1));
+    const prepared = prepareNodeForRender(node, expanded, 0, yOffset);
+    renderNodes.push(...prepared.nodes);
+    yOffset += prepared.savedHeight;
   }
-  return result;
+  return fitOuterGroups(renderNodes);
+}
+
+function prepareNodeForRender(node: ArchitectureNode, expanded: Set<string>, depth: number, yOffset: number): PreparedNodeResult {
+  const hasChildren = (node.children?.length ?? 0) > 0;
+  const isExpanded = hasChildren && (expanded.has(node.id) || node.id === "transformer_group");
+  const shifted = shiftNodeY(node, -yOffset);
+  if (node.type === "group" && hasChildren && !isExpanded) {
+    const compactHeight = Math.min(node.size2d.h, COLLAPSED_GROUP_HEIGHT);
+    return {
+      nodes: [{ node: { ...shifted, size2d: { ...shifted.size2d, h: compactHeight } }, depth }],
+      savedHeight: node.size2d.h - compactHeight
+    };
+  }
+
+  const result: RenderNode[] = [{ node: shifted, depth }];
+  if (isExpanded) {
+    for (const child of node.children ?? []) {
+      result.push(...prepareNodeForRender(child, expanded, depth + 1, yOffset).nodes);
+    }
+  }
+  return { nodes: result, savedHeight: 0 };
+}
+
+function shiftNodeY(node: ArchitectureNode, deltaY: number): ArchitectureNode {
+  return { ...node, position2d: { ...node.position2d, y: node.position2d.y + deltaY } };
+}
+
+function fitOuterGroups(renderNodes: RenderNode[]): RenderNode[] {
+  const contentNodes = renderNodes.filter((item) => item.node.derived?.role !== "llm_group");
+  if (contentNodes.length === 0) return renderNodes;
+  const bounds = calcBounds(contentNodes.map((item) => item.node));
+  return renderNodes.map((item) => {
+    if (item.node.derived?.role !== "llm_group") return item;
+    return {
+      ...item,
+      node: {
+        ...item.node,
+        position2d: { ...item.node.position2d, y: bounds.minY - OUTER_GROUP_MARGIN_Y },
+        size2d: { ...item.node.size2d, h: bounds.maxY - bounds.minY + OUTER_GROUP_MARGIN_Y * 2 }
+      }
+    };
+  });
 }
 
 function calcBounds(nodes: ArchitectureNode[]): { minX: number; minY: number; maxX: number; maxY: number } {
