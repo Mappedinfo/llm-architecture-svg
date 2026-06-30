@@ -91,6 +91,17 @@ npm run demo:batch
 
 The generated SVGs are written to `artifacts/demo/`.
 
+## Playground
+
+This repository includes a Vite + React playground that calls the package renderer directly instead of copying rendering logic into the website.
+
+```bash
+npm run site:dev
+npm run site:build
+```
+
+The playground supports GPT template parameters, built-in figure presets, custom `LlmFigureSpec` JSON, profile switching, SVG export, SVG copy, and JSON download. GitHub Pages deployment is handled by `.github/workflows/pages.yml`.
+
 ## API
 
 - `generateGptArchitecture(params)`
@@ -126,6 +137,14 @@ With tied embeddings, `lm_head` contributes `0` additional parameters because it
 - [Usage guide](docs/usage.md)
 - [ArchitectureSpec guide](docs/architecture-spec.md)
 - [Gallery and demo commands](docs/gallery.md)
+
+## Acknowledgements
+
+This project is inspired by:
+
+- [NN-SVG](https://alexlenail.me/NN-SVG/index.html), a browser-based tool for parametrically creating publication-ready neural network SVG schematics.
+- [bbycroft/llm-viz](https://github.com/bbycroft/llm-viz), a detailed interactive GPT/LLM visualization that informed the broader architecture-explanation direction.
+- [Mappedinfo/llm-viz](https://github.com/Mappedinfo/llm-viz), an interactive LLM visualization project that motivated the LLM architecture and explanation-figure workflow here.
 
 ## Gallery
 

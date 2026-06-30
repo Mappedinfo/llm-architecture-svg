@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { renderNgramEmbeddingFigure } from "../src";
+import { createNgramEmbeddingFigureSpec, renderLlmFigureSvg, renderNgramEmbeddingFigure } from "../src";
 
 const outDir = "artifacts/demo/figures";
 mkdirSync(outDir, { recursive: true });
@@ -13,3 +13,12 @@ const svg = renderNgramEmbeddingFigure({
 const outPath = join(outDir, "ngram-embedding.svg");
 writeFileSync(outPath, svg, "utf8");
 console.log(`Wrote ${outPath}`);
+
+const specSvg = renderLlmFigureSvg(createNgramEmbeddingFigureSpec(), {
+  title: "N-gram embedding fusion mechanism",
+  width: 1200
+});
+
+const specOutPath = join(outDir, "ngram-from-spec.svg");
+writeFileSync(specOutPath, specSvg, "utf8");
+console.log(`Wrote ${specOutPath}`);
