@@ -13,7 +13,7 @@ export type LlmFigurePrimitiveKind =
   | "annotation"
   | "edge";
 
-export type LlmFigureEdgeKind = "straight" | "polyline" | "curve";
+export type LlmFigureEdgeKind = "straight" | "polyline" | "orthogonal" | "curve";
 export type LlmFigureProfileName =
   | "paper-algorithm"
   | "drawio-mechanism"
@@ -545,10 +545,10 @@ export function createNgramEmbeddingFigureSpec(): LlmFigureSpec {
     dashedWindow("window_3", 536, 342, 454, 64),
     dashedWindow("window_2", 686, 350, 292, 46),
     { id: "input_tokens", kind: "token_row", label: "", position: { x: 24, y: tokenY }, size: { w: tokenX - 24, h: 40 }, children: tokenRowChildren, metadata: { layer: "token" } },
-    stackedCards("five_gram", "5-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 70, 108, 132, 210, 4),
-    stackedCards("four_gram", "4-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 260, 108, 132, 210, 4),
-    stackedCards("three_gram", "3-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 450, 108, 132, 210, 4),
-    stackedCards("two_gram", "2-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 640, 108, 132, 210, 4),
+    stackedCards("five_gram", "5-Gram\nHash\n+\nEmbedding\n+\nProjection", 70, 108, 132, 210, 4),
+    stackedCards("four_gram", "4-Gram\nHash\n+\nEmbedding\n+\nProjection", 260, 108, 132, 210, 4),
+    stackedCards("three_gram", "3-Gram\nHash\n+\nEmbedding\n+\nProjection", 450, 108, 132, 210, 4),
+    stackedCards("two_gram", "2-Gram\nHash\n+\nEmbedding\n+\nProjection", 640, 108, 132, 210, 4),
     processBlock("base_embedding", "Base\nEmbedding", 858, 138, 126, 196, "process_block", { fill: "#e6e6e6", radius: 18, fontSize: 24, fontWeight: 700 }),
     processBlock("embedding_vector", "Embedding\nVector", 836, 18, 170, 58, "embedding_vector", { fill: "#6dde67", radius: 8, fontSize: 22, fontWeight: 700 }),
     sumNode("sum_5", 126, 58),
@@ -562,11 +562,11 @@ export function createNgramEmbeddingFigureSpec(): LlmFigureSpec {
     edge("sum_to_vector", point(900, 58), point(900, 76), { kind: "straight" }),
     edge("vector_up", point(921, 138), point(921, 76), { kind: "straight" }),
     edge("base_to_sum", point(921, 138), point(921, 76), { kind: "straight" }),
-    edge("token_to_base", point(921, tokenY), point(921, 334), { kind: "straight" }),
-    edge("tokens_to_5", point(136, tokenY), point(136, 318), { kind: "polyline", points: [point(136, 252)] }),
-    edge("tokens_to_4", point(326, tokenY), point(326, 318), { kind: "polyline", points: [point(326, 252)] }),
-    edge("tokens_to_3", point(516, tokenY), point(516, 318), { kind: "polyline", points: [point(516, 252)] }),
-    edge("tokens_to_2", point(706, tokenY), point(706, 318), { kind: "polyline", points: [point(706, 252)] }),
+    edge("token_to_base", point(921, tokenY), point(921, 334), { kind: "orthogonal" }),
+    edge("tokens_to_5", point(136, tokenY), point(136, 318), { kind: "orthogonal" }),
+    edge("tokens_to_4", point(326, tokenY), point(326, 318), { kind: "orthogonal" }),
+    edge("tokens_to_3", point(516, tokenY), point(516, 318), { kind: "orthogonal" }),
+    edge("tokens_to_2", point(706, tokenY), point(706, 318), { kind: "orthogonal" }),
     edge("five_to_sum", point(136, 108), point(136, 76), { kind: "straight" }),
     edge("four_to_sum", point(326, 108), point(326, 76), { kind: "straight" }),
     edge("three_to_sum", point(516, 108), point(516, 76), { kind: "straight" }),
@@ -734,7 +734,9 @@ function renderFigureEdge(edge: LlmFigureEdge, primitiveMap: Map<string, LlmFigu
   const profile = opts.profile;
   const d = edge.kind === "curve" && points.length === 2
     ? curvePath(points[0], points[1])
-    : polylinePath(points);
+    : edge.kind === "orthogonal"
+      ? orthogonalPath(points)
+      : polylinePath(points);
   const markerEnd = edge.arrowEnd === false ? "" : ` marker-end="url(#figure-arrow)"`;
   const markerStart = edge.arrowStart ? ` marker-start="url(#figure-arrow-start)"` : "";
   const dash = edge.dashed ? ` stroke-dasharray="${edge.style?.strokeDasharray ?? profile.dashedPattern}"` : "";
@@ -811,6 +813,23 @@ function center(primitive: LlmFigurePrimitive): LlmFigurePoint {
 
 function polylinePath(points: LlmFigurePoint[]): string {
   return points.map((point, index) => `${index === 0 ? "M" : "L"}${round(point.x)} ${round(point.y)}`).join(" ");
+}
+
+function orthogonalPath(points: LlmFigurePoint[]): string {
+  if (points.length === 0) return "";
+  const commands = [`M${round(points[0].x)} ${round(points[0].y)}`];
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i - 1];
+    const next = points[i];
+    if (prev.x === next.x) {
+      commands.push(`V${round(next.y)}`);
+    } else if (prev.y === next.y) {
+      commands.push(`H${round(next.x)}`);
+    } else {
+      commands.push(`H${round(next.x)}`, `V${round(next.y)}`);
+    }
+  }
+  return commands.join(" ");
 }
 
 function curvePath(start: LlmFigurePoint, end: LlmFigurePoint): string {

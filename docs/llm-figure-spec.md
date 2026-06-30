@@ -76,7 +76,7 @@ Manual coordinates are intentional for v1. They make output stable and suitable 
 
 ## Edges
 
-Edges can connect explicit points or primitive ids:
+Edges can connect explicit points or primitive ids. Use `orthogonal` for clean axis-aligned SVG paths, `polyline` when every point should be connected exactly as provided, and `curve` for annotation callouts.
 
 ```ts
 {
@@ -84,7 +84,7 @@ Edges can connect explicit points or primitive ids:
   sourcePoint: { x: 120, y: 200 },
   targetPoint: { x: 280, y: 200 },
   points: [{ x: 200, y: 240 }],
-  kind: "polyline",
+  kind: "orthogonal",
   arrowEnd: true,
   dashed: false,
   label: "Top-k Indices"

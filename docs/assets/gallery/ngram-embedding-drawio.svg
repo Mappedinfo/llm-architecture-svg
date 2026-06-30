@@ -19,11 +19,11 @@
 <path id="sum_to_vector" class="figure-edge" d="M969.23 62.46 L969.23 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="vector_up" class="figure-edge" d="M991.85 148.62 L991.85 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="base_to_sum" class="figure-edge" d="M991.85 148.62 L991.85 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="token_to_base" class="figure-edge" d="M991.85 381.23 L991.85 359.69" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_5" class="figure-edge" d="M146.46 381.23 L146.46 271.38 L146.46 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_4" class="figure-edge" d="M351.08 381.23 L351.08 271.38 L351.08 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_3" class="figure-edge" d="M555.69 381.23 L555.69 271.38 L555.69 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_2" class="figure-edge" d="M760.31 381.23 L760.31 271.38 L760.31 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="token_to_base" class="figure-edge" d="M991.85 381.23 V359.69" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_5" class="figure-edge" d="M146.46 381.23 V342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_4" class="figure-edge" d="M351.08 381.23 V342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_3" class="figure-edge" d="M555.69 381.23 V342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_2" class="figure-edge" d="M760.31 381.23 V342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="five_to_sum" class="figure-edge" d="M146.46 116.31 L146.46 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="four_to_sum" class="figure-edge" d="M351.08 116.31 L351.08 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="three_to_sum" class="figure-edge" d="M555.69 116.31 L555.69 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
@@ -81,13 +81,12 @@
 <rect x="103.38" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="89.38" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="75.38" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="146.46" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">5-Gram</text>
-<text x="146.46" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="146.46" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="146.46" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="146.46" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="146.46" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="146.46" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<text x="146.46" y="175.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">5-Gram</text>
+<text x="146.46" y="199.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="146.46" y="223.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="146.46" y="248.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="146.46" y="272.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="146.46" y="297.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
 <g id="four_gram" class="figure-primitive stacked-cards" data-z-index="40">
 <title>4-Gram Hash + Embedding + Projection</title>
@@ -95,13 +94,12 @@
 <rect x="308" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="294" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="280" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="351.08" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">4-Gram</text>
-<text x="351.08" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="351.08" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="351.08" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="351.08" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="351.08" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="351.08" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<text x="351.08" y="175.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">4-Gram</text>
+<text x="351.08" y="199.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="351.08" y="223.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="351.08" y="248.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="351.08" y="272.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="351.08" y="297.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
 <g id="three_gram" class="figure-primitive stacked-cards" data-z-index="40">
 <title>3-Gram Hash + Embedding + Projection</title>
@@ -109,13 +107,12 @@
 <rect x="512.62" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="498.62" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="484.62" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="555.69" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">3-Gram</text>
-<text x="555.69" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="555.69" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="555.69" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="555.69" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="555.69" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="555.69" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<text x="555.69" y="175.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">3-Gram</text>
+<text x="555.69" y="199.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="555.69" y="223.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="555.69" y="248.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="555.69" y="272.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="555.69" y="297.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
 <g id="two_gram" class="figure-primitive stacked-cards" data-z-index="40">
 <title>2-Gram Hash + Embedding + Projection</title>
@@ -123,13 +120,12 @@
 <rect x="717.23" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="703.23" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
 <rect x="689.23" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="760.31" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">2-Gram</text>
-<text x="760.31" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="760.31" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="760.31" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="760.31" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="760.31" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="760.31" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<text x="760.31" y="175.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">2-Gram</text>
+<text x="760.31" y="199.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="760.31" y="223.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="760.31" y="248.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="760.31" y="272.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="760.31" y="297.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
 <g id="base_embedding" class="figure-primitive process-block" data-z-index="40">
 <title>Base Embedding</title>
