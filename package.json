@@ -18,12 +18,17 @@
   "files": [
     "dist",
     "README.md",
+    "docs",
     "examples"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "export": "tsx src/cli.ts",
+    "demo:basic": "tsx examples/api-basic.ts",
+    "demo:expanded": "tsx examples/api-expanded.ts",
+    "demo:custom": "tsx examples/api-custom-spec.ts",
+    "demo:batch": "tsx src/cli.ts --batch examples/llm-svg-batch.json --out artifacts/demo/batch",
     "prepare": "npm run build"
   },
   "devDependencies": {
