@@ -60,11 +60,22 @@ Batch export:
 npx llm-architecture-svg --batch examples/llm-svg-batch.json --out artifacts/svg
 ```
 
+Generate non-GPT architecture templates:
+
+```bash
+npx llm-architecture-svg --preset transformer --profile textbook-overview --srcT 64 --tgtT 64 --C 192 --nHeads 3 --nEncoderBlocks 3 --nDecoderBlocks 3 --vocabSize 1000 --out artifacts/svg/transformer.svg
+npx llm-architecture-svg --preset bert --profile textbook-overview --T 128 --C 768 --nHeads 12 --nBlocks 12 --vocabSize 30522 --typeVocabSize 2 --numLabels 2 --out artifacts/svg/bert.svg
+npx llm-architecture-svg --preset encoder-only --profile textbook-overview --T 128 --C 384 --nHeads 6 --nBlocks 6 --vocabSize 8192 --out artifacts/svg/encoder-only.svg
+npx llm-architecture-svg --preset decoder-only --profile textbook-overview --T 64 --C 192 --nHeads 3 --nBlocks 3 --vocabSize 1000 --out artifacts/svg/decoder-only.svg
+```
+
 ## Node API
 
 ```ts
 import {
+  generateBertArchitecture,
   generateGptArchitecture,
+  generateTransformerArchitecture,
   renderArchitectureSvg,
   renderGptArchitectureSvg
 } from "@mappedinfo/llm-architecture-svg";
@@ -88,6 +99,31 @@ const svgB = renderArchitectureSvg(spec, {
   title: "GPT expanded",
   expandedGroups: ["block_0"]
 });
+
+const transformer = generateTransformerArchitecture({
+  srcT: 64,
+  tgtT: 64,
+  C: 192,
+  nHeads: 3,
+  nEncoderBlocks: 3,
+  nDecoderBlocks: 3,
+  vocabSize: 1000,
+  bias: false,
+  tieEmbeddings: true
+});
+const svgC = renderArchitectureSvg(transformer, { profile: "textbook-overview" });
+
+const bert = generateBertArchitecture({
+  T: 128,
+  C: 768,
+  nHeads: 12,
+  nBlocks: 12,
+  vocabSize: 30522,
+  typeVocabSize: 2,
+  numLabels: 2,
+  bias: true
+});
+const svgD = renderArchitectureSvg(bert, { profile: "textbook-overview" });
 ```
 
 ## Batch JSON format
@@ -152,7 +188,7 @@ renderGptArchitectureSvg(params, { profile: "teaching-debug" });
 renderGptArchitectureSvg(params, { profile: "slide-dark" });
 ```
 
-`textbook-overview` is a presentation adapter over the GPT architecture. It does not change the saved `ArchitectureSpec`; it renders a narrow paper-style Transformer concept diagram with Input Embedding, Positional Encoding, Multi-Head Attention, Add & Norm, Feed Forward, Linear, Softmax, Output Probabilities, rounded attention fan-in arrows, and right-side residual loops.
+`textbook-overview` is a presentation adapter over `ArchitectureSpec`. It does not change the saved spec; it renders a paper-style concept diagram for GPT/decoder-only, original encoder-decoder Transformer, BERT, and encoder-only templates with positional icons, plus circles, rounded attention fan-in arrows, cross-attention connectors, and residual loops.
 
 The legacy options still override profile defaults when provided:
 

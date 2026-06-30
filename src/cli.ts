@@ -1,7 +1,19 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
-import { DEFAULT_GPT_TEMPLATE_PARAMS, generateGptArchitecture, validateGptTemplateParams } from "./generator";
+import {
+  DEFAULT_BERT_TEMPLATE_PARAMS,
+  DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS,
+  DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS,
+  DEFAULT_GPT_TEMPLATE_PARAMS,
+  DEFAULT_TRANSFORMER_TEMPLATE_PARAMS,
+  generateBertArchitecture,
+  generateDecoderOnlyArchitecture,
+  generateEncoderOnlyArchitecture,
+  generateGptArchitecture,
+  generateTransformerArchitecture,
+  validateGptTemplateParams
+} from "./generator";
 import {
   LlmFigureProfileName,
   LlmFigureSpec,
@@ -14,7 +26,7 @@ import {
   renderNgramEmbeddingFigure,
   renderTransformerPaperFigure
 } from "./figures";
-import { ArchitectureSpec, GptTemplateParams } from "./types";
+import { ArchitectureSpec, BertTemplateParams, DecoderOnlyTemplateParams, EncoderOnlyTemplateParams, GptTemplateParams, TransformerTemplateParams } from "./types";
 import { RenderArchitectureSvgOptions, renderArchitectureSvg } from "./svg";
 
 interface BatchTask {
@@ -122,17 +134,13 @@ function runBatch(args: Record<string, string | boolean | string[]>): void {
 
 function generateFromArgs(args: Record<string, string | boolean | string[]>): ArchitectureSpec {
   const preset = getString(args.preset) ?? "gpt";
-  if (preset !== "gpt") fail(`Unsupported --preset ${preset}. Only "gpt" is available.`);
-  return generateFromParams({
-    ...DEFAULT_GPT_TEMPLATE_PARAMS,
-    T: getNumber(args.T, DEFAULT_GPT_TEMPLATE_PARAMS.T),
-    C: getNumber(args.C, DEFAULT_GPT_TEMPLATE_PARAMS.C),
-    nHeads: getNumber(args.nHeads, DEFAULT_GPT_TEMPLATE_PARAMS.nHeads),
-    nBlocks: getNumber(args.nBlocks, DEFAULT_GPT_TEMPLATE_PARAMS.nBlocks),
-    vocabSize: getNumber(args.vocabSize, DEFAULT_GPT_TEMPLATE_PARAMS.vocabSize),
-    bias: getBool(args.bias, DEFAULT_GPT_TEMPLATE_PARAMS.bias),
-    tieEmbeddings: getBool(args.tieEmbeddings, DEFAULT_GPT_TEMPLATE_PARAMS.tieEmbeddings)
-  }, getString(args.title));
+  const title = getString(args.title);
+  if (preset === "gpt") return generateFromParams(gptParamsFromArgs(args), title);
+  if (preset === "transformer") return generateTransformerArchitecture(transformerParamsFromArgs(args), title ? { name: title } : {});
+  if (preset === "bert") return generateBertArchitecture(bertParamsFromArgs(args), title ? { name: title } : {});
+  if (preset === "encoder-only") return generateEncoderOnlyArchitecture(encoderOnlyParamsFromArgs(args), title ? { name: title } : {});
+  if (preset === "decoder-only") return generateDecoderOnlyArchitecture(decoderOnlyParamsFromArgs(args), title ? { name: title } : {});
+  fail(`Unsupported --preset ${preset}. Use "gpt", "transformer", "bert", "encoder-only", or "decoder-only".`);
 }
 
 function generateFromParams(params: GptTemplateParams, title?: string): ArchitectureSpec {
@@ -146,13 +154,80 @@ function optionsFromArgs(args: Record<string, string | boolean | string[]>, fall
   const profile = getString(args.profile);
   return {
     title: getString(args.title) ?? fallbackTitle,
-    width: getNumber(args.width, 1100),
-    padding: getNumber(args.padding, 36),
+    width: getOptionalNumber(args.width),
+    padding: getOptionalNumber(args.padding),
     showShapes: getBool(args.showShapes, true),
     showParamCounts: getBool(args.showParamCounts, true),
     expandedGroups: getList(args.expand),
     theme: theme === "blueprint" ? "blueprint" : theme === "paper" ? "paper" : undefined,
     profile: profile as RenderArchitectureSvgOptions["profile"]
+  };
+}
+
+function gptParamsFromArgs(args: Record<string, string | boolean | string[]>): GptTemplateParams {
+  return {
+    ...DEFAULT_GPT_TEMPLATE_PARAMS,
+    T: getNumber(args.T, DEFAULT_GPT_TEMPLATE_PARAMS.T),
+    C: getNumber(args.C, DEFAULT_GPT_TEMPLATE_PARAMS.C),
+    nHeads: getNumber(args.nHeads, DEFAULT_GPT_TEMPLATE_PARAMS.nHeads),
+    nBlocks: getNumber(args.nBlocks, DEFAULT_GPT_TEMPLATE_PARAMS.nBlocks),
+    vocabSize: getNumber(args.vocabSize, DEFAULT_GPT_TEMPLATE_PARAMS.vocabSize),
+    bias: getBool(args.bias, DEFAULT_GPT_TEMPLATE_PARAMS.bias),
+    tieEmbeddings: getBool(args.tieEmbeddings, DEFAULT_GPT_TEMPLATE_PARAMS.tieEmbeddings)
+  };
+}
+
+function transformerParamsFromArgs(args: Record<string, string | boolean | string[]>): TransformerTemplateParams {
+  return {
+    ...DEFAULT_TRANSFORMER_TEMPLATE_PARAMS,
+    srcT: getNumber(args.srcT, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.srcT),
+    tgtT: getNumber(args.tgtT, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.tgtT),
+    C: getNumber(args.C, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.C),
+    nHeads: getNumber(args.nHeads, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.nHeads),
+    nEncoderBlocks: getNumber(args.nEncoderBlocks, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.nEncoderBlocks),
+    nDecoderBlocks: getNumber(args.nDecoderBlocks, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.nDecoderBlocks),
+    vocabSize: getNumber(args.vocabSize, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.vocabSize),
+    bias: getBool(args.bias, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.bias),
+    tieEmbeddings: getBool(args.tieEmbeddings, DEFAULT_TRANSFORMER_TEMPLATE_PARAMS.tieEmbeddings)
+  };
+}
+
+function bertParamsFromArgs(args: Record<string, string | boolean | string[]>): BertTemplateParams {
+  return {
+    ...DEFAULT_BERT_TEMPLATE_PARAMS,
+    T: getNumber(args.T, DEFAULT_BERT_TEMPLATE_PARAMS.T),
+    C: getNumber(args.C, DEFAULT_BERT_TEMPLATE_PARAMS.C),
+    nHeads: getNumber(args.nHeads, DEFAULT_BERT_TEMPLATE_PARAMS.nHeads),
+    nBlocks: getNumber(args.nBlocks, DEFAULT_BERT_TEMPLATE_PARAMS.nBlocks),
+    vocabSize: getNumber(args.vocabSize, DEFAULT_BERT_TEMPLATE_PARAMS.vocabSize),
+    typeVocabSize: getNumber(args.typeVocabSize, DEFAULT_BERT_TEMPLATE_PARAMS.typeVocabSize),
+    numLabels: getNumber(args.numLabels, DEFAULT_BERT_TEMPLATE_PARAMS.numLabels),
+    bias: getBool(args.bias, DEFAULT_BERT_TEMPLATE_PARAMS.bias)
+  };
+}
+
+function encoderOnlyParamsFromArgs(args: Record<string, string | boolean | string[]>): EncoderOnlyTemplateParams {
+  return {
+    ...DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS,
+    T: getNumber(args.T, DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS.T),
+    C: getNumber(args.C, DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS.C),
+    nHeads: getNumber(args.nHeads, DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS.nHeads),
+    nBlocks: getNumber(args.nBlocks, DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS.nBlocks),
+    vocabSize: getNumber(args.vocabSize, DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS.vocabSize),
+    bias: getBool(args.bias, DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS.bias)
+  };
+}
+
+function decoderOnlyParamsFromArgs(args: Record<string, string | boolean | string[]>): DecoderOnlyTemplateParams {
+  return {
+    ...DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS,
+    T: getNumber(args.T, DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS.T),
+    C: getNumber(args.C, DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS.C),
+    nHeads: getNumber(args.nHeads, DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS.nHeads),
+    nBlocks: getNumber(args.nBlocks, DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS.nBlocks),
+    vocabSize: getNumber(args.vocabSize, DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS.vocabSize),
+    bias: getBool(args.bias, DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS.bias),
+    tieEmbeddings: getBool(args.tieEmbeddings, DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS.tieEmbeddings)
   };
 }
 
@@ -183,6 +258,10 @@ function printUsage(): void {
     "  llm-architecture-svg --preset gpt --T 64 --C 192 --nHeads 3 --nBlocks 3 --vocabSize 1000 --out artifacts/svg/gpt.svg",
     "  llm-architecture-svg --preset gpt --expand block_0 --out artifacts/svg/gpt-expanded.svg",
     "  llm-architecture-svg --preset gpt --profile textbook-overview --out artifacts/svg/textbook.svg",
+    "  llm-architecture-svg --preset transformer --profile textbook-overview --out artifacts/svg/transformer-textbook.svg",
+    "  llm-architecture-svg --preset bert --profile textbook-overview --out artifacts/svg/bert-textbook.svg",
+    "  llm-architecture-svg --preset encoder-only --profile textbook-overview --out artifacts/svg/encoder-textbook.svg",
+    "  llm-architecture-svg --preset decoder-only --profile textbook-overview --out artifacts/svg/decoder-textbook.svg",
     "  llm-architecture-svg --preset gpt --profile slide-dark --out artifacts/svg/slide-dark.svg",
     "  llm-architecture-svg --figure-preset lsa-kv-indexing --out artifacts/svg/lsa.svg",
     "  llm-architecture-svg --figure-preset ngram-embedding --out artifacts/svg/ngram.svg",
@@ -212,6 +291,13 @@ function getNumber(value: string | boolean | string[] | undefined, fallback: num
   if (!str) return fallback;
   const num = Number(str);
   return Number.isFinite(num) ? num : fallback;
+}
+
+function getOptionalNumber(value: string | boolean | string[] | undefined): number | undefined {
+  const str = getString(value);
+  if (!str) return undefined;
+  const num = Number(str);
+  return Number.isFinite(num) ? num : undefined;
 }
 
 function getBool(value: string | boolean | string[] | undefined, fallback: boolean): boolean {

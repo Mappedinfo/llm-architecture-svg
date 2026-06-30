@@ -8,10 +8,7 @@
 interface ArchitectureSpec {
   schemaVersion: 1;
   mode: "template" | "teaching";
-  template?: {
-    type: "gpt";
-    params: GptTemplateParams;
-  };
+  template?: ArchitectureTemplate;
   id: string;
   name: string;
   notes?: string;
@@ -26,9 +23,16 @@ interface ArchitectureSpec {
 }
 ```
 
-## GPT params
+## Template params
 
 ```ts
+type ArchitectureTemplate =
+  | { type: "gpt"; params: GptTemplateParams }
+  | { type: "transformer"; params: TransformerTemplateParams }
+  | { type: "bert"; params: BertTemplateParams }
+  | { type: "encoder-only"; params: EncoderOnlyTemplateParams }
+  | { type: "decoder-only"; params: DecoderOnlyTemplateParams };
+
 interface GptTemplateParams {
   T: number;
   C: number;
@@ -40,13 +44,15 @@ interface GptTemplateParams {
 }
 ```
 
+Transformer encoder-decoder templates use `srcT`, `tgtT`, `nEncoderBlocks`, and `nDecoderBlocks`. BERT templates use `typeVocabSize` and `numLabels` in addition to encoder parameters.
+
 Derived value:
 
 ```ts
 A = C / nHeads
 ```
 
-`C` must be divisible by `nHeads` for GPT template generation.
+`C` must be divisible by `nHeads` for template generation.
 
 ## Nodes
 
@@ -100,11 +106,16 @@ Edge rendering:
 
 ## Derived metadata
 
-Generated GPT nodes include `derived` metadata:
+Generated template nodes include `derived` metadata:
 
 ```ts
 interface ArchitectureDerivedMeta {
-  source: "gpt-template";
+  source:
+    | "gpt-template"
+    | "transformer-template"
+    | "bert-template"
+    | "encoder-only-template"
+    | "decoder-only-template";
   role: string;
   expectedShape?: ArchitectureShape;
   shapeLabel?: string;

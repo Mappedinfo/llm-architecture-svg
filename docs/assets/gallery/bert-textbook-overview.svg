@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="1000" viewBox="0 0 620 1000" role="img" aria-label="BERT Encoder Architecture">
+<defs><style>text{font-family:Georgia,"Times New Roman",serif}.node-label{font-weight:700;fill:#000000}.node-meta{fill:#273238}.shape-warning{fill:#c92a2a;font-weight:700}.edge{fill:none;stroke-linecap:round;stroke-linejoin:round}.icon-stroke{fill:none;stroke:#0b0b0b;stroke-linecap:round;stroke-linejoin:round}</style><marker id="arrow-data" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b0b0b"/></marker><marker id="arrow-residual" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b2b38"/></marker><marker id="arrow-dependency" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b2b38"/></marker></defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<g class="architecture profile-textbook-overview">
+<path class="edge edge-data edge-rounded-orthogonal" d="M304.39 934.62 L304.39 925.27 Q304.39 922.15 301.27 922.15 L301.27 922.15 Q298.15 922.15 298.15 919.03 L298.15 909.68" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M298.15 837.33 L298.15 824.85 Q298.15 824.85 298.15 824.85 L298.15 824.85 Q298.15 824.85 298.15 824.85 L298.15 812.38" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M209.58 759.99 L228.26 759.99 Q243.26 759.99 243.26 774.99 L243.26 776.17 Q243.26 791.17 258.26 791.17 L276.94 791.17" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M354.28 763.73 L345.55 763.73 Q336.82 763.73 336.82 772.46 L336.82 782.44 Q336.82 791.17 328.09 791.17 L319.36 791.17" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g class="edge edge-data edge-attention-fan-in"><path d="M298.15 812.38 L298.15 605.38 Q298.15 602.26 301.27 602.26 L301.27 602.26 Q304.39 602.26 304.39 605.38 L304.39 630.26" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M304.39 602.26 C286.39 602.26 227.55 612.26 227.55 630.26" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M304.39 602.26 C322.39 602.26 381.23 612.26 381.23 630.26" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/></g>
+<path class="edge edge-residual edge-residual-loop" d="M319.36 791.17 L460.6 791.17 Q475.6 791.17 475.6 776.17 L475.6 609.08 Q475.6 594.08 460.6 594.08 L441.6 594.08" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M304.39 630.26 L304.39 622.77 L304.39 615.29" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M304.39 572.88 L304.39 561.65 L304.39 550.42" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-residual edge-residual-loop" d="M441.6 594.08 L460.6 594.08 Q475.6 594.08 475.6 579.08 L475.6 446.92 Q475.6 431.92 460.6 431.92 L441.6 431.92" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M304.39 473.09 L304.39 463.11 L304.39 453.13" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M304.39 410.72 L304.39 357.7 Q304.39 354.58 301.27 354.58 L301.27 354.58 Q298.15 354.58 298.15 351.46 L298.15 298.45" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M142.22 264.77 L170.88 264.77 Q185.88 264.77 185.88 249.77 L185.88 167.5 Q185.88 152.5 200.88 152.5 L229.54 152.5" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M148.46 126.31 L148.46 113.83 Q148.46 113.83 148.46 113.83 L148.46 113.83 Q148.46 113.83 148.46 113.83 L148.46 101.36" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M298.15 231.09 L298.15 181.22 Q298.15 166.22 313.15 166.22 L445.31 166.22 Q460.31 166.22 460.31 151.22 L460.31 101.36" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g id="bert_encoder_group" class="node node-group">
+<title>BERT Encoder</title>
+<rect x="104.8" y="370.8" width="399.17" height="355.51" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
+<text x="116.8" y="394.8" font-size="13" text-anchor="start" class="node-label">BERT Encoder</text>
+
+
+</g>
+<g id="bert_inputs" class="node node-text-label">
+<title>Inputs</title>
+<text x="304.39" y="962.07" font-size="30" text-anchor="middle" class="node-label">Inputs</text>
+</g>
+<g id="bert_token_embedding" class="node node-token_embed">
+<title>Token Embedding</title>
+<rect x="142.22" y="837.33" width="311.85" height="72.35" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="298.15" y="847.17" font-size="24" text-anchor="middle" class="node-label">Token</text>
+<text x="298.15" y="875.49" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+
+
+</g>
+<g id="bert_add" class="node node-residual-add node-plus-circle">
+<title>+</title>
+<circle class="icon-plus-circle" cx="298.15" cy="791.17" r="19.21" fill="#ffffff" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-plus" d="M287.01 791.17 H309.29 M298.15 780.03 V802.31" stroke-width="1.8"/>
+</g>
+<g id="bert_segment_embedding" class="node node-generic_tensor">
+<title>Segment Embedding</title>
+<rect x="10" y="726.31" width="199.58" height="67.36" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="109.79" y="736.15" font-size="24" text-anchor="middle" class="node-label">Segment</text>
+<text x="109.79" y="764.47" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+
+
+</g>
+<g id="bert_position_embedding" class="node node-positional-icon">
+<title>Position Embedding</title>
+<circle class="icon-sine-circle" cx="386.28" cy="763.73" r="24" fill="#ffffff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-sine" d="M371.4 763.73 C377.64 744.53 383.4 744.53 386.28 763.73 C391.08 782.93 396.84 782.93 401.16 763.73" stroke-width="1.8"/>
+<text x="438.28" y="749.57" font-size="24" text-anchor="start" class="node-label">Position</text>
+<text x="438.28" y="777.89" font-size="24" text-anchor="start" class="node-label">Embedding</text>
+</g>
+<g id="bert_nx" class="node node-text-label">
+<title>N×</title>
+<text x="71.12" y="552.92" font-size="30" text-anchor="middle" class="node-label">N×</text>
+</g>
+<g id="bert_add_norm_2" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="167.17" y="410.72" width="274.43" height="42.41" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="304.39" y="434.72" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+
+
+</g>
+<g id="bert_feed_forward" class="node node-mlp">
+<title>Feed Forward</title>
+<rect x="167.17" y="473.09" width="274.43" height="77.34" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="304.39" y="482.93" font-size="24" text-anchor="middle" class="node-label">Feed</text>
+<text x="304.39" y="511.25" font-size="24" text-anchor="middle" class="node-label">Forward</text>
+
+
+</g>
+<g id="bert_add_norm_1" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="167.17" y="572.88" width="274.43" height="42.41" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="304.39" y="596.88" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+
+
+</g>
+<g id="bert_mha" class="node node-attention">
+<title>Multi-Head Attention</title>
+<rect x="167.17" y="630.26" width="274.43" height="82.33" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="304.39" y="640.1" font-size="24" text-anchor="middle" class="node-label">Multi-Head</text>
+<text x="304.39" y="668.42" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+
+
+</g>
+<g id="bert_layer_count" class="node node-text-label">
+<title>Encoder Layer ×12</title>
+<text x="304.39" y="335.87" font-size="30" text-anchor="middle" class="node-label">Encoder Layer ×12</text>
+</g>
+<g id="bert_contextual" class="node node-generic_tensor">
+<title>Contextual Token Outputs</title>
+<rect x="142.22" y="231.09" width="311.85" height="67.36" rx="8" fill="#e8eefc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="298.15" y="240.93" font-size="24" text-anchor="middle" class="node-label">Contextual</text>
+<text x="298.15" y="269.25" font-size="24" text-anchor="middle" class="node-label">Token Outputs</text>
+
+
+</g>
+<g id="bert_cls" class="node node-generic_tensor">
+<title>[CLS]</title>
+<rect x="67.38" y="126.31" width="162.16" height="52.39" rx="8" fill="#d8f0dc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="148.46" y="150.31" font-size="24" text-anchor="middle" class="node-label">[CLS]</text>
+
+
+</g>
+<g id="bert_classifier" class="node node-linear">
+<title>Classifier Head</title>
+<rect x="29.96" y="34" width="237.01" height="67.36" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="148.46" y="43.84" font-size="24" text-anchor="middle" class="node-label">Classifier</text>
+<text x="148.46" y="72.16" font-size="24" text-anchor="middle" class="node-label">Head</text>
+
+
+</g>
+<g id="bert_mlm_head" class="node node-linear">
+<title>MLM Head</title>
+<rect x="354.28" y="34" width="212.06" height="67.36" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="460.31" y="43.84" font-size="24" text-anchor="middle" class="node-label">MLM</text>
+<text x="460.31" y="72.16" font-size="24" text-anchor="middle" class="node-label">Head</text>
+
+
+</g>
+</g>
+</svg>

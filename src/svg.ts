@@ -1,4 +1,4 @@
-import { ArchitectureEdge, ArchitectureNode, ArchitectureShape, ArchitectureSpec, GptTemplateParams } from "./types";
+import { ArchitectureDerivedSource, ArchitectureEdge, ArchitectureNode, ArchitectureShape, ArchitectureSpec, GptTemplateParams } from "./types";
 import { countArchitectureParameters, formatParamCount, generateGptArchitecture, shapeToLabel } from "./generator";
 import { resolveSvgProfile } from "./profiles";
 import type { ArchitectureSvgProfile, ArchitectureSvgProfileName } from "./profiles";
@@ -106,10 +106,23 @@ function resolveOptions(architecture: ArchitectureSpec, options: RenderArchitect
     showShapes: options.showShapes ?? profile.showShapes,
     showParamCounts: options.showParamCounts ?? profile.showParamCounts,
     expandedGroups: options.expandedGroups ?? profile.expandedGroups,
-    width: options.width ?? profile.defaultWidth ?? 1100,
+    width: options.width ?? defaultWidthForArchitecture(architecture, profile),
     padding: options.padding ?? profile.defaultPadding ?? 36,
     profile
   };
+}
+
+function defaultWidthForArchitecture(architecture: ArchitectureSpec, profile: ArchitectureSvgProfile): number {
+  if (profile.structureAdapter !== "textbook-overview") return profile.defaultWidth ?? 1100;
+  switch (architecture.template?.type) {
+    case "transformer":
+      return 940;
+    case "bert":
+    case "encoder-only":
+      return 620;
+    default:
+      return profile.defaultWidth ?? 520;
+  }
 }
 
 function renderDefs(profile: ArchitectureSvgProfile): string {
@@ -432,23 +445,37 @@ function adaptArchitectureForProfile(architecture: ArchitectureSpec, profile: Ar
 }
 
 function createTextbookOverviewSpec(architecture: ArchitectureSpec): ArchitectureSpec {
+  switch (architecture.template?.type) {
+    case "transformer":
+      return createTransformerTextbookOverviewSpec(architecture);
+    case "bert":
+      return createBertTextbookOverviewSpec(architecture);
+    case "encoder-only":
+      return createEncoderOnlyTextbookOverviewSpec(architecture);
+    default:
+      return createDecoderTextbookOverviewSpec(architecture);
+  }
+}
+
+function createDecoderTextbookOverviewSpec(architecture: ArchitectureSpec): ArchitectureSpec {
   const params = architecture.template?.params;
-  const nBlocks = params?.nBlocks ?? (architecture.nodes.filter((node) => node.derived?.role === "transformer_block").length || 1);
+  const nBlocks = "nBlocks" in (params ?? {}) ? (params as { nBlocks: number }).nBlocks : architecture.nodes.filter((node) => node.derived?.role === "transformer_block").length || 1;
+  const source = architecture.template?.type === "decoder-only" ? "decoder-only-template" : "gpt-template";
   const now = architecture.updatedAt;
   const nodes: ArchitectureNode[] = [
-    diagramNode("text_inputs", "generic_tensor", "Inputs", 180, 48, 150, 42, "#ffffff", "text_label"),
-    diagramNode("input_embedding", "token_embed", "Input\nEmbedding", 105, 128, 300, 96, "#f6dada", "input_embedding"),
-    diagramNode("embed_add", "residual_add", "+", 238, 280, 34, 34, "#ffffff", "embedding_add"),
-    diagramNode("positional_encoding", "pos_embed", "Positional\nEncoding", 300, 262, 205, 70, "#ffffff", "positional_encoding"),
-    diagramNode("transformer_group", "group", nBlocks > 1 ? `Transformer ×${nBlocks}` : "Transformer", 80, 355, 350, 390, "#f8f8f8", `transformer_block_x_${nBlocks}`, undefined, [
-      diagramNode("mha", "attention", "Multi-Head\nAttention", 145, 440, 220, 74, "#ffe3b5", "multi_head_attention"),
-      diagramNode("add_norm_1", "layer_norm", "Add & Norm", 146, 525, 218, 40, "#f5f5c0", "add_norm_1"),
-      diagramNode("feed_forward", "mlp", "Feed\nForward", 146, 615, 218, 66, "#bfecf5", "feed_forward"),
-      diagramNode("add_norm_2", "layer_norm", "Add & Norm", 146, 695, 218, 40, "#f5f5c0", "add_norm_2")
+    diagramNode("text_inputs", "generic_tensor", "Inputs", 180, 48, 150, 42, "#ffffff", "text_label", source),
+    diagramNode("input_embedding", "token_embed", "Input\nEmbedding", 105, 128, 300, 96, "#f6dada", "input_embedding", source),
+    diagramNode("embed_add", "residual_add", "+", 238, 280, 34, 34, "#ffffff", "embedding_add", source),
+    diagramNode("positional_encoding", "pos_embed", "Positional\nEncoding", 300, 262, 205, 70, "#ffffff", "positional_encoding", source),
+    diagramNode("transformer_group", "group", nBlocks > 1 ? `Transformer ×${nBlocks}` : "Transformer", 80, 355, 350, 390, "#f8f8f8", "textbook_expanded_group", source, undefined, [
+      diagramNode("mha", "attention", "Multi-Head\nAttention", 145, 440, 220, 74, "#ffe3b5", "multi_head_attention", source),
+      diagramNode("add_norm_1", "layer_norm", "Add & Norm", 146, 525, 218, 40, "#f5f5c0", "add_norm_1", source),
+      diagramNode("feed_forward", "mlp", "Feed\nForward", 146, 615, 218, 66, "#bfecf5", "feed_forward", source),
+      diagramNode("add_norm_2", "layer_norm", "Add & Norm", 146, 695, 218, 40, "#f5f5c0", "add_norm_2", source)
     ]),
-    diagramNode("linear", "linear", "Linear", 155, 790, 200, 38, "#e0e3f2", "linear"),
-    diagramNode("softmax", "softmax", "Softmax", 155, 860, 200, 38, "#d8f0dc", "softmax"),
-    diagramNode("text_output", "generic_tensor", "Output\nProbabilities", 145, 935, 220, 76, "#ffffff", "text_label")
+    diagramNode("linear", "linear", "Linear", 155, 790, 200, 38, "#e0e3f2", "linear", source),
+    diagramNode("softmax", "softmax", "Softmax", 155, 860, 200, 38, "#d8f0dc", "softmax", source),
+    diagramNode("text_output", "generic_tensor", "Output\nProbabilities", 145, 935, 220, 76, "#ffffff", "text_label", source)
   ];
   const edges: ArchitectureEdge[] = [
     diagramEdge("text_inputs", "input_embedding", "data", undefined, "rounded-orthogonal"),
@@ -480,6 +507,160 @@ function createTextbookOverviewSpec(architecture: ArchitectureSpec): Architectur
   };
 }
 
+function createTransformerTextbookOverviewSpec(architecture: ArchitectureSpec): ArchitectureSpec {
+  const params = architecture.template?.type === "transformer" ? architecture.template.params : undefined;
+  const encBlocks = params?.nEncoderBlocks ?? 1;
+  const decBlocks = params?.nDecoderBlocks ?? 1;
+  const source: ArchitectureDerivedSource = "transformer-template";
+  const nodes: ArchitectureNode[] = [
+    diagramNode("enc_inputs", "generic_tensor", "Inputs", 118, 764, 150, 44, "#ffffff", "text_label", source),
+    diagramNode("enc_embedding", "token_embed", "Input\nEmbedding", 98, 686, 190, 58, "#f6dada", "input_embedding", source),
+    diagramNode("enc_add", "residual_add", "+", 176, 638, 34, 34, "#ffffff", "embedding_add", source),
+    diagramNode("enc_positional", "pos_embed", "Positional\nEncoding", 18, 620, 180, 70, "#ffffff", "positional_encoding", source),
+    diagramNode("enc_nx", "generic_tensor", "N×", 30, 470, 50, 42, "#ffffff", "text_label", source),
+    diagramNode("encoder_group", "group", "Encoder", 78, 340, 270, 285, "#f8f8f8", "textbook_expanded_group", source, undefined, [
+      diagramNode("enc_add_norm_2", "layer_norm", "Add & Norm", 120, 372, 188, 34, "#f5f5c0", "add_norm_2", source),
+      diagramNode("enc_feed_forward", "mlp", "Feed\nForward", 120, 422, 188, 62, "#bfecf5", "feed_forward", source),
+      diagramNode("enc_add_norm_1", "layer_norm", "Add & Norm", 120, 502, 188, 34, "#f5f5c0", "add_norm_1", source),
+      diagramNode("enc_mha", "attention", "Multi-Head\nAttention", 120, 548, 188, 66, "#ffe3b5", "multi_head_attention", source)
+    ]),
+    diagramNode("dec_outputs", "generic_tensor", "Outputs\n(shifted right)", 540, 748, 210, 70, "#ffffff", "text_label", source),
+    diagramNode("dec_embedding", "token_embed", "Output\nEmbedding", 532, 686, 190, 58, "#f6dada", "output_embedding", source),
+    diagramNode("dec_add", "residual_add", "+", 610, 638, 34, 34, "#ffffff", "embedding_add", source),
+    diagramNode("dec_positional", "pos_embed", "Positional\nEncoding", 664, 620, 190, 70, "#ffffff", "positional_encoding", source),
+    diagramNode("dec_nx", "generic_tensor", "N×", 778, 430, 50, 42, "#ffffff", "text_label", source),
+    diagramNode("decoder_group", "group", "Decoder", 500, 220, 285, 405, "#f8f8f8", "textbook_expanded_group", source, undefined, [
+      diagramNode("dec_add_norm_3", "layer_norm", "Add & Norm", 545, 252, 198, 34, "#f5f5c0", "add_norm_3", source),
+      diagramNode("dec_feed_forward", "mlp", "Feed\nForward", 545, 302, 198, 62, "#bfecf5", "feed_forward", source),
+      diagramNode("dec_add_norm_2", "layer_norm", "Add & Norm", 545, 382, 198, 34, "#f5f5c0", "add_norm_2", source),
+      diagramNode("dec_cross_attn", "attention", "Encoder-Decoder\nAttention", 545, 428, 198, 62, "#ffe3b5", "cross_attention", source),
+      diagramNode("dec_add_norm_1", "layer_norm", "Add & Norm", 545, 508, 198, 34, "#f5f5c0", "add_norm_1", source),
+      diagramNode("dec_masked_mha", "attention", "Masked\nMulti-Head\nAttention", 545, 552, 198, 66, "#ffe3b5", "masked_attention", source)
+    ]),
+    diagramNode("transformer_linear", "linear", "Linear", 548, 150, 195, 38, "#e0e3f2", "linear", source),
+    diagramNode("transformer_softmax", "softmax", "Softmax", 548, 98, 195, 38, "#d8f0dc", "softmax", source),
+    diagramNode("transformer_output", "generic_tensor", "Output\nProbabilities", 538, 26, 215, 62, "#ffffff", "text_label", source)
+  ];
+  const edges: ArchitectureEdge[] = [
+    diagramEdge("enc_inputs", "enc_embedding", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_embedding", "enc_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_positional", "enc_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_add", "enc_mha", "data", undefined, "attention-fan-in"),
+    diagramEdge("enc_add", "enc_add_norm_1", "residual", "residual", "right-loop"),
+    diagramEdge("enc_mha", "enc_add_norm_1", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_add_norm_1", "enc_feed_forward", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_add_norm_1", "enc_add_norm_2", "residual", "residual", "right-loop"),
+    diagramEdge("enc_feed_forward", "enc_add_norm_2", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_outputs", "dec_embedding", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_embedding", "dec_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_positional", "dec_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_add", "dec_masked_mha", "data", undefined, "attention-fan-in"),
+    diagramEdge("dec_add", "dec_add_norm_1", "residual", "residual", "right-loop"),
+    diagramEdge("dec_masked_mha", "dec_add_norm_1", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_add_norm_1", "dec_cross_attn", "data", undefined, "attention-fan-in"),
+    diagramEdge("enc_add_norm_2", "dec_cross_attn", "dependency", "encoder memory", "rounded-orthogonal"),
+    diagramEdge("dec_add_norm_1", "dec_add_norm_2", "residual", "residual", "right-loop"),
+    diagramEdge("dec_cross_attn", "dec_add_norm_2", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_add_norm_2", "dec_feed_forward", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_add_norm_2", "dec_add_norm_3", "residual", "residual", "right-loop"),
+    diagramEdge("dec_feed_forward", "dec_add_norm_3", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("dec_add_norm_3", "transformer_linear", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("transformer_linear", "transformer_softmax", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("transformer_softmax", "transformer_output", "data", undefined, "rounded-orthogonal")
+  ];
+  return textbookSpec(architecture, nodes, edges, { w: 870, h: 830 }, `Original Transformer: encoder ×${encBlocks}, decoder ×${decBlocks}`);
+}
+
+function createBertTextbookOverviewSpec(architecture: ArchitectureSpec): ArchitectureSpec {
+  const params = architecture.template?.type === "bert" ? architecture.template.params : undefined;
+  const nBlocks = params?.nBlocks ?? 1;
+  const source: ArchitectureDerivedSource = "bert-template";
+  const nodes: ArchitectureNode[] = [
+    diagramNode("bert_inputs", "generic_tensor", "Inputs", 195, 782, 150, 44, "#ffffff", "text_label", source),
+    diagramNode("bert_token_embedding", "token_embed", "Token\nEmbedding", 140, 704, 250, 58, "#f6dada", "token_embedding", source),
+    diagramNode("bert_add", "residual_add", "+", 248, 650, 34, 34, "#ffffff", "embedding_add", source),
+    diagramNode("bert_segment_embedding", "generic_tensor", "Segment\nEmbedding", 34, 615, 160, 54, "#e0e3f2", "segment_embedding", source),
+    diagramNode("bert_position_embedding", "pos_embed", "Position\nEmbedding", 310, 610, 205, 70, "#ffffff", "positional_encoding", source),
+    diagramNode("bert_nx", "generic_tensor", "N×", 58, 455, 50, 42, "#ffffff", "text_label", source),
+    diagramNode("bert_encoder_group", "group", `BERT Encoder`, 110, 330, 320, 285, "#f8f8f8", "textbook_expanded_group", source, undefined, [
+      diagramNode("bert_add_norm_2", "layer_norm", "Add & Norm", 160, 362, 220, 34, "#f5f5c0", "add_norm_2", source),
+      diagramNode("bert_feed_forward", "mlp", "Feed\nForward", 160, 412, 220, 62, "#bfecf5", "feed_forward", source),
+      diagramNode("bert_add_norm_1", "layer_norm", "Add & Norm", 160, 492, 220, 34, "#f5f5c0", "add_norm_1", source),
+      diagramNode("bert_mha", "attention", "Multi-Head\nAttention", 160, 538, 220, 66, "#ffe3b5", "multi_head_attention", source)
+    ]),
+    diagramNode("bert_layer_count", "generic_tensor", `Encoder Layer ×${nBlocks}`, 145, 282, 250, 40, "#ffffff", "text_label", source),
+    diagramNode("bert_contextual", "generic_tensor", "Contextual\nToken Outputs", 140, 218, 250, 54, "#e8eefc", "contextual_outputs", source),
+    diagramNode("bert_cls", "generic_tensor", "[CLS]", 80, 134, 130, 42, "#d8f0dc", "cls_token", source),
+    diagramNode("bert_classifier", "linear", "Classifier\nHead", 50, 60, 190, 54, "#e0e3f2", "classifier_head", source),
+    diagramNode("bert_mlm_head", "linear", "MLM\nHead", 310, 60, 170, 54, "#e0e3f2", "mlm_head", source)
+  ];
+  const edges: ArchitectureEdge[] = [
+    diagramEdge("bert_inputs", "bert_token_embedding", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_token_embedding", "bert_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_segment_embedding", "bert_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_position_embedding", "bert_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_add", "bert_mha", "data", undefined, "attention-fan-in"),
+    diagramEdge("bert_add", "bert_add_norm_1", "residual", "residual", "right-loop"),
+    diagramEdge("bert_mha", "bert_add_norm_1", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_add_norm_1", "bert_feed_forward", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_add_norm_1", "bert_add_norm_2", "residual", "residual", "right-loop"),
+    diagramEdge("bert_feed_forward", "bert_add_norm_2", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_add_norm_2", "bert_contextual", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_contextual", "bert_cls", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_cls", "bert_classifier", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("bert_contextual", "bert_mlm_head", "data", undefined, "rounded-orthogonal")
+  ];
+  return textbookSpec(architecture, nodes, edges, { w: 540, h: 840 }, `BERT encoder ×${nBlocks}`);
+}
+
+function createEncoderOnlyTextbookOverviewSpec(architecture: ArchitectureSpec): ArchitectureSpec {
+  const params = architecture.template?.type === "encoder-only" ? architecture.template.params : undefined;
+  const nBlocks = params?.nBlocks ?? 1;
+  const source: ArchitectureDerivedSource = "encoder-only-template";
+  const nodes: ArchitectureNode[] = [
+    diagramNode("enc_only_inputs", "generic_tensor", "Inputs", 185, 760, 150, 44, "#ffffff", "text_label", source),
+    diagramNode("enc_only_embedding", "token_embed", "Input\nEmbedding", 112, 682, 280, 62, "#f6dada", "input_embedding", source),
+    diagramNode("enc_only_add", "residual_add", "+", 235, 632, 34, 34, "#ffffff", "embedding_add", source),
+    diagramNode("enc_only_positional", "pos_embed", "Positional\nEncoding", 300, 614, 205, 70, "#ffffff", "positional_encoding", source),
+    diagramNode("enc_only_group", "group", `Encoder ×${nBlocks}`, 90, 330, 330, 280, "#f8f8f8", "textbook_expanded_group", source, undefined, [
+      diagramNode("enc_only_add_norm_2", "layer_norm", "Add & Norm", 145, 362, 220, 34, "#f5f5c0", "add_norm_2", source),
+      diagramNode("enc_only_ffn", "mlp", "Feed\nForward", 145, 412, 220, 62, "#bfecf5", "feed_forward", source),
+      diagramNode("enc_only_add_norm_1", "layer_norm", "Add & Norm", 145, 492, 220, 34, "#f5f5c0", "add_norm_1", source),
+      diagramNode("enc_only_mha", "attention", "Multi-Head\nAttention", 145, 538, 220, 66, "#ffe3b5", "multi_head_attention", source)
+    ]),
+    diagramNode("enc_only_output", "generic_tensor", "Contextual\nOutputs", 142, 220, 230, 58, "#ffffff", "text_label", source)
+  ];
+  const edges: ArchitectureEdge[] = [
+    diagramEdge("enc_only_inputs", "enc_only_embedding", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_only_embedding", "enc_only_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_only_positional", "enc_only_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_only_add", "enc_only_mha", "data", undefined, "attention-fan-in"),
+    diagramEdge("enc_only_add", "enc_only_add_norm_1", "residual", "residual", "right-loop"),
+    diagramEdge("enc_only_mha", "enc_only_add_norm_1", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_only_add_norm_1", "enc_only_ffn", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_only_add_norm_1", "enc_only_add_norm_2", "residual", "residual", "right-loop"),
+    diagramEdge("enc_only_ffn", "enc_only_add_norm_2", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("enc_only_add_norm_2", "enc_only_output", "data", undefined, "rounded-orthogonal")
+  ];
+  return textbookSpec(architecture, nodes, edges, { w: 520, h: 820 }, `Encoder-only Transformer ×${nBlocks}`);
+}
+
+function textbookSpec(architecture: ArchitectureSpec, nodes: ArchitectureNode[], edges: ArchitectureEdge[], canvas: ArchitectureSpec["view"]["canvas"], notes: string): ArchitectureSpec {
+  return {
+    schemaVersion: 1,
+    mode: architecture.mode,
+    template: architecture.template,
+    id: `${architecture.id}-textbook-overview`,
+    name: architecture.name,
+    notes: notes || architecture.notes,
+    nodes,
+    edges,
+    view: { canvas, scale3d: architecture.view.scale3d },
+    createdAt: architecture.createdAt,
+    updatedAt: architecture.updatedAt
+  };
+}
+
 function diagramNode(
   id: string,
   kind: ArchitectureNode["kind"],
@@ -490,6 +671,7 @@ function diagramNode(
   h: number,
   color: string,
   role: string,
+  source: ArchitectureDerivedSource = "gpt-template",
   shape: ArchitectureShape = {},
   children?: ArchitectureNode[]
 ): ArchitectureNode {
@@ -504,7 +686,7 @@ function diagramNode(
     color,
     children,
     derived: {
-      source: "gpt-template",
+      source,
       role,
       expectedShape: shape,
       shapeLabel: shapeToLabel(shape),
@@ -539,7 +721,7 @@ function createRenderNodes(nodes: ArchitectureNode[], expanded: Set<string>): Re
 
 function prepareNodeForRender(node: ArchitectureNode, expanded: Set<string>, depth: number, yOffset: number): PreparedNodeResult {
   const hasChildren = (node.children?.length ?? 0) > 0;
-  const isExpanded = hasChildren && (expanded.has(node.id) || node.id === "transformer_group");
+  const isExpanded = hasChildren && (expanded.has(node.id) || node.id === "transformer_group" || node.derived?.role === "textbook_expanded_group");
   const shifted = shiftNodeY(node, -yOffset);
   if (node.type === "group" && hasChildren && !isExpanded) {
     const compactHeight = Math.min(node.size2d.h, COLLAPSED_GROUP_HEIGHT);

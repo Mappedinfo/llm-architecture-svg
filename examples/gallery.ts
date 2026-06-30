@@ -1,6 +1,15 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {
+  DEFAULT_BERT_TEMPLATE_PARAMS,
+  DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS,
+  DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS,
+  DEFAULT_TRANSFORMER_TEMPLATE_PARAMS,
+  generateBertArchitecture,
+  generateDecoderOnlyArchitecture,
+  generateEncoderOnlyArchitecture,
+  generateTransformerArchitecture,
+  renderArchitectureSvg,
   renderBertArchitectureFigure,
   renderDecoderOnlyFigure,
   renderEncoderOnlyFigure,
@@ -33,6 +42,10 @@ const outputs: Array<[string, string]> = [
   ["gpt-decoder-architecture-dark.svg", renderGptDecoderFigure({ profile: "architecture-dark", width: 1080 })],
   ["gpt-expanded-blueprint.svg", renderGptArchitectureSvg(gptParams, { profile: "expanded-gpt-block", title: "GPT expanded internals", width: 1120 })],
   ["gpt-textbook-overview.svg", renderGptArchitectureSvg(gptParams, { profile: "textbook-overview" })],
+  ["transformer-textbook-overview.svg", renderArchitectureSvg(generateTransformerArchitecture(DEFAULT_TRANSFORMER_TEMPLATE_PARAMS), { profile: "textbook-overview" })],
+  ["bert-textbook-overview.svg", renderArchitectureSvg(generateBertArchitecture(DEFAULT_BERT_TEMPLATE_PARAMS), { profile: "textbook-overview" })],
+  ["encoder-only-textbook-overview.svg", renderArchitectureSvg(generateEncoderOnlyArchitecture(DEFAULT_ENCODER_ONLY_TEMPLATE_PARAMS), { profile: "textbook-overview" })],
+  ["decoder-only-textbook-overview.svg", renderArchitectureSvg(generateDecoderOnlyArchitecture(DEFAULT_DECODER_ONLY_TEMPLATE_PARAMS), { profile: "textbook-overview" })],
   ["encoder-only-comparison.svg", renderEncoderOnlyFigure({ profile: "architecture-blueprint", width: 820 })],
   ["decoder-only-comparison.svg", renderDecoderOnlyFigure({ profile: "architecture-blueprint", width: 820 })],
   ["lsa-kv-indexing-paper.svg", renderLsaKvIndexingFigure({ profile: "paper-algorithm", width: 1120 })],

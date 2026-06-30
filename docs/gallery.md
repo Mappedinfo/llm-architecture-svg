@@ -12,18 +12,24 @@ npm run demo:gallery
 
 ### Original Transformer encoder-decoder
 
+![Original Transformer textbook](assets/gallery/transformer-textbook-overview.svg)
+
 ![Original Transformer](assets/gallery/transformer-paper-architecture-paper.svg)
 
 ```bash
+npm run export -- --preset transformer --profile textbook-overview --out docs/assets/gallery/transformer-textbook-overview.svg
 npm run export -- --figure-preset transformer-paper --profile architecture-paper --out docs/assets/gallery/transformer-paper-architecture-paper.svg
 npm run export -- --figure-preset transformer-paper --profile architecture-blueprint --out docs/assets/gallery/transformer-paper-blueprint.svg
 ```
 
 ### BERT encoder
 
+![BERT textbook](assets/gallery/bert-textbook-overview.svg)
+
 ![BERT encoder](assets/gallery/bert-encoder-architecture-paper.svg)
 
 ```bash
+npm run export -- --preset bert --profile textbook-overview --out docs/assets/gallery/bert-textbook-overview.svg
 npm run export -- --figure-preset bert-encoder --profile architecture-paper --out docs/assets/gallery/bert-encoder-architecture-paper.svg
 npm run export -- --figure-preset bert-encoder --profile architecture-dark --out docs/assets/gallery/bert-encoder-architecture-dark.svg
 ```
@@ -46,6 +52,7 @@ npm run export -- --figure-preset gpt-decoder --profile architecture-dark --out 
 ```bash
 npm run export -- --preset gpt --profile expanded-gpt-block --out docs/assets/gallery/gpt-expanded-blueprint.svg
 npm run export -- --preset gpt --profile textbook-overview --out docs/assets/gallery/gpt-textbook-overview.svg
+npm run export -- --preset decoder-only --profile textbook-overview --out docs/assets/gallery/decoder-only-textbook-overview.svg
 ```
 
 ### Encoder-only vs decoder-only teaching views
@@ -54,7 +61,10 @@ npm run export -- --preset gpt --profile textbook-overview --out docs/assets/gal
 
 ![Decoder-only](assets/gallery/decoder-only-comparison.svg)
 
+![Encoder-only textbook](assets/gallery/encoder-only-textbook-overview.svg)
+
 ```bash
+npm run export -- --preset encoder-only --profile textbook-overview --out docs/assets/gallery/encoder-only-textbook-overview.svg
 npm run export -- --figure-preset encoder-only --profile architecture-blueprint --out docs/assets/gallery/encoder-only-comparison.svg
 npm run export -- --figure-preset decoder-only --profile architecture-blueprint --out docs/assets/gallery/decoder-only-comparison.svg
 ```
@@ -88,6 +98,10 @@ docs/assets/gallery/gpt-decoder-architecture-paper.svg
 docs/assets/gallery/gpt-decoder-architecture-dark.svg
 docs/assets/gallery/gpt-expanded-blueprint.svg
 docs/assets/gallery/gpt-textbook-overview.svg
+docs/assets/gallery/transformer-textbook-overview.svg
+docs/assets/gallery/bert-textbook-overview.svg
+docs/assets/gallery/encoder-only-textbook-overview.svg
+docs/assets/gallery/decoder-only-textbook-overview.svg
 docs/assets/gallery/encoder-only-comparison.svg
 docs/assets/gallery/decoder-only-comparison.svg
 docs/assets/gallery/lsa-kv-indexing-paper.svg

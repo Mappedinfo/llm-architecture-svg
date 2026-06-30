@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="916" viewBox="0 0 940 916" role="img" aria-label="Original Transformer Architecture">
+<defs><style>text{font-family:Georgia,"Times New Roman",serif}.node-label{font-weight:700;fill:#000000}.node-meta{fill:#273238}.shape-warning{fill:#c92a2a;font-weight:700}.edge{fill:none;stroke-linecap:round;stroke-linejoin:round}.icon-stroke{fill:none;stroke:#0b0b0b;stroke-linecap:round;stroke-linejoin:round}</style><marker id="arrow-data" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b0b0b"/></marker><marker id="arrow-residual" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b2b38"/></marker><marker id="arrow-dependency" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b2b38"/></marker></defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<g class="architecture profile-textbook-overview">
+<path class="edge edge-data edge-rounded-orthogonal" d="M202.58 846.15 L202.58 835.15 L202.58 824.14" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M202.58 760.32 L202.58 752.61 Q202.58 752.61 202.58 752.61 L202.58 752.61 Q202.58 752.61 202.58 752.61 L202.58 744.91" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M208.09 726.2 L195.98 726.2 L183.88 726.2" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g class="edge edge-data edge-attention-fan-in"><path d="M202.58 744.91 L202.58 592.4 Q202.58 580.85 214.14 580.85 L214.14 580.85 Q225.69 580.85 225.69 592.4 L225.69 608.45" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M225.69 580.85 C207.69 580.85 167.76 590.45 167.76 608.45" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M225.69 580.85 C243.69 580.85 283.62 590.45 283.62 608.45" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/></g>
+<path class="edge edge-residual edge-residual-loop" d="M221.29 726.2 L348.14 726.2 Q363.14 726.2 363.14 711.2 L363.14 591.54 Q363.14 576.54 348.14 576.54 L329.14 576.54" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M225.69 608.45 L225.69 601.85 L225.69 595.24" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M225.69 557.83 L225.69 547.92 L225.69 538.02" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-residual edge-residual-loop" d="M329.14 576.54 L348.14 576.54 Q363.14 576.54 363.14 561.54 L363.14 448.47 Q363.14 433.47 348.14 433.47 L329.14 433.47" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M225.69 469.79 L225.69 460.99 L225.69 452.18" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M700 828.55 L700 827.44 Q700 826.34 698.9 826.34 L681.29 826.34 Q680.19 826.34 680.19 825.24 L680.19 824.14" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M680.19 760.32 L680.19 752.61 Q680.19 752.61 680.19 752.61 L680.19 752.61 Q680.19 752.61 680.19 752.61 L680.19 744.91" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M720.91 726.2 L709.9 726.2 L698.9 726.2" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g class="edge edge-data edge-attention-fan-in"><path d="M680.19 744.91 L680.19 594.61 Q680.19 585.25 689.55 585.25 L689.55 585.25 Q698.9 585.25 698.9 594.61 L698.9 612.85" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M698.9 585.25 C680.9 585.25 637.89 594.85 637.89 612.85" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M698.9 585.25 C716.9 585.25 759.91 594.85 759.91 612.85" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/></g>
+<path class="edge edge-residual edge-residual-loop" d="M698.9 726.2 L826.85 726.2 Q841.85 726.2 841.85 711.2 L841.85 598.14 Q841.85 583.14 826.85 583.14 L807.85 583.14" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M698.9 612.85 L698.9 607.35 L698.9 601.85" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g class="edge edge-data edge-attention-fan-in"><path d="M698.9 601.85 L698.9 463.43 Q698.9 450.47 698.9 463.43 L698.9 476.39" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M698.9 450.47 C680.9 450.47 637.89 458.39 637.89 476.39" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M698.9 450.47 C716.9 450.47 759.91 458.39 759.91 476.39" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/></g>
+<path class="edge edge-dependency edge-rounded-orthogonal" d="M329.14 433.47 L444.55 433.47 Q459.55 433.47 459.55 448.47 L459.55 495.51 Q459.55 510.51 474.55 510.51 L589.95 510.51" stroke="#0b2b38" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-dependency)" stroke-dasharray="4 4"/>
+<path class="edge edge-residual edge-residual-loop" d="M807.85 583.14 L826.85 583.14 Q841.85 583.14 841.85 568.14 L841.85 459.48 Q841.85 444.48 826.85 444.48 L807.85 444.48" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M698.9 476.39 L698.9 469.79 L698.9 463.19" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M698.9 425.77 L698.9 415.87 L698.9 405.96" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-residual edge-residual-loop" d="M807.85 444.48 L826.85 444.48 Q841.85 444.48 841.85 429.48 L841.85 316.42 Q841.85 301.42 826.85 301.42 L807.85 301.42" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M698.9 337.73 L698.9 328.93 L698.9 320.12" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M698.9 282.71 L698.9 248.32 Q698.9 247.49 699.72 247.49 L699.72 247.49 Q700.55 247.49 700.55 246.67 L700.55 212.28" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M700.55 170.46 L700.55 162.76 L700.55 155.05" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-rounded-orthogonal" d="M700.55 113.23 L700.55 107.73 Q700.55 107.73 700.55 107.73 L700.55 107.73 Q700.55 107.73 700.55 107.73 L700.55 102.23" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g id="encoder_group" class="node node-group">
+<title>Encoder</title>
+<rect x="76.03" y="379.55" width="297.13" height="313.64" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
+<text x="88.03" y="403.55" font-size="13" text-anchor="start" class="node-label">Encoder</text>
+
+
+</g>
+<g id="decoder_group" class="node node-group">
+<title>Decoder</title>
+<rect x="540.43" y="247.49" width="313.64" height="445.69" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
+<text x="552.43" y="271.49" font-size="13" text-anchor="start" class="node-label">Decoder</text>
+
+
+</g>
+<g id="enc_inputs" class="node node-text-label">
+<title>Inputs</title>
+<text x="202.58" y="870.36" font-size="30" text-anchor="middle" class="node-label">Inputs</text>
+</g>
+<g id="enc_embedding" class="node node-token_embed">
+<title>Input Embedding</title>
+<rect x="98.04" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="202.58" y="770.16" font-size="24" text-anchor="middle" class="node-label">Input</text>
+<text x="202.58" y="798.48" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+
+
+</g>
+<g id="enc_add" class="node node-residual-add node-plus-circle">
+<title>+</title>
+<circle class="icon-plus-circle" cx="202.58" cy="726.2" r="16.71" fill="#ffffff" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-plus" d="M192.89 726.2 H212.27 M202.58 716.51 V735.89" stroke-width="1.8"/>
+</g>
+<g id="enc_positional" class="node node-positional-icon">
+<title>Positional Encoding</title>
+<circle class="icon-sine-circle" cx="42" cy="726.2" r="24" fill="#ffffff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-sine" d="M27.12 726.2 C33.36 707 39.12 707 42 726.2 C46.8 745.4 52.56 745.4 56.88 726.2" stroke-width="1.8"/>
+<text x="94" y="712.04" font-size="24" text-anchor="start" class="node-label">Positional</text>
+<text x="94" y="740.36" font-size="24" text-anchor="start" class="node-label">Encoding</text>
+</g>
+<g id="enc_nx" class="node node-text-label">
+<title>N×</title>
+<text x="50.72" y="545.72" font-size="30" text-anchor="middle" class="node-label">N×</text>
+</g>
+<g id="enc_add_norm_2" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="122.25" y="414.77" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="225.69" y="438.47" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+
+
+</g>
+<g id="enc_feed_forward" class="node node-mlp">
+<title>Feed Forward</title>
+<rect x="122.25" y="469.79" width="206.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="225.69" y="479.63" font-size="24" text-anchor="middle" class="node-label">Feed</text>
+<text x="225.69" y="507.95" font-size="24" text-anchor="middle" class="node-label">Forward</text>
+
+
+</g>
+<g id="enc_add_norm_1" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="122.25" y="557.83" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="225.69" y="581.54" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+
+
+</g>
+<g id="enc_mha" class="node node-attention">
+<title>Multi-Head Attention</title>
+<rect x="122.25" y="608.45" width="206.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="225.69" y="618.29" font-size="24" text-anchor="middle" class="node-label">Multi-Head</text>
+<text x="225.69" y="646.61" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+
+
+</g>
+<g id="dec_outputs" class="node node-text-label">
+<title>Outputs (shifted right)</title>
+<text x="700" y="849.36" font-size="30" text-anchor="middle" class="node-label">Outputs</text>
+<text x="700" y="884.76" font-size="30" text-anchor="middle" class="node-label">(shifted right)</text>
+</g>
+<g id="dec_embedding" class="node node-token_embed">
+<title>Output Embedding</title>
+<rect x="575.65" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="680.19" y="770.16" font-size="24" text-anchor="middle" class="node-label">Output</text>
+<text x="680.19" y="798.48" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+
+
+</g>
+<g id="dec_add" class="node node-residual-add node-plus-circle">
+<title>+</title>
+<circle class="icon-plus-circle" cx="680.19" cy="726.2" r="16.71" fill="#ffffff" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-plus" d="M670.5 726.2 H689.88 M680.19 716.51 V735.89" stroke-width="1.8"/>
+</g>
+<g id="dec_positional" class="node node-positional-icon">
+<title>Positional Encoding</title>
+<circle class="icon-sine-circle" cx="752.91" cy="726.2" r="24" fill="#ffffff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-sine" d="M738.03 726.2 C744.27 707 750.03 707 752.91 726.2 C757.71 745.4 763.47 745.4 767.79 726.2" stroke-width="1.8"/>
+<text x="804.91" y="712.04" font-size="24" text-anchor="start" class="node-label">Positional</text>
+<text x="804.91" y="740.36" font-size="24" text-anchor="start" class="node-label">Encoding</text>
+</g>
+<g id="dec_nx" class="node node-text-label">
+<title>N×</title>
+<text x="873.88" y="501.7" font-size="30" text-anchor="middle" class="node-label">N×</text>
+</g>
+<g id="dec_add_norm_3" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="589.95" y="282.71" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="698.9" y="306.42" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+
+
+</g>
+<g id="dec_feed_forward" class="node node-mlp">
+<title>Feed Forward</title>
+<rect x="589.95" y="337.73" width="217.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="698.9" y="347.57" font-size="24" text-anchor="middle" class="node-label">Feed</text>
+<text x="698.9" y="375.89" font-size="24" text-anchor="middle" class="node-label">Forward</text>
+
+
+</g>
+<g id="dec_add_norm_2" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="589.95" y="425.77" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="698.9" y="449.48" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+
+
+</g>
+<g id="dec_cross_attn" class="node node-attention">
+<title>Encoder-Decoder Attention</title>
+<rect x="589.95" y="476.39" width="217.89" height="68.23" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="698.9" y="486.23" font-size="24" text-anchor="middle" class="node-label">Encoder-Decoder</text>
+<text x="698.9" y="514.55" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+
+
+</g>
+<g id="dec_add_norm_1" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="589.95" y="564.43" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="698.9" y="588.14" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+
+
+</g>
+<g id="dec_masked_mha" class="node node-attention">
+<title>Masked Multi-Head Attention</title>
+<rect x="589.95" y="612.85" width="217.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="698.9" y="608.53" font-size="24" text-anchor="middle" class="node-label">Masked</text>
+<text x="698.9" y="636.85" font-size="24" text-anchor="middle" class="node-label">Multi-Head</text>
+<text x="698.9" y="665.17" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+
+
+</g>
+<g id="transformer_linear" class="node node-linear">
+<title>Linear</title>
+<rect x="593.25" y="170.46" width="214.59" height="41.82" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="700.55" y="194.46" font-size="24" text-anchor="middle" class="node-label">Linear</text>
+
+
+</g>
+<g id="transformer_softmax" class="node node-softmax">
+<title>Softmax</title>
+<rect x="593.25" y="113.23" width="214.59" height="41.82" rx="8" fill="#d8f0dc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="700.55" y="137.23" font-size="24" text-anchor="middle" class="node-label">Softmax</text>
+
+
+</g>
+<g id="transformer_output" class="node node-text-label">
+<title>Output Probabilities</title>
+<text x="700.55" y="50.41" font-size="30" text-anchor="middle" class="node-label">Output</text>
+<text x="700.55" y="85.81" font-size="30" text-anchor="middle" class="node-label">Probabilities</text>
+</g>
+</g>
+</svg>

@@ -15,6 +15,13 @@ export type ArchitectureEdgeKind = "data" | "residual" | "dependency";
 export type ArchitectureEdgeRoute = "rounded-orthogonal" | "attention-fan-in" | "right-loop";
 export type ArchitectureMode = "template" | "teaching";
 export type ArchitectureParamCategory = "embedding" | "attention" | "mlp" | "layer_norm" | "linear" | "none";
+export type ArchitectureTemplateType = "gpt" | "transformer" | "bert" | "encoder-only" | "decoder-only";
+export type ArchitectureDerivedSource =
+  | "gpt-template"
+  | "transformer-template"
+  | "bert-template"
+  | "encoder-only-template"
+  | "decoder-only-template";
 
 export interface GptTemplateParams {
   T: number;
@@ -25,6 +32,55 @@ export interface GptTemplateParams {
   bias: boolean;
   tieEmbeddings: boolean;
 }
+
+export interface TransformerTemplateParams {
+  srcT: number;
+  tgtT: number;
+  C: number;
+  nHeads: number;
+  nEncoderBlocks: number;
+  nDecoderBlocks: number;
+  vocabSize: number;
+  bias: boolean;
+  tieEmbeddings: boolean;
+}
+
+export interface BertTemplateParams {
+  T: number;
+  C: number;
+  nHeads: number;
+  nBlocks: number;
+  vocabSize: number;
+  typeVocabSize: number;
+  numLabels: number;
+  bias: boolean;
+}
+
+export interface EncoderOnlyTemplateParams {
+  T: number;
+  C: number;
+  nHeads: number;
+  nBlocks: number;
+  vocabSize: number;
+  bias: boolean;
+}
+
+export interface DecoderOnlyTemplateParams {
+  T: number;
+  C: number;
+  nHeads: number;
+  nBlocks: number;
+  vocabSize: number;
+  bias: boolean;
+  tieEmbeddings: boolean;
+}
+
+export type ArchitectureTemplate =
+  | { type: "gpt"; params: GptTemplateParams }
+  | { type: "transformer"; params: TransformerTemplateParams }
+  | { type: "bert"; params: BertTemplateParams }
+  | { type: "encoder-only"; params: EncoderOnlyTemplateParams }
+  | { type: "decoder-only"; params: DecoderOnlyTemplateParams };
 
 export interface ArchitectureShape {
   B?: number;
@@ -50,7 +106,7 @@ export interface ArchitectureSize2d {
 }
 
 export interface ArchitectureDerivedMeta {
-  source: "gpt-template";
+  source: ArchitectureDerivedSource;
   role: string;
   expectedShape?: ArchitectureShape;
   shapeLabel?: string;
@@ -86,10 +142,7 @@ export interface ArchitectureEdge {
 export interface ArchitectureSpec {
   schemaVersion: 1;
   mode: ArchitectureMode;
-  template?: {
-    type: "gpt";
-    params: GptTemplateParams;
-  };
+  template?: ArchitectureTemplate;
   id: string;
   name: string;
   notes?: string;
