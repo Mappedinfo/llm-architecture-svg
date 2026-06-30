@@ -3,46 +3,46 @@
 <defs><style>text{font-family:Helvetica,Arial,sans-serif;fill:#0b2533}.figure-label{font-weight:400}.figure-label-strong{font-weight:700}.figure-edge{fill:none;stroke-linecap:round;stroke-linejoin:round}</style><marker id="figure-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 Z" fill="#16384a"/></marker><marker id="figure-arrow-start" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M10,0 L0,5 L10,10 Z" fill="#16384a"/></marker></defs>
 <rect width="100%" height="100%" fill="#f3f8fb"/>
 <g class="llm-figure profile-architecture-blueprint">
+<g id="decoder_box" class="figure-primitive group-box" data-z-index="0">
+<title>Decoder stack</title>
+<rect class="dashed-window-box" x="273.33" y="161.52" width="447.27" height="186.36" rx="0" fill="none" stroke="#16384a" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="496.97" y="150.64" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Decoder stack</text>
+</g>
 <path id="prefix_to_embeddings" class="figure-edge" d="M285.76 465.91 L372.73 465.91" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="embeddings_to_decoder" class="figure-edge" d="M490.76 419.94 L490.76 347.88" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="attn_to_ffn" class="figure-edge" d="M496.97 258.42 L496.97 279.55" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
 <path id="decoder_to_next" class="figure-edge" d="M496.97 161.52 L496.97 140.39" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<g id="title" class="figure-primitive annotation">
-<title>Decoder-only Transformer</title>
-<text x="323.03" y="47.82" font-size="28" text-anchor="start" font-weight="700" font-style="normal" fill="#0b2533">Decoder-only Transformer</text>
-</g>
-<g id="prefix" class="figure-primitive process-block">
+<g id="prefix" class="figure-primitive process-block" data-z-index="40">
 <title>Prefix Tokens</title>
 <rect x="99.39" y="434.85" width="186.36" height="62.12" rx="8" fill="#fbe7a3" stroke="#16384a" stroke-width="2"/>
-<text x="192.58" y="465.91" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Prefix Tokens</text>
+<text x="192.58" y="472.03" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Prefix Tokens</text>
 </g>
-<g id="embeddings" class="figure-primitive process-block">
+<g id="embeddings" class="figure-primitive process-block" data-z-index="40">
 <title>Token + Position Embeddings</title>
 <rect x="372.73" y="419.94" width="236.06" height="91.94" rx="8" fill="#f7f7f7" stroke="#16384a" stroke-width="2"/>
-<text x="490.76" y="454.93" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Token + Position</text>
-<text x="490.76" y="476.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Embeddings</text>
+<text x="490.76" y="461.05" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Token + Position</text>
+<text x="490.76" y="483.01" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Embeddings</text>
 </g>
-<g id="decoder_box" class="figure-primitive group-box">
-<title>Decoder stack</title>
-<rect class="dashed-window-box" x="273.33" y="161.52" width="447.27" height="186.36" rx="0" fill="none" stroke="#16384a" stroke-width="2" stroke-dasharray="6 6"/>
-<text x="496.97" y="153.52" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Decoder stack</text>
-</g>
-<g id="masked_attention" class="figure-primitive process-block">
+<g id="masked_attention" class="figure-primitive process-block" data-z-index="40">
 <title>Causal Masked Self-Attention</title>
 <rect x="335.45" y="198.79" width="323.03" height="59.64" rx="8" fill="#ffd8a8" stroke="#16384a" stroke-width="2"/>
-<text x="496.97" y="217.63" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Causal Masked</text>
-<text x="496.97" y="239.59" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Self-Attention</text>
+<text x="496.97" y="223.75" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Causal Masked</text>
+<text x="496.97" y="245.71" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Self-Attention</text>
 </g>
-<g id="ffn" class="figure-primitive process-block">
+<g id="ffn" class="figure-primitive process-block" data-z-index="40">
 <title>Feed Forward</title>
 <rect x="335.45" y="279.55" width="323.03" height="52.18" rx="8" fill="#bfecf5" stroke="#16384a" stroke-width="2"/>
-<text x="496.97" y="305.64" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Feed Forward</text>
+<text x="496.97" y="311.76" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Feed Forward</text>
 </g>
-<g id="next_token" class="figure-primitive process-block">
+<g id="next_token" class="figure-primitive process-block" data-z-index="40">
 <title>Next-token Distribution</title>
 <rect x="372.73" y="68.33" width="236.06" height="72.06" rx="8" fill="#d8f0dc" stroke="#16384a" stroke-width="2"/>
-<text x="490.76" y="93.38" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Next-token</text>
-<text x="490.76" y="115.34" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Distribution</text>
+<text x="490.76" y="99.5" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Next-token</text>
+<text x="490.76" y="121.46" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Distribution</text>
+</g>
+<g id="title" class="figure-primitive annotation" data-z-index="60">
+<title>Decoder-only Transformer</title>
+<text x="323.03" y="55.82" font-size="26" text-anchor="start" font-weight="700" font-style="normal" fill="#0b2533">Decoder-only Transformer</text>
 </g>
 </g>
 </svg>

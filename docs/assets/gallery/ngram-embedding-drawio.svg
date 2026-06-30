@@ -1,172 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="481.6" viewBox="0 0 1120 481.6" role="img" aria-label="N-gram embedding fusion mechanism">
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="495.38" viewBox="0 0 1120 495.38" role="img" aria-label="N-gram embedding fusion mechanism">
 <defs><style>text{font-family:Helvetica,Arial,sans-serif;fill:#000000}.figure-label{font-weight:400}.figure-label-strong{font-weight:700}.figure-edge{fill:none;stroke-linecap:round;stroke-linejoin:round}</style><marker id="figure-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 Z" fill="#000000"/></marker><marker id="figure-arrow-start" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M10,0 L0,5 L10,10 Z" fill="#000000"/></marker></defs>
 <rect width="100%" height="100%" fill="#ffffff"/>
 <g class="llm-figure profile-drawio-mechanism">
-<path id="sum_line" class="figure-edge" d="M168 85.12 L981.12 85.12" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="sum_to_vector" class="figure-edge" d="M981.12 64.96 L981.12 80.64" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="vector_up" class="figure-edge" d="M1003.52 145.6 L1003.52 80.64" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="base_to_sum" class="figure-edge" d="M1003.52 145.6 L1003.52 85.12" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="token_to_base" class="figure-edge" d="M1003.52 327.04 L1003.52 380.8" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_5" class="figure-edge" d="M129.92 327.04 L129.92 259.84 L129.92 387.52" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_4" class="figure-edge" d="M342.72 327.04 L342.72 259.84 L342.72 387.52" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_3" class="figure-edge" d="M555.52 327.04 L555.52 259.84 L555.52 387.52" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="tokens_to_2" class="figure-edge" d="M768.32 327.04 L768.32 259.84 L768.32 387.52" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="five_to_sum" class="figure-edge" d="M129.92 107.52 L129.92 85.12" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="four_to_sum" class="figure-edge" d="M342.72 107.52 L342.72 85.12" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="three_to_sum" class="figure-edge" d="M555.52 107.52 L555.52 85.12" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="two_to_sum" class="figure-edge" d="M768.32 107.52 L768.32 85.12" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<g id="input_tokens" class="figure-primitive token-row">
-<g id="token_0" class="figure-primitive token">
+<g id="window_5" class="figure-primitive dashed-window" data-z-index="0">
+<rect class="dashed-window-box" x="370.46" y="348.92" width="721.54" height="112" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
+</g>
+<g id="window_4" class="figure-primitive dashed-window" data-z-index="0">
+<rect class="dashed-window-box" x="488.92" y="359.69" width="590.15" height="88.31" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
+</g>
+<g id="window_3" class="figure-primitive dashed-window" data-z-index="0">
+<rect class="dashed-window-box" x="577.23" y="368.31" width="488.92" height="68.92" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
+</g>
+<g id="window_2" class="figure-primitive dashed-window" data-z-index="0">
+<rect class="dashed-window-box" x="738.77" y="376.92" width="314.46" height="49.54" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
+</g>
+<path id="sum_line" class="figure-edge" d="M161.54 81.85 L969.23 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="sum_to_vector" class="figure-edge" d="M969.23 62.46 L969.23 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="vector_up" class="figure-edge" d="M991.85 148.62 L991.85 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="base_to_sum" class="figure-edge" d="M991.85 148.62 L991.85 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="token_to_base" class="figure-edge" d="M991.85 381.23 L991.85 359.69" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_5" class="figure-edge" d="M146.46 381.23 L146.46 271.38 L146.46 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_4" class="figure-edge" d="M351.08 381.23 L351.08 271.38 L351.08 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_3" class="figure-edge" d="M555.69 381.23 L555.69 271.38 L555.69 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tokens_to_2" class="figure-edge" d="M760.31 381.23 L760.31 271.38 L760.31 342.46" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="five_to_sum" class="figure-edge" d="M146.46 116.31 L146.46 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="four_to_sum" class="figure-edge" d="M351.08 116.31 L351.08 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="three_to_sum" class="figure-edge" d="M555.69 116.31 L555.69 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="two_to_sum" class="figure-edge" d="M760.31 116.31 L760.31 81.85" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<g id="input_tokens" class="figure-primitive token-row" data-z-index="30">
+<g id="token_0" class="figure-primitive token" data-z-index="30">
 <title>Long</title>
-<rect x="15.68" y="327.04" width="64.96" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="48.16" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Long</text>
+<rect x="25.85" y="381.23" width="62.46" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="57.08" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Long</text>
 </g>
-<g id="token_1" class="figure-primitive token">
+<g id="token_1" class="figure-primitive token" data-z-index="30">
 <title>Cat</title>
-<rect x="85.12" y="327.04" width="56" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="113.12" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Cat</text>
+<rect x="96.92" y="381.23" width="53.85" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="123.85" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Cat</text>
 </g>
-<g id="token_2" class="figure-primitive token">
+<g id="token_2" class="figure-primitive token" data-z-index="30">
 <title>Sparse</title>
-<rect x="145.6" y="327.04" width="87.36" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="189.28" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Sparse</text>
+<rect x="159.38" y="381.23" width="84" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="201.38" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Sparse</text>
 </g>
-<g id="token_3" class="figure-primitive token">
+<g id="token_3" class="figure-primitive token" data-z-index="30">
 <title>Attention</title>
-<rect x="237.44" y="327.04" width="120.96" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="297.92" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Attention</text>
+<rect x="252" y="381.23" width="116.31" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="310.15" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Attention</text>
 </g>
-<g id="token_4" class="figure-primitive token">
+<g id="token_4" class="figure-primitive token" data-z-index="30">
 <title>introduces</title>
-<rect x="362.88" y="327.04" width="132.16" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="428.96" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">introduces</text>
+<rect x="376.92" y="381.23" width="127.08" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="440.46" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">introduces</text>
 </g>
-<g id="token_5" class="figure-primitive token">
+<g id="token_5" class="figure-primitive token" data-z-index="30">
 <title>three</title>
-<rect x="499.52" y="327.04" width="76.16" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="537.6" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">three</text>
+<rect x="512.62" y="381.23" width="73.23" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="549.23" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">three</text>
 </g>
-<g id="token_6" class="figure-primitive token">
+<g id="token_6" class="figure-primitive token" data-z-index="30">
 <title>orthogonal</title>
-<rect x="580.16" y="327.04" width="132.16" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="646.24" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">orthogonal</text>
+<rect x="594.46" y="381.23" width="127.08" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="658" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">orthogonal</text>
 </g>
-<g id="token_7" class="figure-primitive token">
+<g id="token_7" class="figure-primitive token" data-z-index="30">
 <title>efficiency</title>
-<rect x="716.8" y="327.04" width="132.16" height="44.8" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<text x="782.88" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">efficiency</text>
+<rect x="730.15" y="381.23" width="127.08" height="43.08" rx="6" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<text x="793.69" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">efficiency</text>
 </g>
-<g id="token_8" class="figure-primitive token">
+<g id="token_8" class="figure-primitive token" data-z-index="30">
 <title>improvements</title>
-<rect x="853.44" y="327.04" width="154.56" height="44.8" rx="6" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<text x="930.72" y="349.44" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">improvements</text>
+<rect x="865.85" y="381.23" width="148.62" height="43.08" rx="6" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<text x="940.15" y="408.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">improvements</text>
 </g>
 </g>
-<g id="five_gram" class="figure-primitive stacked-cards">
+<g id="five_gram" class="figure-primitive stacked-cards" data-z-index="40">
 <title>5-Gram Hash + Embedding + Projection</title>
-<rect x="103.6" y="77.52" width="147.84" height="280" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
-<rect x="89.6" y="87.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="75.6" y="97.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="61.6" y="107.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="135.52" y="174.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">5-Gram</text>
-<text x="135.52" y="198.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="135.52" y="223.12" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="135.52" y="247.52" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="135.52" y="271.92" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="135.52" y="296.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="135.52" y="320.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<rect x="117.38" y="86.31" width="142.15" height="226.15" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
+<rect x="103.38" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="89.38" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="75.38" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<text x="146.46" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">5-Gram</text>
+<text x="146.46" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
+<text x="146.46" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="146.46" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="146.46" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="146.46" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="146.46" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
-<g id="four_gram" class="figure-primitive stacked-cards">
+<g id="four_gram" class="figure-primitive stacked-cards" data-z-index="40">
 <title>4-Gram Hash + Embedding + Projection</title>
-<rect x="316.4" y="77.52" width="147.84" height="280" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
-<rect x="302.4" y="87.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="288.4" y="97.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="274.4" y="107.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="348.32" y="174.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">4-Gram</text>
-<text x="348.32" y="198.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="348.32" y="223.12" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="348.32" y="247.52" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="348.32" y="271.92" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="348.32" y="296.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="348.32" y="320.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<rect x="322" y="86.31" width="142.15" height="226.15" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
+<rect x="308" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="294" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="280" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<text x="351.08" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">4-Gram</text>
+<text x="351.08" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
+<text x="351.08" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="351.08" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="351.08" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="351.08" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="351.08" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
-<g id="three_gram" class="figure-primitive stacked-cards">
+<g id="three_gram" class="figure-primitive stacked-cards" data-z-index="40">
 <title>3-Gram Hash + Embedding + Projection</title>
-<rect x="529.2" y="77.52" width="147.84" height="280" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
-<rect x="515.2" y="87.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="501.2" y="97.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="487.2" y="107.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="561.12" y="174.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">3-Gram</text>
-<text x="561.12" y="198.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="561.12" y="223.12" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="561.12" y="247.52" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="561.12" y="271.92" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="561.12" y="296.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="561.12" y="320.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<rect x="526.62" y="86.31" width="142.15" height="226.15" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
+<rect x="512.62" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="498.62" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="484.62" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<text x="555.69" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">3-Gram</text>
+<text x="555.69" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
+<text x="555.69" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="555.69" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="555.69" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="555.69" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="555.69" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
-<g id="two_gram" class="figure-primitive stacked-cards">
+<g id="two_gram" class="figure-primitive stacked-cards" data-z-index="40">
 <title>2-Gram Hash + Embedding + Projection</title>
-<rect x="742" y="77.52" width="147.84" height="280" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
-<rect x="728" y="87.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="714" y="97.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<rect x="700" y="107.52" width="147.84" height="280" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
-<text x="773.92" y="174.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">2-Gram</text>
-<text x="773.92" y="198.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
-<text x="773.92" y="223.12" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
-<text x="773.92" y="247.52" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="773.92" y="271.92" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
-<text x="773.92" y="296.32" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
-<text x="773.92" y="320.72" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
+<rect x="731.23" y="86.31" width="142.15" height="226.15" rx="12" fill="#d9d9d9" stroke="#000000" stroke-width="2"/>
+<rect x="717.23" y="96.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="703.23" y="106.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<rect x="689.23" y="116.31" width="142.15" height="226.15" rx="12" fill="#f7f7f7" stroke="#000000" stroke-width="2"/>
+<text x="760.31" y="162.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">2-Gram</text>
+<text x="760.31" y="187.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000"></text>
+<text x="760.31" y="211.78" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Hash</text>
+<text x="760.31" y="236.18" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="760.31" y="260.58" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Embedding</text>
+<text x="760.31" y="284.98" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">+</text>
+<text x="760.31" y="309.38" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Projection</text>
 </g>
-<g id="base_embedding" class="figure-primitive process-block">
+<g id="base_embedding" class="figure-primitive process-block" data-z-index="40">
 <title>Base Embedding</title>
-<rect x="935.2" y="145.6" width="136.64" height="235.2" rx="18" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<text x="1003.52" y="248.56" font-size="24" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Base</text>
-<text x="1003.52" y="277.84" font-size="24" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Embedding</text>
+<rect x="924" y="148.62" width="135.69" height="211.08" rx="18" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<text x="991.85" y="247.67" font-size="24" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Base</text>
+<text x="991.85" y="276.95" font-size="24" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Embedding</text>
 </g>
-<g id="embedding_vector" class="figure-primitive embedding-vector">
+<g id="embedding_vector" class="figure-primitive embedding-vector" data-z-index="40">
 <title>Embedding Vector</title>
-<rect x="909.44" y="17.92" width="176.96" height="62.72" rx="8" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<text x="997.92" y="35.86" font-size="22" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Embedding</text>
-<text x="997.92" y="62.7" font-size="22" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Vector</text>
+<rect x="900.31" y="19.38" width="183.08" height="62.46" rx="8" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<text x="991.85" y="44.68" font-size="22" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Embedding</text>
+<text x="991.85" y="71.52" font-size="22" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Vector</text>
 </g>
-<g id="sum_5" class="figure-primitive sum-node">
+<g id="sum_5" class="figure-primitive sum-node" data-z-index="50">
 <title>+</title>
-<circle class="sum-node-circle" cx="160.16" cy="84" r="19.04" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<path d="M146.83 84 H173.49 M160.16 70.67 V97.33" stroke="#000000" stroke-width="2"/>
+<circle class="sum-node-circle" cx="154" cy="80.77" r="18.31" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<path d="M141.18 80.77 H166.82 M154 67.95 V93.58" stroke="#000000" stroke-width="2"/>
 </g>
-<g id="sum_4" class="figure-primitive sum-node">
+<g id="sum_4" class="figure-primitive sum-node" data-z-index="50">
 <title>+</title>
-<circle class="sum-node-circle" cx="372.96" cy="84" r="19.04" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<path d="M359.63 84 H386.29 M372.96 70.67 V97.33" stroke="#000000" stroke-width="2"/>
+<circle class="sum-node-circle" cx="358.62" cy="80.77" r="18.31" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<path d="M345.8 80.77 H371.43 M358.62 67.95 V93.58" stroke="#000000" stroke-width="2"/>
 </g>
-<g id="sum_3" class="figure-primitive sum-node">
+<g id="sum_3" class="figure-primitive sum-node" data-z-index="50">
 <title>+</title>
-<circle class="sum-node-circle" cx="585.76" cy="84" r="19.04" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<path d="M572.43 84 H599.09 M585.76 70.67 V97.33" stroke="#000000" stroke-width="2"/>
+<circle class="sum-node-circle" cx="563.23" cy="80.77" r="18.31" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<path d="M550.42 80.77 H576.05 M563.23 67.95 V93.58" stroke="#000000" stroke-width="2"/>
 </g>
-<g id="sum_2" class="figure-primitive sum-node">
+<g id="sum_2" class="figure-primitive sum-node" data-z-index="50">
 <title>+</title>
-<circle class="sum-node-circle" cx="798.56" cy="84" r="19.04" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<path d="M785.23 84 H811.89 M798.56 70.67 V97.33" stroke="#000000" stroke-width="2"/>
+<circle class="sum-node-circle" cx="767.85" cy="80.77" r="18.31" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<path d="M755.03 80.77 H780.66 M767.85 67.95 V93.58" stroke="#000000" stroke-width="2"/>
 </g>
-<g id="sum_out" class="figure-primitive sum-node">
+<g id="sum_out" class="figure-primitive sum-node" data-z-index="50">
 <title>+</title>
-<circle class="sum-node-circle" cx="1000.16" cy="84" r="19.04" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<path d="M986.83 84 H1013.49 M1000.16 70.67 V97.33" stroke="#000000" stroke-width="2"/>
-</g>
-<g id="window_5" class="figure-primitive dashed-window">
-<rect class="dashed-window-box" x="371.84" y="313.6" width="728" height="132.16" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
-</g>
-<g id="window_4" class="figure-primitive dashed-window">
-<rect class="dashed-window-box" x="488.32" y="324.8" width="599.2" height="107.52" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
-</g>
-<g id="window_3" class="figure-primitive dashed-window">
-<rect class="dashed-window-box" x="568.96" y="333.76" width="506.24" height="87.36" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
-</g>
-<g id="window_2" class="figure-primitive dashed-window">
-<rect class="dashed-window-box" x="728" y="342.72" width="336" height="67.2" rx="14" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6 6"/>
+<circle class="sum-node-circle" cx="987.54" cy="80.77" r="18.31" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<path d="M974.72 80.77 H1000.35 M987.54 67.95 V93.58" stroke="#000000" stroke-width="2"/>
 </g>
 </g>
 </svg>

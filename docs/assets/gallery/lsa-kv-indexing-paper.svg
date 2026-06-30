@@ -1,149 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-label="LSA KV indexing mechanism">
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="456.7" viewBox="0 0 1120 456.7" role="img" aria-label="LSA KV indexing mechanism">
 <defs><style>text{font-family:Helvetica,Arial,sans-serif;fill:#000000}.figure-label{font-weight:400}.figure-label-strong{font-weight:700}.figure-edge{fill:none;stroke-linecap:round;stroke-linejoin:round}</style><marker id="figure-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 Z" fill="#000000"/></marker><marker id="figure-arrow-start" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M10,0 L0,5 L10,10 Z" fill="#000000"/></marker></defs>
 <rect width="100%" height="100%" fill="#ffffff"/>
 <g class="llm-figure profile-paper-algorithm">
-<path id="full_to_subset" class="figure-edge" d="M96 189.71 L240 189.71" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="subset_to_selector" class="figure-edge" d="M269.71 189.71 L342.86 189.71 L342.86 218.29 L411.43 218.29" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="topk_1_down" class="figure-edge" d="M368 171.43 L368 251.43 L411.43 251.43 L432 185.14" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="block_indexer_to_topk" class="figure-edge" d="M462.86 130.29 L411.43 130.29" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="selector_to_selected" class="figure-edge" d="M557.71 218.29 L600 218.29" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="selected_to_selector" class="figure-edge" d="M629.71 218.29 L720 218.29" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="topk_2_down" class="figure-edge" d="M708.57 171.43 L708.57 251.43 L720 251.43 L740.57 185.14" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="token_indexer_to_topk" class="figure-edge" d="M777.14 130.29 L720 130.29" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="selector_to_indexed" class="figure-edge" d="M866.29 218.29 L942.86 218.29" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="streaming_tokens" class="figure-edge" d="M102.86 310.86 L942.86 310.86" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<path id="query_line" class="figure-edge" d="M96 385.14 L1043.43 385.14" stroke="#000000" stroke-width="2"/>
-<path id="sharing_to_block" class="figure-edge" d="M588.57 113.14 L685.71 80 L828.57 80 L777.14 113.14" stroke="#000000" stroke-width="2" stroke-dasharray="5 5"/>
-<path id="reuse_annotation_arrow" class="figure-edge" d="M880 29.71 C861.14 39.77 823.43 95.09 804.57 130.29" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
-<g id="full_kv_tokens" class="figure-primitive token-stack">
-<title>Full KV Tokens</title>
-<rect x="66.29" y="48" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="66.04" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="84.09" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="102.13" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="120.18" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="138.22" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="156.27" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="174.31" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="192.36" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="210.4" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="228.45" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="246.49" width="29.71" height="15.04" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="264.54" width="29.71" height="15.04" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="282.58" width="29.71" height="15.04" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="300.63" width="29.71" height="15.04" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<rect x="66.29" y="318.67" width="29.71" height="15.04" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<text x="81.14" y="359.71" font-size="16" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Full KV Tokens</text>
-</g>
-<g id="query_token" class="figure-primitive token">
-<title>Query Token</title>
-<rect x="66.29" y="370.29" width="29.71" height="29.71" rx="6" fill="#8a9ccc" stroke="#000000" stroke-width="2"/>
-<text x="81.14" y="424" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Query Token</text>
-</g>
-<g id="non_streaming_label" class="figure-primitive annotation">
-<title>Non-Streaming Tokens</title>
-<text x="100.57" y="169.31" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Non-Streaming</text>
-<text x="100.57" y="191.27" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Tokens</text>
-</g>
-<g id="non_streaming_subset" class="figure-primitive token-stack">
-<rect x="230" y="46" width="49.71" height="289.71" rx="10" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="5 5"/>
-<rect x="240" y="48" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="72.06" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="96.12" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="120.18" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="144.24" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="168.3" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="192.36" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="216.42" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="240.48" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="264.54" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="288.6" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="312.65" width="29.71" height="21.06" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-</g>
-<g id="block_topk_selector" class="figure-primitive selector">
-<title>Top-k Selector</title>
-<polygon class="selector-trapezoid" points="434.83,185.14 534.31,185.14 557.71,251.43 411.43,251.43" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<text x="484.57" y="206.09" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
-<text x="484.57" y="230.49" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Selector</text>
-</g>
-<g id="block_indexer" class="figure-primitive indexer">
-<title>Block Indexer</title>
-<rect x="462.86" y="102.86" width="128" height="54.86" rx="8" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<text x="526.86" y="119.31" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Block</text>
-<text x="526.86" y="141.27" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Indexer</text>
-</g>
-<g id="topk_indices_1" class="figure-primitive annotation">
-<title>Top-k Indices</title>
-<text x="325.71" y="119.02" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
-<text x="325.71" y="140.98" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Indices</text>
-</g>
-<g id="selected_blocks" class="figure-primitive token-stack">
-<rect x="590" y="146.57" width="49.71" height="152.57" rx="10" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="5 5"/>
-<rect x="600" y="148.57" width="29.71" height="18.65" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="600" y="170.22" width="29.71" height="18.65" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="600" y="191.88" width="29.71" height="18.65" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="600" y="213.53" width="29.71" height="18.65" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="600" y="235.18" width="29.71" height="18.65" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="600" y="256.84" width="29.71" height="18.65" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="600" y="278.49" width="29.71" height="18.65" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-</g>
-<g id="token_topk_selector" class="figure-primitive selector">
-<title>Top-k Selector</title>
-<polygon class="selector-trapezoid" points="743.41,185.14 842.88,185.14 866.29,251.43 720,251.43" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<text x="793.14" y="206.09" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
-<text x="793.14" y="230.49" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Selector</text>
-</g>
-<g id="token_indexer" class="figure-primitive indexer">
-<title>Token Indexer</title>
-<rect x="777.14" y="102.86" width="128" height="54.86" rx="8" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
-<text x="841.14" y="119.31" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Token</text>
-<text x="841.14" y="141.27" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Indexer</text>
-</g>
-<g id="topk_indices_2" class="figure-primitive annotation">
-<title>Top-k Indices</title>
-<text x="676.57" y="119.02" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
-<text x="676.57" y="140.98" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Indices</text>
-</g>
-<g id="indexed_kv_tokens" class="figure-primitive token-stack">
-<title>Indexed KV tokens</title>
-<rect x="942.86" y="82.29" width="29.71" height="33.09" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="942.86" y="118.38" width="29.71" height="33.09" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="942.86" y="154.46" width="29.71" height="33.09" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="942.86" y="190.55" width="29.71" height="33.09" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
-<rect x="942.86" y="226.64" width="29.71" height="33.09" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<rect x="942.86" y="262.73" width="29.71" height="33.09" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<rect x="942.86" y="298.82" width="29.71" height="33.09" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<rect x="942.86" y="334.91" width="29.71" height="33.09" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
-<text x="957.71" y="394" font-size="16" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Indexed KV tokens</text>
-</g>
-<g id="non_contiguous_label" class="figure-primitive annotation">
-<title>Non-Contiguous KV (~50% budget)</title>
-<text x="996.57" y="121.31" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Non-Contiguous KV</text>
-<text x="996.57" y="143.27" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">(~50% budget)</text>
-</g>
-<g id="contiguous_label" class="figure-primitive annotation">
-<title>Contiguous KV (~50% budget)</title>
-<text x="996.57" y="272.16" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Contiguous KV</text>
-<text x="996.57" y="294.12" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">(~50% budget)</text>
-</g>
-<g id="sharing_parameters" class="figure-primitive group-box">
+<g id="sharing_parameters" class="figure-primitive group-box" data-z-index="0">
 <title>Sharing Parameters</title>
-<rect class="dashed-window-box" x="502.86" y="80" width="325.71" height="66.29" rx="0" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="5 5"/>
-<text x="665.71" y="72" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Sharing Parameters</text>
+<rect class="dashed-window-box" x="478.45" y="76.12" width="309.9" height="63.07" rx="0" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="633.4" y="65.24" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Sharing Parameters</text>
 </g>
-<g id="reuse_annotation" class="figure-primitive annotation">
+<path id="full_to_subset" class="figure-edge" d="M91.34 180.5 L228.35 180.5" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="subset_to_selector" class="figure-edge" d="M256.62 180.5 L326.21 180.5 L326.21 207.69 L391.46 207.69" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="topk_1_down" class="figure-edge" d="M350.14 163.11 L350.14 239.22 L391.46 239.22 L411.03 176.16" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="block_indexer_to_topk" class="figure-edge" d="M440.39 123.96 L391.46 123.96" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="selector_to_selected" class="figure-edge" d="M530.64 207.69 L570.87 207.69" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="selected_to_selector" class="figure-edge" d="M599.15 207.69 L685.05 207.69" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="topk_2_down" class="figure-edge" d="M674.17 163.11 L674.17 239.22 L685.05 239.22 L704.62 176.16" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="token_indexer_to_topk" class="figure-edge" d="M739.42 123.96 L685.05 123.96" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="selector_to_indexed" class="figure-edge" d="M824.23 207.69 L897.09 207.69" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="streaming_tokens" class="figure-edge" d="M97.86 295.77 L897.09 295.77" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="query_line" class="figure-edge" d="M91.34 366.45 L992.78 366.45" stroke="#000000" stroke-width="2"/>
+<path id="sharing_to_block" class="figure-edge" d="M560 107.65 L652.43 76.12 L788.35 76.12 L739.42 107.65" stroke="#000000" stroke-width="2" stroke-dasharray="5 5"/>
+<path id="reuse_annotation_arrow" class="figure-edge" d="M837.28 28.27 C819.34 37.84 783.46 90.47 765.51 123.96" stroke="#000000" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<g id="full_kv_tokens" class="figure-primitive token-stack" data-z-index="30">
+<title>Full KV Tokens</title>
+<rect x="63.07" y="45.67" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="62.85" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="80.03" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="97.2" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="114.38" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="131.56" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="148.74" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="165.91" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="183.09" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="200.27" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="217.45" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="234.63" width="28.27" height="14.18" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="251.8" width="28.27" height="14.18" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="268.98" width="28.27" height="14.18" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="286.16" width="28.27" height="14.18" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<rect x="63.07" y="303.34" width="28.27" height="14.18" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<text x="77.2" y="344.95" font-size="16" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Full KV Tokens</text>
+</g>
+<g id="query_token" class="figure-primitive token" data-z-index="30">
+<title>Query Token</title>
+<rect x="63.07" y="352.31" width="28.27" height="28.27" rx="6" fill="#8a9ccc" stroke="#000000" stroke-width="2"/>
+<text x="77.2" y="409.7" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Query Token</text>
+</g>
+<g id="non_streaming_subset" class="figure-primitive token-stack" data-z-index="30">
+<rect x="218.35" y="43.67" width="48.27" height="275.84" rx="10" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="5 5"/>
+<rect x="228.35" y="45.67" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="68.57" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="91.48" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="114.38" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="137.28" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="160.19" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="183.09" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="206" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="228.9" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="251.8" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="274.71" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="228.35" y="297.61" width="28.27" height="19.9" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+</g>
+<g id="selected_blocks" class="figure-primitive token-stack" data-z-index="30">
+<rect x="560.87" y="139.36" width="48.27" height="145.36" rx="10" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="5 5"/>
+<rect x="570.87" y="141.36" width="28.27" height="17.62" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="570.87" y="161.98" width="28.27" height="17.62" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="570.87" y="182.6" width="28.27" height="17.62" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="570.87" y="203.23" width="28.27" height="17.62" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="570.87" y="223.85" width="28.27" height="17.62" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="570.87" y="244.47" width="28.27" height="17.62" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="570.87" y="265.1" width="28.27" height="17.62" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+</g>
+<g id="indexed_kv_tokens" class="figure-primitive token-stack" data-z-index="30">
+<title>Indexed KV tokens</title>
+<rect x="897.09" y="78.29" width="28.27" height="31.36" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="897.09" y="112.65" width="28.27" height="31.36" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="897.09" y="147" width="28.27" height="31.36" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="897.09" y="181.36" width="28.27" height="31.36" rx="4" fill="#fbe7a3" stroke="#000000" stroke-width="2"/>
+<rect x="897.09" y="215.71" width="28.27" height="31.36" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<rect x="897.09" y="250.07" width="28.27" height="31.36" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<rect x="897.09" y="284.42" width="28.27" height="31.36" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<rect x="897.09" y="318.78" width="28.27" height="31.36" rx="4" fill="#6dde67" stroke="#000000" stroke-width="2"/>
+<text x="911.22" y="377.58" font-size="16" text-anchor="middle" font-weight="700" font-style="normal" fill="#000000">Indexed KV</text>
+</g>
+<g id="block_topk_selector" class="figure-primitive selector" data-z-index="40">
+<title>Top-k Selector</title>
+<polygon class="selector-trapezoid" points="413.73,176.16 508.37,176.16 530.64,239.22 391.46,239.22" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<text x="461.05" y="202.29" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
+<text x="461.05" y="226.69" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Selector</text>
+</g>
+<g id="block_indexer" class="figure-primitive indexer" data-z-index="40">
+<title>Block Indexer</title>
+<rect x="440.39" y="97.86" width="121.79" height="52.19" rx="8" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<text x="501.28" y="119.1" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Block</text>
+<text x="501.28" y="141.06" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Indexer</text>
+</g>
+<g id="token_topk_selector" class="figure-primitive selector" data-z-index="40">
+<title>Top-k Selector</title>
+<polygon class="selector-trapezoid" points="707.32,176.16 801.96,176.16 824.23,239.22 685.05,239.22" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<text x="754.64" y="202.29" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
+<text x="754.64" y="226.69" font-size="20" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Selector</text>
+</g>
+<g id="token_indexer" class="figure-primitive indexer" data-z-index="40">
+<title>Token Indexer</title>
+<rect x="739.42" y="97.86" width="121.79" height="52.19" rx="8" fill="#e6e6e6" stroke="#000000" stroke-width="2"/>
+<text x="800.31" y="119.1" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Token</text>
+<text x="800.31" y="141.06" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#000000">Indexer</text>
+</g>
+<g id="non_streaming_label" class="figure-primitive annotation" data-z-index="60">
+<title>Non-Streaming Tokens</title>
+<text x="95.69" y="172.41" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Non-Streaming</text>
+<text x="95.69" y="194.37" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Tokens</text>
+</g>
+<g id="topk_indices_1" class="figure-primitive annotation" data-z-index="60">
+<title>Top-k Indices</title>
+<text x="309.9" y="124.56" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
+<text x="309.9" y="146.52" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Indices</text>
+</g>
+<g id="topk_indices_2" class="figure-primitive annotation" data-z-index="60">
+<title>Top-k Indices</title>
+<text x="643.73" y="124.56" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Top-k</text>
+<text x="643.73" y="146.52" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Indices</text>
+</g>
+<g id="non_contiguous_label" class="figure-primitive annotation" data-z-index="60">
+<title>Non-Contiguous KV (~50% budget)</title>
+<text x="943.84" y="123.74" font-size="15" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Non-Contiguous KV</text>
+<text x="943.84" y="142.04" font-size="15" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">(~50% budget)</text>
+</g>
+<g id="contiguous_label" class="figure-primitive annotation" data-z-index="60">
+<title>Contiguous KV (~50% budget)</title>
+<text x="943.84" y="267.27" font-size="15" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Contiguous KV</text>
+<text x="943.84" y="285.57" font-size="15" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">(~50% budget)</text>
+</g>
+<g id="reuse_annotation" class="figure-primitive annotation" data-z-index="60">
 <title>Directly Reusing the Index from the Owner Layer</title>
-<text x="851.43" y="13.88" font-size="18" text-anchor="start" font-weight="700" font-style="italic" fill="#000000">Directly Reusing the Index</text>
-<text x="851.43" y="35.84" font-size="18" text-anchor="start" font-weight="700" font-style="italic" fill="#000000">from the Owner Layer</text>
+<text x="806.83" y="20.52" font-size="14" text-anchor="start" font-weight="700" font-style="italic" fill="#000000">Directly Reusing the Index</text>
+<text x="806.83" y="37.6" font-size="14" text-anchor="start" font-weight="700" font-style="italic" fill="#000000">from the Owner Layer</text>
 </g>
-<g id="streaming_label" class="figure-primitive annotation">
+<g id="streaming_label" class="figure-primitive annotation" data-z-index="60">
 <title>Streaming Tokens</title>
-<text x="445.71" y="323.14" font-size="18" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Streaming Tokens</text>
+<text x="426.25" y="303.16" font-size="15" text-anchor="start" font-weight="400" font-style="normal" fill="#000000">Streaming Tokens</text>
 </g>
-<g id="owner_layer_label" class="figure-primitive annotation">
+<g id="owner_layer_label" class="figure-primitive annotation" data-z-index="60">
 <title>LSA from the Owner Layer</title>
-<text x="445.71" y="447.71" font-size="18" text-anchor="start" font-weight="700" font-style="normal" fill="#000000">LSA from the Owner Layer</text>
+<text x="424.08" y="426.85" font-size="18" text-anchor="start" font-weight="700" font-style="normal" fill="#000000">LSA from the Owner Layer</text>
 </g>
 </g>
 </svg>

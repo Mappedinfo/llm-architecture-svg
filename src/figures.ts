@@ -42,6 +42,11 @@ export interface LlmFigureStyle {
   fontWeight?: string | number;
   radius?: number;
   opacity?: number;
+  lineHeight?: number;
+  maxLines?: number;
+  minFontSize?: number;
+  wrap?: boolean;
+  textAnchor?: "start" | "middle" | "end";
 }
 
 export interface LlmFigurePrimitive {
@@ -52,6 +57,10 @@ export interface LlmFigurePrimitive {
   size: LlmFigureSize;
   style?: LlmFigureStyle;
   children?: LlmFigurePrimitive[];
+  /**
+   * Rendering metadata. `layer` and `zIndex` are interpreted by the SVG renderer.
+   * Suggested layer values are: background, edge, token, block, node, annotation.
+   */
   metadata?: Record<string, string | number | boolean | string[]>;
 }
 
@@ -91,6 +100,7 @@ export interface RenderLlmFigureSvgOptions {
   width?: number;
   padding?: number;
   profile?: LlmFigureProfileName | LlmFigureProfile;
+  debugLayout?: boolean;
 }
 
 export interface LlmFigureProfile {
@@ -224,6 +234,7 @@ interface ResolvedFigureOptions {
   padding: number;
   scale: number;
   profile: LlmFigureProfile;
+  debugLayout: boolean;
 }
 
 interface RenderRect {
@@ -232,6 +243,51 @@ interface RenderRect {
   w: number;
   h: number;
 }
+
+interface TextLayoutOptions {
+  anchor?: "start" | "middle" | "end";
+  verticalAlign?: "top" | "middle" | "bottom";
+  fontSize: number;
+  minFontSize?: number;
+  maxLines?: number;
+  lineHeight?: number;
+  weight?: string | number;
+  italic?: boolean;
+  wrap?: boolean;
+  debugId?: string;
+}
+
+interface TextLayoutResult {
+  markup: string;
+  shrunk: boolean;
+  originalFontSize: number;
+  fontSize: number;
+}
+
+const LAYER_Z_INDEX: Record<string, number> = {
+  background: 0,
+  edge: 20,
+  token: 30,
+  block: 40,
+  node: 50,
+  annotation: 60
+};
+
+const KIND_Z_INDEX: Record<LlmFigurePrimitiveKind, number> = {
+  dashed_window: LAYER_Z_INDEX.background,
+  group_box: LAYER_Z_INDEX.background,
+  edge: LAYER_Z_INDEX.edge,
+  token: LAYER_Z_INDEX.token,
+  token_row: LAYER_Z_INDEX.token,
+  token_stack: LAYER_Z_INDEX.token,
+  stacked_cards: LAYER_Z_INDEX.block,
+  process_block: LAYER_Z_INDEX.block,
+  selector: LAYER_Z_INDEX.block,
+  indexer: LAYER_Z_INDEX.block,
+  embedding_vector: LAYER_Z_INDEX.block,
+  sum_node: LAYER_Z_INDEX.node,
+  annotation: LAYER_Z_INDEX.annotation
+};
 
 export function renderLsaKvIndexingFigure(options: RenderLlmFigureSvgOptions = {}): string {
   return renderLlmFigureSvg(createLsaKvIndexingFigureSpec(), { profile: "paper-algorithm", ...options });
@@ -265,8 +321,17 @@ export function renderLlmFigureSvg(spec: LlmFigureSpec, options: RenderLlmFigure
   const opts = resolveFigureOptions(spec, options);
   const primitives = flattenPrimitives(spec.primitives);
   const primitiveMap = new Map(primitives.map((primitive) => [primitive.id, primitive]));
+  const sortedPrimitives = sortPrimitivesForRender(spec.primitives);
+  const backgroundMarkup = sortedPrimitives
+    .filter((primitive) => resolvedZIndex(primitive) < LAYER_Z_INDEX.edge)
+    .map((primitive) => renderPrimitive(primitive, opts))
+    .join("\n");
   const edgeMarkup = spec.edges.map((edge) => renderFigureEdge(edge, primitiveMap, opts)).join("\n");
-  const primitiveMarkup = spec.primitives.map((primitive) => renderPrimitive(primitive, opts)).join("\n");
+  const foregroundMarkup = sortedPrimitives
+    .filter((primitive) => resolvedZIndex(primitive) >= LAYER_Z_INDEX.edge)
+    .map((primitive) => renderPrimitive(primitive, opts))
+    .join("\n");
+  const debugMarkup = opts.debugLayout ? renderDebugLayout(spec, opts) : "";
 
   return [
     `<?xml version="1.0" encoding="UTF-8"?>`,
@@ -274,8 +339,10 @@ export function renderLlmFigureSvg(spec: LlmFigureSpec, options: RenderLlmFigure
     `<defs>${renderFigureDefs(opts.profile)}</defs>`,
     `<rect width="100%" height="100%" fill="${opts.profile.background}"/>`,
     `<g class="llm-figure profile-${escAttr(String(opts.profile.name))}">`,
+    backgroundMarkup,
     edgeMarkup,
-    primitiveMarkup,
+    foregroundMarkup,
+    debugMarkup,
     `</g>`,
     `</svg>`
   ].filter(Boolean).join("\n");
@@ -427,11 +494,11 @@ export function createLsaKvIndexingFigureSpec(): LlmFigureSpec {
     processBlock("token_indexer", "Token\nIndexer", 680, 90, 112, 48, "indexer"),
     annotation("topk_indices_2", "Top-k\nIndices", 592, 98, 90, 50),
     tokenStack("indexed_kv_tokens", "Indexed KV tokens", 825, 72, 26, 250, 8, { activeFrom: 4, sparse: true }),
-    annotation("non_contiguous_label", "Non-Contiguous KV\n(~50% budget)", 872, 100, 170, 48),
-    annotation("contiguous_label", "Contiguous KV\n(~50% budget)", 872, 232, 170, 48),
+    annotation("non_contiguous_label", "Non-Contiguous KV\n(~50% budget)", 868, 100, 150, 54, { fontSize: 15 }),
+    annotation("contiguous_label", "Contiguous KV\n(~50% budget)", 868, 232, 150, 54, { fontSize: 15 }),
     groupBox("sharing_parameters", "Sharing Parameters", 440, 70, 285, 58),
-    annotation("reuse_annotation", "Directly Reusing the Index\nfrom the Owner Layer", 745, 6, 230, 52, { fontWeight: 700, italic: true }),
-    annotation("streaming_label", "Streaming Tokens", 390, 267, 160, 28),
+    annotation("reuse_annotation", "Directly Reusing the Index\nfrom the Owner Layer", 742, 6, 220, 52, { fontSize: 14, fontWeight: 700, italic: true }),
+    annotation("streaming_label", "Streaming Tokens", 392, 265, 150, 28, { fontSize: 15 }),
     annotation("owner_layer_label", "LSA from the Owner Layer", 390, 376, 220, 28, { fontWeight: 700 })
   ];
   const edges: LlmFigureEdge[] = [
@@ -456,7 +523,7 @@ export function createLsaKvIndexingFigureSpec(): LlmFigureSpec {
     name: "LSA KV indexing mechanism",
     notes: "Mechanism explanation figure inspired by LSA KV indexing diagrams.",
     profile: "paper-algorithm",
-    view: { width: 980, height: 420, padding: 0 },
+    view: { width: 1030, height: 420, padding: 0 },
     primitives,
     edges
   };
@@ -464,45 +531,46 @@ export function createLsaKvIndexingFigureSpec(): LlmFigureSpec {
 
 export function createNgramEmbeddingFigureSpec(): LlmFigureSpec {
   const tokens = ["Long", "Cat", "Sparse", "Attention", "introduces", "three", "orthogonal", "efficiency", "improvements"];
-  let tokenX = 14;
+  let tokenX = 24;
+  const tokenY = 354;
   const tokenRowChildren = tokens.map((label, index) => {
     const width = tokenWidth(label);
-    const primitive = token(`token_${index}`, label, tokenX, 292, width, 40, label === "improvements" ? "#6dde67" : "#fbe7a3");
-    tokenX += width + 4;
+    const primitive = token(`token_${index}`, label, tokenX, tokenY, width, 40, label === "improvements" ? "#6dde67" : "#fbe7a3");
+    tokenX += width + 8;
     return primitive;
   });
   const primitives: LlmFigurePrimitive[] = [
-    { id: "input_tokens", kind: "token_row", label: "", position: { x: 14, y: 292 }, size: { w: 632, h: 40 }, children: tokenRowChildren },
-    stackedCards("five_gram", "5-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 55, 96, 132, 250, 4),
-    stackedCards("four_gram", "4-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 245, 96, 132, 250, 4),
-    stackedCards("three_gram", "3-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 435, 96, 132, 250, 4),
-    stackedCards("two_gram", "2-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 625, 96, 132, 250, 4),
-    processBlock("base_embedding", "Base\nEmbedding", 835, 130, 122, 210, "process_block", { fill: "#e6e6e6", radius: 18, fontSize: 24, fontWeight: 700 }),
-    processBlock("embedding_vector", "Embedding\nVector", 812, 16, 158, 56, "embedding_vector", { fill: "#6dde67", radius: 8, fontSize: 22, fontWeight: 700 }),
+    dashedWindow("window_5", 344, 324, 670, 104),
+    dashedWindow("window_4", 454, 334, 548, 82),
+    dashedWindow("window_3", 536, 342, 454, 64),
+    dashedWindow("window_2", 686, 350, 292, 46),
+    { id: "input_tokens", kind: "token_row", label: "", position: { x: 24, y: tokenY }, size: { w: tokenX - 24, h: 40 }, children: tokenRowChildren, metadata: { layer: "token" } },
+    stackedCards("five_gram", "5-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 70, 108, 132, 210, 4),
+    stackedCards("four_gram", "4-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 260, 108, 132, 210, 4),
+    stackedCards("three_gram", "3-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 450, 108, 132, 210, 4),
+    stackedCards("two_gram", "2-Gram\n\nHash\n+\nEmbedding\n+\nProjection", 640, 108, 132, 210, 4),
+    processBlock("base_embedding", "Base\nEmbedding", 858, 138, 126, 196, "process_block", { fill: "#e6e6e6", radius: 18, fontSize: 24, fontWeight: 700 }),
+    processBlock("embedding_vector", "Embedding\nVector", 836, 18, 170, 58, "embedding_vector", { fill: "#6dde67", radius: 8, fontSize: 22, fontWeight: 700 }),
     sumNode("sum_5", 126, 58),
     sumNode("sum_4", 316, 58),
     sumNode("sum_3", 506, 58),
     sumNode("sum_2", 696, 58),
-    sumNode("sum_out", 876, 58),
-    dashedWindow("window_5", 332, 280, 650, 118),
-    dashedWindow("window_4", 436, 290, 535, 96),
-    dashedWindow("window_3", 508, 298, 452, 78),
-    dashedWindow("window_2", 650, 306, 300, 60)
+    sumNode("sum_out", 900, 58)
   ];
   const edges: LlmFigureEdge[] = [
-    edge("sum_line", point(150, 76), point(876, 76), { kind: "straight" }),
-    edge("sum_to_vector", point(876, 58), point(876, 72), { kind: "straight" }),
-    edge("vector_up", point(896, 130), point(896, 72), { kind: "straight" }),
-    edge("base_to_sum", point(896, 130), point(896, 76), { kind: "straight" }),
-    edge("token_to_base", point(896, 292), point(896, 340), { kind: "straight" }),
-    edge("tokens_to_5", point(116, 292), point(116, 346), { kind: "polyline", points: [point(116, 232)] }),
-    edge("tokens_to_4", point(306, 292), point(306, 346), { kind: "polyline", points: [point(306, 232)] }),
-    edge("tokens_to_3", point(496, 292), point(496, 346), { kind: "polyline", points: [point(496, 232)] }),
-    edge("tokens_to_2", point(686, 292), point(686, 346), { kind: "polyline", points: [point(686, 232)] }),
-    edge("five_to_sum", point(116, 96), point(116, 76), { kind: "straight" }),
-    edge("four_to_sum", point(306, 96), point(306, 76), { kind: "straight" }),
-    edge("three_to_sum", point(496, 96), point(496, 76), { kind: "straight" }),
-    edge("two_to_sum", point(686, 96), point(686, 76), { kind: "straight" })
+    edge("sum_line", point(150, 76), point(900, 76), { kind: "straight" }),
+    edge("sum_to_vector", point(900, 58), point(900, 76), { kind: "straight" }),
+    edge("vector_up", point(921, 138), point(921, 76), { kind: "straight" }),
+    edge("base_to_sum", point(921, 138), point(921, 76), { kind: "straight" }),
+    edge("token_to_base", point(921, tokenY), point(921, 334), { kind: "straight" }),
+    edge("tokens_to_5", point(136, tokenY), point(136, 318), { kind: "polyline", points: [point(136, 252)] }),
+    edge("tokens_to_4", point(326, tokenY), point(326, 318), { kind: "polyline", points: [point(326, 252)] }),
+    edge("tokens_to_3", point(516, tokenY), point(516, 318), { kind: "polyline", points: [point(516, 252)] }),
+    edge("tokens_to_2", point(706, tokenY), point(706, 318), { kind: "polyline", points: [point(706, 252)] }),
+    edge("five_to_sum", point(136, 108), point(136, 76), { kind: "straight" }),
+    edge("four_to_sum", point(326, 108), point(326, 76), { kind: "straight" }),
+    edge("three_to_sum", point(516, 108), point(516, 76), { kind: "straight" }),
+    edge("two_to_sum", point(706, 108), point(706, 76), { kind: "straight" })
   ];
 
   return {
@@ -511,7 +579,7 @@ export function createNgramEmbeddingFigureSpec(): LlmFigureSpec {
     name: "N-gram embedding fusion mechanism",
     notes: "Mechanism explanation figure with token row, dashed n-gram windows, stacked projection blocks, plus nodes, and base embedding.",
     profile: "drawio-mechanism",
-    view: { width: 1000, height: 430, padding: 0 },
+    view: { width: 1040, height: 460, padding: 0 },
     primitives,
     edges
   };
@@ -538,7 +606,7 @@ function renderPrimitive(primitive: LlmFigurePrimitive, opts: ResolvedFigureOpti
   const rect = primitiveRect(primitive, opts);
   const profile = opts.profile;
   const className = primitiveClassName(primitive.kind);
-  const children = primitive.children?.map((child) => renderPrimitive(child, opts)).join("\n") ?? "";
+  const children = primitive.children ? sortPrimitivesForRender(primitive.children).map((child) => renderPrimitive(child, opts)).join("\n") : "";
   let body = "";
 
   switch (primitive.kind) {
@@ -546,35 +614,36 @@ function renderPrimitive(primitive: LlmFigurePrimitive, opts: ResolvedFigureOpti
       body = children;
       break;
     case "token_stack":
-      body = renderTokenStack(primitive, rect, profile);
+      body = renderTokenStack(primitive, rect, opts);
       break;
     case "stacked_cards":
-      body = renderStackedCards(primitive, rect, profile);
+      body = renderStackedCards(primitive, rect, opts);
       break;
     case "selector":
-      body = renderSelector(primitive, rect, profile);
+      body = renderSelector(primitive, rect, opts);
       break;
     case "sum_node":
       body = renderSumNode(primitive, rect, profile);
       break;
     case "dashed_window":
     case "group_box":
-      body = renderGroupBox(primitive, rect, profile);
+      body = renderGroupBox(primitive, rect, opts);
       break;
     case "annotation":
-      body = renderAnnotation(primitive, rect, profile);
+      body = renderAnnotation(primitive, rect, opts);
       break;
     case "edge":
       body = "";
       break;
     default:
-      body = renderBox(primitive, rect, profile);
+      body = renderBox(primitive, rect, opts);
   }
 
-  return [`<g id="${escAttr(primitive.id)}" class="figure-primitive ${className}">`, renderPrimitiveTitle(primitive), body, `</g>`].filter(Boolean).join("\n");
+  return [`<g id="${escAttr(primitive.id)}" class="figure-primitive ${className}" data-z-index="${resolvedZIndex(primitive)}">`, renderPrimitiveTitle(primitive), body, `</g>`].filter(Boolean).join("\n");
 }
 
-function renderTokenStack(primitive: LlmFigurePrimitive, rect: RenderRect, profile: LlmFigureProfile): string {
+function renderTokenStack(primitive: LlmFigurePrimitive, rect: RenderRect, opts: ResolvedFigureOptions): string {
+  const profile = opts.profile;
   const count = numberMeta(primitive, "count", 8);
   const activeFrom = numberMeta(primitive, "activeFrom", count + 1);
   const sparse = boolMeta(primitive, "sparse", false);
@@ -592,12 +661,13 @@ function renderTokenStack(primitive: LlmFigurePrimitive, rect: RenderRect, profi
     lines.push(`<rect x="${round(rect.x)}" y="${round(rect.y + i * (tokenH + gap))}" width="${round(rect.w)}" height="${round(tokenH)}" rx="4" fill="${fill}" stroke="${profile.stroke}" stroke-width="${profile.strokeWidth}"/>`);
   }
   if (primitive.label) {
-    lines.push(renderTextLines(primitive.label, rect.x + rect.w / 2, rect.y + rect.h + 26, 16, "middle", profile, 700));
+    lines.push(renderTextBlock(primitive.label, { x: rect.x - 55, y: rect.y + rect.h + 8, w: rect.w + 110, h: 28 }, opts, { fontSize: 16, minFontSize: 11, maxLines: 1, anchor: "middle", weight: 700, debugId: primitive.id }).markup);
   }
   return lines.join("\n");
 }
 
-function renderStackedCards(primitive: LlmFigurePrimitive, rect: RenderRect, profile: LlmFigureProfile): string {
+function renderStackedCards(primitive: LlmFigurePrimitive, rect: RenderRect, opts: ResolvedFigureOptions): string {
+  const profile = opts.profile;
   const count = numberMeta(primitive, "count", 4);
   const offsetX = numberMeta(primitive, "offsetX", profile.cardOffset.x);
   const offsetY = numberMeta(primitive, "offsetY", profile.cardOffset.y);
@@ -606,11 +676,12 @@ function renderStackedCards(primitive: LlmFigurePrimitive, rect: RenderRect, pro
     lines.push(`<rect x="${round(rect.x + i * offsetX)}" y="${round(rect.y + i * offsetY)}" width="${round(rect.w)}" height="${round(rect.h)}" rx="${styleRadius(primitive, profile)}" fill="${i === count - 1 ? profile.inactiveFill : profile.accentFill}" stroke="${profile.stroke}" stroke-width="${profile.strokeWidth}"/>`);
   }
   lines.push(`<rect x="${round(rect.x)}" y="${round(rect.y)}" width="${round(rect.w)}" height="${round(rect.h)}" rx="${styleRadius(primitive, profile)}" fill="${styleFill(primitive, profile.accentFill)}" stroke="${styleStroke(primitive, profile)}" stroke-width="${styleStrokeWidth(primitive, profile)}"/>`);
-  if (primitive.label) lines.push(renderTextLines(primitive.label, rect.x + rect.w / 2, rect.y + rect.h / 2, styleFontSize(primitive, 20), "middle", profile, primitive.style?.fontWeight ?? 400));
+  if (primitive.label) lines.push(renderTextBlock(primitive.label, insetRect(rect, 10, 12), opts, { fontSize: styleFontSize(primitive, 20), minFontSize: primitive.style?.minFontSize ?? 12, lineHeight: primitive.style?.lineHeight, maxLines: primitive.style?.maxLines ?? 8, anchor: "middle", weight: primitive.style?.fontWeight ?? 400, debugId: primitive.id }).markup);
   return lines.join("\n");
 }
 
-function renderSelector(primitive: LlmFigurePrimitive, rect: RenderRect, profile: LlmFigureProfile): string {
+function renderSelector(primitive: LlmFigurePrimitive, rect: RenderRect, opts: ResolvedFigureOptions): string {
+  const profile = opts.profile;
   const inset = rect.w * 0.16;
   const points = [
     `${round(rect.x + inset)},${round(rect.y)}`,
@@ -620,7 +691,7 @@ function renderSelector(primitive: LlmFigurePrimitive, rect: RenderRect, profile
   ].join(" ");
   return [
     `<polygon class="selector-trapezoid" points="${points}" fill="${styleFill(primitive, profile.blockFill)}" stroke="${styleStroke(primitive, profile)}" stroke-width="${styleStrokeWidth(primitive, profile)}"/>`,
-    primitive.label ? renderTextLines(primitive.label, rect.x + rect.w / 2, rect.y + rect.h / 2, styleFontSize(primitive, 20), "middle", profile, primitive.style?.fontWeight ?? 400) : ""
+    primitive.label ? renderTextBlock(primitive.label, insetRect(rect, 8, 8), opts, { fontSize: styleFontSize(primitive, 20), minFontSize: primitive.style?.minFontSize ?? 11, maxLines: primitive.style?.maxLines ?? 3, anchor: "middle", weight: primitive.style?.fontWeight ?? 400, debugId: primitive.id }).markup : ""
   ].filter(Boolean).join("\n");
 }
 
@@ -634,21 +705,23 @@ function renderSumNode(primitive: LlmFigurePrimitive, rect: RenderRect, profile:
   ].join("\n");
 }
 
-function renderGroupBox(primitive: LlmFigurePrimitive, rect: RenderRect, profile: LlmFigureProfile): string {
-  const labelY = rect.y - 8;
+function renderGroupBox(primitive: LlmFigurePrimitive, rect: RenderRect, opts: ResolvedFigureOptions): string {
+  const profile = opts.profile;
   return [
     `<rect class="dashed-window-box" x="${round(rect.x)}" y="${round(rect.y)}" width="${round(rect.w)}" height="${round(rect.h)}" rx="${styleRadius(primitive, profile)}" fill="${styleFill(primitive, profile.groupFill)}" stroke="${styleStroke(primitive, profile)}" stroke-width="${styleStrokeWidth(primitive, profile)}" stroke-dasharray="${primitive.style?.strokeDasharray ?? profile.dashedPattern}"/>`,
-    primitive.label ? renderTextLines(primitive.label, rect.x + rect.w / 2, labelY, styleFontSize(primitive, 18), "middle", profile, primitive.style?.fontWeight ?? 400) : ""
+    primitive.label ? renderTextBlock(primitive.label, { x: rect.x, y: rect.y - 28, w: rect.w, h: 22 }, opts, { fontSize: styleFontSize(primitive, 18), minFontSize: 11, maxLines: 1, anchor: "middle", weight: primitive.style?.fontWeight ?? 400, debugId: primitive.id }).markup : ""
   ].filter(Boolean).join("\n");
 }
 
-function renderAnnotation(primitive: LlmFigurePrimitive, rect: RenderRect, profile: LlmFigureProfile): string {
-  return primitive.label ? renderTextLines(primitive.label, rect.x, rect.y + 18, styleFontSize(primitive, 18), "start", profile, primitive.style?.fontWeight ?? 400, boolMeta(primitive, "italic", false)) : "";
+function renderAnnotation(primitive: LlmFigurePrimitive, rect: RenderRect, opts: ResolvedFigureOptions): string {
+  return primitive.label ? renderTextBlock(primitive.label, rect, opts, { fontSize: styleFontSize(primitive, 18), minFontSize: primitive.style?.minFontSize ?? 10, maxLines: primitive.style?.maxLines ?? 4, anchor: primitive.style?.textAnchor ?? "start", verticalAlign: "top", weight: primitive.style?.fontWeight ?? 400, italic: boolMeta(primitive, "italic", false), debugId: primitive.id }).markup : "";
 }
 
-function renderBox(primitive: LlmFigurePrimitive, rect: RenderRect, profile: LlmFigureProfile): string {
+function renderBox(primitive: LlmFigurePrimitive, rect: RenderRect, opts: ResolvedFigureOptions): string {
+  const profile = opts.profile;
   const labelBelow = boolMeta(primitive, "labelBelow", false);
-  const label = primitive.label ? renderTextLines(primitive.label, rect.x + rect.w / 2, labelBelow ? rect.y + rect.h + 24 : rect.y + rect.h / 2, styleFontSize(primitive, 18), "middle", profile, primitive.style?.fontWeight ?? 400) : "";
+  const labelBox = labelBelow ? { x: rect.x - 40, y: rect.y + rect.h + 8, w: rect.w + 80, h: 30 } : insetRect(rect, 6, 6);
+  const label = primitive.label ? renderTextBlock(primitive.label, labelBox, opts, { fontSize: styleFontSize(primitive, 18), minFontSize: primitive.style?.minFontSize ?? 9, maxLines: labelBelow ? 1 : primitive.style?.maxLines ?? 3, anchor: primitive.style?.textAnchor ?? "middle", weight: primitive.style?.fontWeight ?? 400, debugId: primitive.id }).markup : "";
   return [
     `<rect x="${round(rect.x)}" y="${round(rect.y)}" width="${round(rect.w)}" height="${round(rect.h)}" rx="${styleRadius(primitive, profile)}" fill="${styleFill(primitive, primitive.kind === "token" ? profile.tokenFill : profile.blockFill)}" stroke="${styleStroke(primitive, profile)}" stroke-width="${styleStrokeWidth(primitive, profile)}"/>`,
     label
@@ -682,7 +755,7 @@ function resolveEdgePoints(edge: LlmFigureEdge, primitiveMap: Map<string, LlmFig
 
 function renderEdgeLabel(edge: LlmFigureEdge, points: LlmFigurePoint[], opts: ResolvedFigureOptions): string {
   const pos = edge.labelPosition ? scalePoint(edge.labelPosition, opts) : points[Math.floor(points.length / 2)];
-  return renderTextLines(edge.label ?? "", pos.x, pos.y - 6, edge.style?.fontSize ?? 16, "middle", opts.profile, edge.style?.fontWeight ?? 400);
+  return renderTextBlock(edge.label ?? "", { x: pos.x - 80, y: pos.y - 28, w: 160, h: 24 }, opts, { fontSize: edge.style?.fontSize ?? 16, minFontSize: 10, maxLines: 1, anchor: "middle", weight: edge.style?.fontWeight ?? 400, debugId: edge.id }).markup;
 }
 
 function resolveFigureOptions(spec: LlmFigureSpec, options: RenderLlmFigureSvgOptions): ResolvedFigureOptions {
@@ -696,7 +769,8 @@ function resolveFigureOptions(spec: LlmFigureSpec, options: RenderLlmFigureSvgOp
     height: spec.view.height * scale + padding * 2,
     padding,
     scale,
-    profile
+    profile,
+    debugLayout: Boolean(options.debugLayout)
   };
 }
 
@@ -745,11 +819,148 @@ function curvePath(start: LlmFigurePoint, end: LlmFigurePoint): string {
   return `M${round(start.x)} ${round(start.y)} C${round(start.x + dx * 0.25)} ${round(start.y + dy * 0.1)} ${round(end.x - dx * 0.25)} ${round(end.y - dy * 0.35)} ${round(end.x)} ${round(end.y)}`;
 }
 
-function renderTextLines(label: string, x: number, y: number, fontSize: number, anchor: string, profile: LlmFigureProfile, weight: string | number, italic = false): string {
-  const lines = label.split("\n");
-  const lineHeight = fontSize * 1.22;
-  const startY = y - ((lines.length - 1) * lineHeight) / 2;
-  return lines.map((line, index) => `<text x="${round(x)}" y="${round(startY + index * lineHeight)}" font-size="${fontSize}" text-anchor="${anchor}" font-weight="${weight}" font-style="${italic ? "italic" : "normal"}" fill="${profile.textColor}">${esc(line)}</text>`).join("\n");
+function renderTextBlock(label: string, box: RenderRect, opts: ResolvedFigureOptions, layout: TextLayoutOptions): TextLayoutResult {
+  const minFontSize = layout.minFontSize ?? Math.max(8, layout.fontSize - 6);
+  const maxLines = layout.maxLines ?? 4;
+  const shouldWrap = layout.wrap ?? true;
+  let fontSize = layout.fontSize;
+  let lines = layoutLabel(label, box.w, fontSize, maxLines, shouldWrap);
+  while (fontSize > minFontSize && !textFits(lines, box, fontSize, layout.lineHeight)) {
+    fontSize -= 1;
+    lines = layoutLabel(label, box.w, fontSize, maxLines, shouldWrap);
+  }
+  if (!textFits(lines, box, fontSize, layout.lineHeight) && lines.length > 0) {
+    lines = clampLastLine(lines, box.w, fontSize);
+  }
+
+  const lineHeight = layout.lineHeight ?? fontSize * 1.22;
+  const totalHeight = (lines.length - 1) * lineHeight;
+  const verticalAlign = layout.verticalAlign ?? "middle";
+  const startY = verticalAlign === "top"
+    ? box.y + fontSize
+    : verticalAlign === "bottom"
+      ? box.y + box.h - totalHeight
+      : box.y + box.h / 2 - totalHeight / 2 + fontSize * 0.34;
+  const anchor = layout.anchor ?? "middle";
+  const x = anchor === "start" ? box.x : anchor === "end" ? box.x + box.w : box.x + box.w / 2;
+  const text = lines.map((line, index) => `<text x="${round(x)}" y="${round(startY + index * lineHeight)}" font-size="${fontSize}" text-anchor="${anchor}" font-weight="${layout.weight ?? 400}" font-style="${layout.italic ? "italic" : "normal"}" fill="${opts.profile.textColor}">${esc(line)}</text>`).join("\n");
+  const shrunk = fontSize < layout.fontSize;
+  const debug = opts.debugLayout && shrunk
+    ? `<!-- text-shrink id=${escAttr(layout.debugId ?? "unknown")} from=${layout.fontSize} to=${fontSize} -->\n`
+    : "";
+  return { markup: `${debug}${text}`, shrunk, originalFontSize: layout.fontSize, fontSize };
+}
+
+function layoutLabel(label: string, maxWidth: number, fontSize: number, maxLines: number, wrap: boolean): string[] {
+  const manualLines = label.split("\n").flatMap((line) => line.trim() === "" ? [""] : [line.trim()]);
+  if (!wrap) return manualLines.slice(0, maxLines);
+  const lines: string[] = [];
+  for (const manualLine of manualLines) {
+    if (manualLine === "") {
+      if (lines.length > 0 && lines[lines.length - 1] !== "") lines.push("");
+      continue;
+    }
+    const words = manualLine.split(/\s+/);
+    let current = "";
+    for (const word of words) {
+      const next = current ? `${current} ${word}` : word;
+      if (approxTextWidth(next, fontSize) <= maxWidth || !current) {
+        current = next;
+      } else {
+        lines.push(current);
+        current = word;
+      }
+    }
+    if (current) lines.push(current);
+  }
+  return collapseBlankLines(lines).slice(0, maxLines);
+}
+
+function collapseBlankLines(lines: string[]): string[] {
+  const collapsed: string[] = [];
+  for (const line of lines) {
+    if (line === "" && (collapsed.length === 0 || collapsed[collapsed.length - 1] === "")) continue;
+    collapsed.push(line);
+  }
+  return collapsed;
+}
+
+function textFits(lines: string[], box: RenderRect, fontSize: number, lineHeight?: number): boolean {
+  const resolvedLineHeight = lineHeight ?? fontSize * 1.22;
+  const maxLineWidth = Math.max(...lines.map((line) => approxTextWidth(line, fontSize)), 0);
+  const totalHeight = lines.length === 0 ? 0 : fontSize + (lines.length - 1) * resolvedLineHeight;
+  return maxLineWidth <= box.w && totalHeight <= box.h;
+}
+
+function clampLastLine(lines: string[], maxWidth: number, fontSize: number): string[] {
+  if (lines.length === 0) return lines;
+  const next = [...lines];
+  const last = next[next.length - 1];
+  if (approxTextWidth(last, fontSize) <= maxWidth) return next;
+  const ellipsis = "...";
+  let clipped = last;
+  while (clipped.length > 1 && approxTextWidth(`${clipped}${ellipsis}`, fontSize) > maxWidth) {
+    clipped = clipped.slice(0, -1);
+  }
+  next[next.length - 1] = `${clipped}${ellipsis}`;
+  return next;
+}
+
+function approxTextWidth(value: string, fontSize: number): number {
+  return value.split("").reduce((sum, char) => sum + (/[A-Z0-9]/.test(char) ? 0.62 : /[\s]/.test(char) ? 0.32 : 0.54) * fontSize, 0);
+}
+
+function insetRect(rect: RenderRect, insetX: number, insetY: number): RenderRect {
+  return { x: rect.x + insetX, y: rect.y + insetY, w: Math.max(1, rect.w - insetX * 2), h: Math.max(1, rect.h - insetY * 2) };
+}
+
+function sortPrimitivesForRender(primitives: LlmFigurePrimitive[]): LlmFigurePrimitive[] {
+  return [...primitives].sort((a, b) => resolvedZIndex(a) - resolvedZIndex(b));
+}
+
+function resolvedZIndex(primitive: LlmFigurePrimitive): number {
+  const explicit = primitive.metadata?.zIndex;
+  if (typeof explicit === "number") return explicit;
+  const layer = primitive.metadata?.layer;
+  if (typeof layer === "string" && layer in LAYER_Z_INDEX) return LAYER_Z_INDEX[layer];
+  return KIND_Z_INDEX[primitive.kind] ?? LAYER_Z_INDEX.block;
+}
+
+function renderDebugLayout(spec: LlmFigureSpec, opts: ResolvedFigureOptions): string {
+  const primitives = flattenPrimitives(spec.primitives).filter((primitive) => primitive.kind !== "edge");
+  const boxes = primitives.map((primitive) => ({ primitive, rect: primitiveRect(primitive, opts) }));
+  const overlapComments: string[] = [];
+  for (let i = 0; i < boxes.length; i++) {
+    for (let j = i + 1; j < boxes.length; j++) {
+      const a = boxes[i];
+      const b = boxes[j];
+      if (isAncestorPrimitive(a.primitive, b.primitive, spec.primitives) || isAncestorPrimitive(b.primitive, a.primitive, spec.primitives)) continue;
+      if (rectsOverlap(a.rect, b.rect)) {
+        overlapComments.push(`<!-- overlap ${escAttr(a.primitive.id)} ${escAttr(b.primitive.id)} -->`);
+      }
+    }
+  }
+  const rects = boxes.map(({ primitive, rect }) => `<rect class="debug-layout-box" x="${round(rect.x)}" y="${round(rect.y)}" width="${round(rect.w)}" height="${round(rect.h)}" fill="none" stroke="#ff00aa" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="4 4"><title>${esc(primitive.id)}</title></rect>`).join("\n");
+  return [`<g class="debug-layout">`, ...overlapComments, rects, `</g>`].join("\n");
+}
+
+function rectsOverlap(a: RenderRect, b: RenderRect): boolean {
+  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+
+function isAncestorPrimitive(parent: LlmFigurePrimitive, child: LlmFigurePrimitive, roots: LlmFigurePrimitive[]): boolean {
+  const stack = [...roots];
+  while (stack.length > 0) {
+    const current = stack.pop();
+    if (!current) continue;
+    if (current.id === parent.id) return containsPrimitiveId(current.children ?? [], child.id);
+    stack.push(...(current.children ?? []));
+  }
+  return false;
+}
+
+function containsPrimitiveId(primitives: LlmFigurePrimitive[], id: string): boolean {
+  return primitives.some((primitive) => primitive.id === id || containsPrimitiveId(primitive.children ?? [], id));
 }
 
 function renderPrimitiveTitle(primitive: LlmFigurePrimitive): string {
@@ -758,39 +969,39 @@ function renderPrimitiveTitle(primitive: LlmFigurePrimitive): string {
 }
 
 function token(id: string, label: string, x: number, y: number, w: number, h: number, fill: string, metadata?: LlmFigurePrimitive["metadata"]): LlmFigurePrimitive {
-  return { id, kind: "token", label, position: { x, y }, size: { w, h }, style: { fill, radius: 6, fontSize: 18 }, metadata };
+  return { id, kind: "token", label, position: { x, y }, size: { w, h }, style: { fill, radius: 6, fontSize: 18, maxLines: 1, minFontSize: 9 }, metadata: { layer: "token", ...(metadata ?? {}) } };
 }
 
 function tokenStack(id: string, label: string, x: number, y: number, w: number, h: number, count: number, metadata?: LlmFigurePrimitive["metadata"]): LlmFigurePrimitive {
-  return { id, kind: "token_stack", label, position: { x, y }, size: { w, h }, metadata: { count, ...(metadata ?? {}) } };
+  return { id, kind: "token_stack", label, position: { x, y }, size: { w, h }, metadata: { layer: "token", count, ...(metadata ?? {}) } };
 }
 
 function stackedCards(id: string, label: string, x: number, y: number, w: number, h: number, count: number): LlmFigurePrimitive {
-  return { id, kind: "stacked_cards", label, position: { x, y }, size: { w, h }, metadata: { count }, style: { fill: "#f7f7f7", radius: 12, fontSize: 20 } };
+  return { id, kind: "stacked_cards", label, position: { x, y }, size: { w, h }, metadata: { layer: "block", count }, style: { fill: "#f7f7f7", radius: 12, fontSize: 20, minFontSize: 12 } };
 }
 
 function selector(id: string, label: string, x: number, y: number, w: number, h: number): LlmFigurePrimitive {
-  return { id, kind: "selector", label, position: { x, y }, size: { w, h }, style: { fill: "#e6e6e6", fontSize: 20 } };
+  return { id, kind: "selector", label, position: { x, y }, size: { w, h }, style: { fill: "#e6e6e6", fontSize: 20 }, metadata: { layer: "block" } };
 }
 
 function processBlock(id: string, label: string, x: number, y: number, w: number, h: number, kind: LlmFigurePrimitiveKind = "process_block", style?: LlmFigureStyle): LlmFigurePrimitive {
-  return { id, kind, label, position: { x, y }, size: { w, h }, style: { radius: 8, fontSize: 18, ...(style ?? {}) } };
+  return { id, kind, label, position: { x, y }, size: { w, h }, style: { radius: 8, fontSize: 18, ...(style ?? {}) }, metadata: { layer: "block" } };
 }
 
 function sumNode(id: string, x: number, y: number): LlmFigurePrimitive {
-  return { id, kind: "sum_node", label: "+", position: { x, y }, size: { w: 34, h: 34 }, style: { fill: "#e6e6e6" } };
+  return { id, kind: "sum_node", label: "+", position: { x, y }, size: { w: 34, h: 34 }, style: { fill: "#e6e6e6" }, metadata: { layer: "node" } };
 }
 
 function dashedWindow(id: string, x: number, y: number, w: number, h: number): LlmFigurePrimitive {
-  return { id, kind: "dashed_window", position: { x, y }, size: { w, h }, style: { fill: "none", radius: 14 } };
+  return { id, kind: "dashed_window", position: { x, y }, size: { w, h }, style: { fill: "none", radius: 14 }, metadata: { layer: "background" } };
 }
 
 function groupBox(id: string, label: string, x: number, y: number, w: number, h: number): LlmFigurePrimitive {
-  return { id, kind: "group_box", label, position: { x, y }, size: { w, h }, style: { fill: "none", radius: 0 } };
+  return { id, kind: "group_box", label, position: { x, y }, size: { w, h }, style: { fill: "none", radius: 0 }, metadata: { layer: "background" } };
 }
 
 function annotation(id: string, label: string, x: number, y: number, w: number, h: number, style?: LlmFigureStyle & { italic?: boolean }): LlmFigurePrimitive {
-  return { id, kind: "annotation", label, position: { x, y }, size: { w, h }, style, metadata: { italic: Boolean(style?.italic) } };
+  return { id, kind: "annotation", label, position: { x, y }, size: { w, h }, style, metadata: { layer: "annotation", italic: Boolean(style?.italic) } };
 }
 
 function edge(id: string, sourcePoint: LlmFigurePoint, targetPoint: LlmFigurePoint, init: Partial<LlmFigureEdge> = {}): LlmFigureEdge {
