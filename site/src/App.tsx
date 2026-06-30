@@ -79,8 +79,8 @@ export function App(): JSX.Element {
           svg: renderArchitectureSvg(spec, {
             profile: architectureProfile,
             title: spec.name,
-            width: 1120,
-            padding: 36,
+            width: architectureProfile === "textbook-overview" ? undefined : 1120,
+            padding: architectureProfile === "textbook-overview" ? undefined : 36,
             expandedGroups: activeExpandedBlockId === "none" ? [] : [activeExpandedBlockId]
           }),
           json: JSON.stringify(spec, null, 2),

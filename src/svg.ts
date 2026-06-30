@@ -106,8 +106,8 @@ function resolveOptions(architecture: ArchitectureSpec, options: RenderArchitect
     showShapes: options.showShapes ?? profile.showShapes,
     showParamCounts: options.showParamCounts ?? profile.showParamCounts,
     expandedGroups: options.expandedGroups ?? profile.expandedGroups,
-    width: options.width ?? 1100,
-    padding: options.padding ?? 36,
+    width: options.width ?? profile.defaultWidth ?? 1100,
+    padding: options.padding ?? profile.defaultPadding ?? 36,
     profile
   };
 }
@@ -295,9 +295,69 @@ function renderEdge(
   const target = nodes.find((item) => item.node.id === edge.target)?.node;
   if (!source || !target) return "";
 
+  if (edge.route === "right-loop") return renderRightLoopEdge(edge, source, target, x, y, scale, profile);
+  if (edge.route === "attention-fan-in") return renderAttentionFanInEdge(edge, source, target, x, y, scale, profile);
+  if (edge.route === "rounded-orthogonal") return renderRoundedOrthogonalEdge(edge, source, target, x, y, scale, profile);
   if (edge.kind === "residual" && profile.residualRouting === "right-loop") return renderRightLoopEdge(edge, source, target, x, y, scale, profile);
   if (profile.qkvFanIn && isQkvFanEdge(source, target)) return renderFanEdge(edge, source, target, x, y, scale, profile);
   return renderDefaultEdge(edge, source, target, x, y, scale, profile);
+}
+
+function renderRoundedOrthogonalEdge(
+  edge: ArchitectureEdge,
+  source: ArchitectureNode,
+  target: ArchitectureNode,
+  x: (v: number) => number,
+  y: (v: number) => number,
+  scale: (v: number) => number,
+  profile: ArchitectureSvgProfile
+): string {
+  const sourceRect = nodeRect(source, x, y, scale);
+  const targetRect = nodeRect(target, x, y, scale);
+  const sourceCenter = centerOfRect(sourceRect);
+  const targetCenter = centerOfRect(targetRect);
+  const vertical = Math.abs(targetCenter.y - sourceCenter.y) >= Math.abs(targetCenter.x - sourceCenter.x);
+  const start = vertical
+    ? targetCenter.y >= sourceCenter.y ? bottomCenter(sourceRect) : topCenter(sourceRect)
+    : targetCenter.x >= sourceCenter.x ? sideCenter(sourceRect, "right") : sideCenter(sourceRect, "left");
+  const end = vertical
+    ? targetCenter.y >= sourceCenter.y ? topCenter(targetRect) : bottomCenter(targetRect)
+    : targetCenter.x >= sourceCenter.x ? sideCenter(targetRect, "left") : sideCenter(targetRect, "right");
+  const points = vertical
+    ? [{ x: start.x, y: start.y }, { x: start.x, y: (start.y + end.y) / 2 }, { x: end.x, y: (start.y + end.y) / 2 }, { x: end.x, y: end.y }]
+    : [{ x: start.x, y: start.y }, { x: (start.x + end.x) / 2, y: start.y }, { x: (start.x + end.x) / 2, y: end.y }, { x: end.x, y: end.y }];
+  return renderEdgePath(edge, roundedPolylinePath(points, profile.edgeCornerRadius), profile, edge.kind === "dependency" ? ` stroke-dasharray="4 4"` : "", "edge-rounded-orthogonal");
+}
+
+function renderAttentionFanInEdge(
+  edge: ArchitectureEdge,
+  source: ArchitectureNode,
+  target: ArchitectureNode,
+  x: (v: number) => number,
+  y: (v: number) => number,
+  scale: (v: number) => number,
+  profile: ArchitectureSvgProfile
+): string {
+  const sourceRect = nodeRect(source, x, y, scale);
+  const targetRect = nodeRect(target, x, y, scale);
+  const start = bottomCenter(sourceRect);
+  const top = topCenter(targetRect);
+  const join = { x: top.x, y: top.y - Math.min(28, Math.max(18, targetRect.h * 0.38)) };
+  const left = { x: targetRect.x + targetRect.w * 0.22, y: top.y };
+  const right = { x: targetRect.x + targetRect.w * 0.78, y: top.y };
+  const color = profile.palette.data;
+  const strokeWidth = profile.edgeStrokeWidth;
+  const attrs = `stroke="${color}" stroke-width="${strokeWidth}" opacity="0.86" marker-end="url(#arrow-${edge.kind})"`;
+  const stem = roundedPolylinePath([start, { x: start.x, y: join.y }, join, top], profile.edgeCornerRadius);
+  const leftPath = `M${round(join.x)} ${round(join.y)} C${round(join.x - 18)} ${round(join.y)} ${round(left.x)} ${round(left.y - 18)} ${round(left.x)} ${round(left.y)}`;
+  const rightPath = `M${round(join.x)} ${round(join.y)} C${round(join.x + 18)} ${round(join.y)} ${round(right.x)} ${round(right.y - 18)} ${round(right.x)} ${round(right.y)}`;
+  return [
+    `<g class="edge edge-${edge.kind} edge-attention-fan-in">`,
+    `<path d="${stem}" fill="none" ${attrs}/>`,
+    `<path d="${leftPath}" fill="none" ${attrs}/>`,
+    `<path d="${rightPath}" fill="none" ${attrs}/>`,
+    `</g>`
+  ].join("");
 }
 
 function renderDefaultEdge(
@@ -335,7 +395,9 @@ function renderRightLoopEdge(
   const start = sideCenter(sourceRect, "right");
   const end = sideCenter(targetRect, "right");
   const loopX = Math.max(sourceRect.x + sourceRect.w, targetRect.x + targetRect.w) + profile.residualLoopOffset;
-  const path = `M${round(start.x)} ${round(start.y)} H${round(loopX)} C${round(loopX + 10)} ${round(start.y)} ${round(loopX + 10)} ${round(end.y)} ${round(loopX)} ${round(end.y)} H${round(end.x)}`;
+  const path = edge.route === "right-loop"
+    ? roundedPolylinePath([start, { x: loopX, y: start.y }, { x: loopX, y: end.y }, end], profile.edgeCornerRadius)
+    : `M${round(start.x)} ${round(start.y)} H${round(loopX)} C${round(loopX + 10)} ${round(start.y)} ${round(loopX + 10)} ${round(end.y)} ${round(loopX)} ${round(end.y)} H${round(end.x)}`;
   return renderEdgePath(edge, path, profile, "", "edge-residual-loop");
 }
 
@@ -374,33 +436,33 @@ function createTextbookOverviewSpec(architecture: ArchitectureSpec): Architectur
   const nBlocks = params?.nBlocks ?? (architecture.nodes.filter((node) => node.derived?.role === "transformer_block").length || 1);
   const now = architecture.updatedAt;
   const nodes: ArchitectureNode[] = [
-    diagramNode("text_inputs", "generic_tensor", "Inputs", 180, 20, 170, 40, "#ffffff", "text_label"),
-    diagramNode("input_embedding", "token_embed", "Input\nEmbedding", 95, 92, 300, 96, "#f6dada", "input_embedding"),
-    diagramNode("embed_add", "residual_add", "+", 228, 246, 36, 36, "#ffffff", "embedding_add"),
-    diagramNode("positional_encoding", "pos_embed", "Positional\nEncoding", 295, 224, 250, 82, "#e8f7ff", "positional_encoding"),
-    diagramNode("transformer_group", "group", "", 78, 330, 340, 370, "#f8f8f8", `transformer_block_x_${nBlocks}`, undefined, [
-      diagramNode("mha", "attention", "Multi-Head\nAttention", 140, 420, 216, 74, "#ffe3b5", "multi_head_attention"),
-      diagramNode("add_norm_1", "layer_norm", "Add & Norm", 142, 510, 212, 40, "#f5f5c0", "add_norm_1"),
-      diagramNode("feed_forward", "mlp", "Feed\nForward", 142, 600, 212, 66, "#bfecf5", "feed_forward"),
-      diagramNode("add_norm_2", "layer_norm", "Add & Norm", 142, 680, 212, 40, "#f5f5c0", "add_norm_2")
+    diagramNode("text_inputs", "generic_tensor", "Inputs", 180, 48, 150, 42, "#ffffff", "text_label"),
+    diagramNode("input_embedding", "token_embed", "Input\nEmbedding", 105, 128, 300, 96, "#f6dada", "input_embedding"),
+    diagramNode("embed_add", "residual_add", "+", 238, 280, 34, 34, "#ffffff", "embedding_add"),
+    diagramNode("positional_encoding", "pos_embed", "Positional\nEncoding", 300, 262, 205, 70, "#ffffff", "positional_encoding"),
+    diagramNode("transformer_group", "group", nBlocks > 1 ? `Transformer ×${nBlocks}` : "Transformer", 80, 355, 350, 390, "#f8f8f8", `transformer_block_x_${nBlocks}`, undefined, [
+      diagramNode("mha", "attention", "Multi-Head\nAttention", 145, 440, 220, 74, "#ffe3b5", "multi_head_attention"),
+      diagramNode("add_norm_1", "layer_norm", "Add & Norm", 146, 525, 218, 40, "#f5f5c0", "add_norm_1"),
+      diagramNode("feed_forward", "mlp", "Feed\nForward", 146, 615, 218, 66, "#bfecf5", "feed_forward"),
+      diagramNode("add_norm_2", "layer_norm", "Add & Norm", 146, 695, 218, 40, "#f5f5c0", "add_norm_2")
     ]),
-    diagramNode("linear", "linear", "Linear", 145, 770, 206, 38, "#e0e3f2", "linear"),
-    diagramNode("softmax", "softmax", "Softmax", 145, 844, 206, 38, "#d8f0dc", "softmax"),
-    diagramNode("text_output", "generic_tensor", "Output\nProbabilities", 135, 930, 230, 72, "#ffffff", "text_label")
+    diagramNode("linear", "linear", "Linear", 155, 790, 200, 38, "#e0e3f2", "linear"),
+    diagramNode("softmax", "softmax", "Softmax", 155, 860, 200, 38, "#d8f0dc", "softmax"),
+    diagramNode("text_output", "generic_tensor", "Output\nProbabilities", 145, 935, 220, 76, "#ffffff", "text_label")
   ];
   const edges: ArchitectureEdge[] = [
-    diagramEdge("text_inputs", "input_embedding", "data"),
-    diagramEdge("input_embedding", "embed_add", "data"),
-    diagramEdge("positional_encoding", "embed_add", "data"),
-    diagramEdge("embed_add", "mha", "data"),
-    diagramEdge("embed_add", "add_norm_1", "residual", "residual"),
-    diagramEdge("mha", "add_norm_1", "data"),
-    diagramEdge("add_norm_1", "feed_forward", "data"),
-    diagramEdge("add_norm_1", "add_norm_2", "residual", "residual"),
-    diagramEdge("feed_forward", "add_norm_2", "data"),
-    diagramEdge("add_norm_2", "linear", "data"),
-    diagramEdge("linear", "softmax", "data"),
-    diagramEdge("softmax", "text_output", "data")
+    diagramEdge("text_inputs", "input_embedding", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("input_embedding", "embed_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("positional_encoding", "embed_add", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("embed_add", "mha", "data", undefined, "attention-fan-in"),
+    diagramEdge("embed_add", "add_norm_1", "residual", "residual", "right-loop"),
+    diagramEdge("mha", "add_norm_1", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("add_norm_1", "feed_forward", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("add_norm_1", "add_norm_2", "residual", "residual", "right-loop"),
+    diagramEdge("feed_forward", "add_norm_2", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("add_norm_2", "linear", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("linear", "softmax", "data", undefined, "rounded-orthogonal"),
+    diagramEdge("softmax", "text_output", "data", undefined, "rounded-orthogonal")
   ];
 
   return {
@@ -412,7 +474,7 @@ function createTextbookOverviewSpec(architecture: ArchitectureSpec): Architectur
     notes: architecture.notes,
     nodes,
     edges,
-    view: { canvas: { w: 540, h: 1040 }, scale3d: architecture.view.scale3d },
+    view: { canvas: { w: 520, h: 1035 }, scale3d: architecture.view.scale3d },
     createdAt: architecture.createdAt,
     updatedAt: now
   };
@@ -455,8 +517,8 @@ function diagramNode(
   };
 }
 
-function diagramEdge(source: string, target: string, kind: ArchitectureEdge["kind"], label?: string): ArchitectureEdge {
-  return { id: `edge-${source}-${target}-${kind}`, source, target, kind, label };
+function diagramEdge(source: string, target: string, kind: ArchitectureEdge["kind"], label?: string, route?: ArchitectureEdge["route"]): ArchitectureEdge {
+  return { id: `edge-${source}-${target}-${kind}`, source, target, kind, label, route };
 }
 
 interface PreparedNodeResult {
@@ -535,12 +597,52 @@ function topCenter(rect: NodeRect): { x: number; y: number } {
   return { x: rect.x + rect.w / 2, y: rect.y };
 }
 
+function centerOfRect(rect: NodeRect): { x: number; y: number } {
+  return { x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 };
+}
+
 function bottomCenter(rect: NodeRect): { x: number; y: number } {
   return { x: rect.x + rect.w / 2, y: rect.y + rect.h };
 }
 
 function sideCenter(rect: NodeRect, side: "left" | "right"): { x: number; y: number } {
   return { x: side === "left" ? rect.x : rect.x + rect.w, y: rect.y + rect.h / 2 };
+}
+
+function roundedPolylinePath(points: Array<{ x: number; y: number }>, radius: number): string {
+  const clean = points.filter((point, index) => index === 0 || point.x !== points[index - 1].x || point.y !== points[index - 1].y);
+  if (clean.length === 0) return "";
+  if (clean.length === 1) return `M${round(clean[0].x)} ${round(clean[0].y)}`;
+  const parts = [`M${round(clean[0].x)} ${round(clean[0].y)}`];
+  for (let i = 1; i < clean.length - 1; i++) {
+    const prev = clean[i - 1];
+    const point = clean[i];
+    const next = clean[i + 1];
+    const inVec = normalize({ x: point.x - prev.x, y: point.y - prev.y });
+    const outVec = normalize({ x: next.x - point.x, y: next.y - point.y });
+    const inLen = distance(prev, point);
+    const outLen = distance(point, next);
+    const corner = Math.min(radius, inLen / 2, outLen / 2);
+    const before = { x: point.x - inVec.x * corner, y: point.y - inVec.y * corner };
+    const after = { x: point.x + outVec.x * corner, y: point.y + outVec.y * corner };
+    if (corner <= 0 || (inVec.x === outVec.x && inVec.y === outVec.y)) {
+      parts.push(`L${round(point.x)} ${round(point.y)}`);
+    } else {
+      parts.push(`L${round(before.x)} ${round(before.y)}`, `Q${round(point.x)} ${round(point.y)} ${round(after.x)} ${round(after.y)}`);
+    }
+  }
+  const last = clean[clean.length - 1];
+  parts.push(`L${round(last.x)} ${round(last.y)}`);
+  return parts.join(" ");
+}
+
+function normalize(vector: { x: number; y: number }): { x: number; y: number } {
+  const len = Math.hypot(vector.x, vector.y);
+  return len === 0 ? { x: 0, y: 0 } : { x: vector.x / len, y: vector.y / len };
+}
+
+function distance(a: { x: number; y: number }, b: { x: number; y: number }): number {
+  return Math.hypot(a.x - b.x, a.y - b.y);
 }
 
 function nodeFill(node: ArchitectureNode, profile: ArchitectureSvgProfile): string {

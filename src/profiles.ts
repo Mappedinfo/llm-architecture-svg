@@ -50,6 +50,9 @@ export interface ArchitectureSvgProfile {
   showShapeWarnings: boolean;
   maxMetaLines: number;
   expandedGroups: string[];
+  defaultWidth?: number;
+  defaultPadding?: number;
+  edgeCornerRadius: number;
   iconPreset: ArchitectureSvgIconPreset;
   residualRouting: ArchitectureSvgResidualRouting;
   qkvFanIn: boolean;
@@ -154,6 +157,7 @@ const BASE_PROFILE: Omit<ArchitectureSvgProfile, "name" | "description" | "theme
   showShapeWarnings: false,
   maxMetaLines: 2,
   expandedGroups: [],
+  edgeCornerRadius: 10,
   iconPreset: "minimal",
   residualRouting: "curved",
   qkvFanIn: false,
@@ -190,7 +194,7 @@ export const BUILTIN_SVG_PROFILES: Record<ArchitectureSvgProfileName, Architectu
     palette: TEXTBOOK_PALETTE,
     fontFamily: "Georgia,\"Times New Roman\",serif",
     labelFontSize: 24,
-    groupFontSize: 18,
+    groupFontSize: 13,
     metaFontSize: 10,
     textLabelFontSize: 30,
     radius: 8,
@@ -207,6 +211,9 @@ export const BUILTIN_SVG_PROFILES: Record<ArchitectureSvgProfileName, Architectu
     showParamCounts: false,
     showGroupChildCount: false,
     expandedGroups: [],
+    defaultWidth: 520,
+    defaultPadding: 10,
+    edgeCornerRadius: 15,
     iconPreset: "classic",
     residualRouting: "right-loop",
     qkvFanIn: false,

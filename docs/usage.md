@@ -152,7 +152,7 @@ renderGptArchitectureSvg(params, { profile: "teaching-debug" });
 renderGptArchitectureSvg(params, { profile: "slide-dark" });
 ```
 
-`textbook-overview` is a presentation adapter over the GPT architecture. It does not change the saved `ArchitectureSpec`; it renders a concept-level Transformer diagram with Input Embedding, Positional Encoding, Multi-Head Attention, Add & Norm, Feed Forward, Linear, Softmax, and Output Probabilities.
+`textbook-overview` is a presentation adapter over the GPT architecture. It does not change the saved `ArchitectureSpec`; it renders a narrow paper-style Transformer concept diagram with Input Embedding, Positional Encoding, Multi-Head Attention, Add & Norm, Feed Forward, Linear, Softmax, Output Probabilities, rounded attention fan-in arrows, and right-side residual loops.
 
 The legacy options still override profile defaults when provided:
 

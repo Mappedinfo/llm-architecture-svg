@@ -182,7 +182,7 @@ Built-in profiles:
 
 | Profile | Use case |
 | --- | --- |
-| `textbook-overview` | Concept-level Transformer diagram similar to textbook figures, with `+` circle, sine positional icon, right-side residual loops, no grid, and no shape/parameter labels. |
+| `textbook-overview` | Narrow paper-style Transformer concept diagram with `+` circle, sine positional icon, rounded attention fan-in arrows, right-side residual loops, no grid, and no shape/parameter labels. |
 | `gpt-overview` | Clean GPT architecture overview with shape and parameter summaries. |
 | `expanded-gpt-block` | Expands `block_0` and shows Q/K/V, attention scores/probs, and MLP internals. |
 | `teaching-debug` | Shows expected-vs-actual shape mismatch warnings for teaching/debugging. |

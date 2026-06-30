@@ -32,7 +32,7 @@ const outputs: Array<[string, string]> = [
   ["gpt-decoder-architecture-paper.svg", renderGptDecoderFigure({ profile: "architecture-paper", width: 1080 })],
   ["gpt-decoder-architecture-dark.svg", renderGptDecoderFigure({ profile: "architecture-dark", width: 1080 })],
   ["gpt-expanded-blueprint.svg", renderGptArchitectureSvg(gptParams, { profile: "expanded-gpt-block", title: "GPT expanded internals", width: 1120 })],
-  ["gpt-textbook-overview.svg", renderGptArchitectureSvg(gptParams, { profile: "textbook-overview", width: 760 })],
+  ["gpt-textbook-overview.svg", renderGptArchitectureSvg(gptParams, { profile: "textbook-overview" })],
   ["encoder-only-comparison.svg", renderEncoderOnlyFigure({ profile: "architecture-blueprint", width: 820 })],
   ["decoder-only-comparison.svg", renderDecoderOnlyFigure({ profile: "architecture-blueprint", width: 820 })],
   ["lsa-kv-indexing-paper.svg", renderLsaKvIndexingFigure({ profile: "paper-algorithm", width: 1120 })],

@@ -12,6 +12,7 @@ export type ArchitectureNodeKind =
 
 export type ArchitectureNodeType = "block" | "group";
 export type ArchitectureEdgeKind = "data" | "residual" | "dependency";
+export type ArchitectureEdgeRoute = "rounded-orthogonal" | "attention-fan-in" | "right-loop";
 export type ArchitectureMode = "template" | "teaching";
 export type ArchitectureParamCategory = "embedding" | "attention" | "mlp" | "layer_norm" | "linear" | "none";
 
@@ -79,6 +80,7 @@ export interface ArchitectureEdge {
   target: string;
   kind: ArchitectureEdgeKind;
   label?: string;
+  route?: ArchitectureEdgeRoute;
 }
 
 export interface ArchitectureSpec {
