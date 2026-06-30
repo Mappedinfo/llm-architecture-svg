@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="559.09" viewBox="0 0 820 559.09" role="img" aria-label="Encoder-only Transformer comparison figure">
+<defs><style>text{font-family:Helvetica,Arial,sans-serif;fill:#0b2533}.figure-label{font-weight:400}.figure-label-strong{font-weight:700}.figure-edge{fill:none;stroke-linecap:round;stroke-linejoin:round}</style><marker id="figure-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 Z" fill="#16384a"/></marker><marker id="figure-arrow-start" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M10,0 L0,5 L10,10 Z" fill="#16384a"/></marker></defs>
+<rect width="100%" height="100%" fill="#f3f8fb"/>
+<g class="llm-figure profile-architecture-blueprint">
+<path id="inputs_to_embeddings" class="figure-edge" d="M285.76 465.91 L372.73 465.91" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="embeddings_to_encoder" class="figure-edge" d="M490.76 419.94 L490.76 347.88" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="attn_to_ffn" class="figure-edge" d="M496.97 258.42 L496.97 279.55" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="encoder_to_outputs" class="figure-edge" d="M496.97 161.52 L496.97 140.39" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<g id="title" class="figure-primitive annotation">
+<title>Encoder-only Transformer</title>
+<text x="323.03" y="47.82" font-size="28" text-anchor="start" font-weight="700" font-style="normal" fill="#0b2533">Encoder-only Transformer</text>
+</g>
+<g id="inputs" class="figure-primitive process-block">
+<title>Input Tokens</title>
+<rect x="99.39" y="434.85" width="186.36" height="62.12" rx="8" fill="#fbe7a3" stroke="#16384a" stroke-width="2"/>
+<text x="192.58" y="465.91" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Input Tokens</text>
+</g>
+<g id="embeddings" class="figure-primitive process-block">
+<title>Token + Position Embeddings</title>
+<rect x="372.73" y="419.94" width="236.06" height="91.94" rx="8" fill="#f7f7f7" stroke="#16384a" stroke-width="2"/>
+<text x="490.76" y="454.93" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Token + Position</text>
+<text x="490.76" y="476.89" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Embeddings</text>
+</g>
+<g id="encoder_box" class="figure-primitive group-box">
+<title>Encoder stack</title>
+<rect class="dashed-window-box" x="273.33" y="161.52" width="447.27" height="186.36" rx="0" fill="none" stroke="#16384a" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="496.97" y="153.52" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Encoder stack</text>
+</g>
+<g id="self_attention" class="figure-primitive process-block">
+<title>Bidirectional Self-Attention</title>
+<rect x="335.45" y="198.79" width="323.03" height="59.64" rx="8" fill="#fbe7a3" stroke="#16384a" stroke-width="2"/>
+<text x="496.97" y="217.63" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Bidirectional</text>
+<text x="496.97" y="239.59" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Self-Attention</text>
+</g>
+<g id="ffn" class="figure-primitive process-block">
+<title>Feed Forward</title>
+<rect x="335.45" y="279.55" width="323.03" height="52.18" rx="8" fill="#bfecf5" stroke="#16384a" stroke-width="2"/>
+<text x="496.97" y="305.64" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Feed Forward</text>
+</g>
+<g id="outputs" class="figure-primitive process-block">
+<title>Contextual Representations</title>
+<rect x="372.73" y="68.33" width="236.06" height="72.06" rx="8" fill="#d8f0dc" stroke="#16384a" stroke-width="2"/>
+<text x="490.76" y="93.38" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Contextual</text>
+<text x="490.76" y="115.34" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Representations</text>
+</g>
+</g>
+</svg>

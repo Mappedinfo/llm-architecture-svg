@@ -51,6 +51,8 @@
     "demo:expanded": "tsx examples/api-expanded.ts",
     "demo:custom": "tsx examples/api-custom-spec.ts",
     "demo:profiles": "tsx examples/api-profiles.ts",
+    "demo:figures": "tsx examples/figure-lsa.ts && tsx examples/figure-ngram.ts",
+    "demo:gallery": "tsx examples/gallery.ts",
     "demo:batch": "tsx src/cli.ts --batch examples/llm-svg-batch.json --out artifacts/demo/batch",
     "prepare": "npm run build"
   },

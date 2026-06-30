@@ -1,114 +1,108 @@
-# Gallery and Demo Commands
+# Gallery
 
-Run demos from the repository root.
+This gallery is generated with this package itself. The SVG files are committed under `docs/assets/gallery/` so GitHub can render them directly.
 
-## Basic GPT overview
+Run the full gallery generator:
+
+```bash
+npm run demo:gallery
+```
+
+## Common Transformer architectures
+
+### Original Transformer encoder-decoder
+
+![Original Transformer](assets/gallery/transformer-paper-architecture-paper.svg)
+
+```bash
+npm run export -- --figure-preset transformer-paper --profile architecture-paper --out docs/assets/gallery/transformer-paper-architecture-paper.svg
+npm run export -- --figure-preset transformer-paper --profile architecture-blueprint --out docs/assets/gallery/transformer-paper-blueprint.svg
+```
+
+### BERT encoder
+
+![BERT encoder](assets/gallery/bert-encoder-architecture-paper.svg)
+
+```bash
+npm run export -- --figure-preset bert-encoder --profile architecture-paper --out docs/assets/gallery/bert-encoder-architecture-paper.svg
+npm run export -- --figure-preset bert-encoder --profile architecture-dark --out docs/assets/gallery/bert-encoder-architecture-dark.svg
+```
+
+### GPT decoder-only architecture
+
+![GPT decoder](assets/gallery/gpt-decoder-architecture-paper.svg)
+
+```bash
+npm run export -- --figure-preset gpt-decoder --profile architecture-paper --out docs/assets/gallery/gpt-decoder-architecture-paper.svg
+npm run export -- --figure-preset gpt-decoder --profile architecture-dark --out docs/assets/gallery/gpt-decoder-architecture-dark.svg
+```
+
+### GPT internals and textbook overview
+
+![GPT expanded internals](assets/gallery/gpt-expanded-blueprint.svg)
+
+![GPT textbook overview](assets/gallery/gpt-textbook-overview.svg)
+
+```bash
+npm run export -- --preset gpt --profile expanded-gpt-block --out docs/assets/gallery/gpt-expanded-blueprint.svg
+npm run export -- --preset gpt --profile textbook-overview --out docs/assets/gallery/gpt-textbook-overview.svg
+```
+
+### Encoder-only vs decoder-only teaching views
+
+![Encoder-only](assets/gallery/encoder-only-comparison.svg)
+
+![Decoder-only](assets/gallery/decoder-only-comparison.svg)
+
+```bash
+npm run export -- --figure-preset encoder-only --profile architecture-blueprint --out docs/assets/gallery/encoder-only-comparison.svg
+npm run export -- --figure-preset decoder-only --profile architecture-blueprint --out docs/assets/gallery/decoder-only-comparison.svg
+```
+
+## Mechanism figures
+
+### LSA KV indexing
+
+![LSA KV indexing](assets/gallery/lsa-kv-indexing-paper.svg)
+
+```bash
+npm run export -- --figure-preset lsa-kv-indexing --profile paper-algorithm --out docs/assets/gallery/lsa-kv-indexing-paper.svg
+```
+
+### N-gram embedding fusion
+
+![N-gram embedding](assets/gallery/ngram-embedding-drawio.svg)
+
+```bash
+npm run export -- --figure-preset ngram-embedding --profile drawio-mechanism --out docs/assets/gallery/ngram-embedding-drawio.svg
+```
+
+## Gallery asset list
+
+```text
+docs/assets/gallery/transformer-paper-architecture-paper.svg
+docs/assets/gallery/transformer-paper-blueprint.svg
+docs/assets/gallery/bert-encoder-architecture-paper.svg
+docs/assets/gallery/bert-encoder-architecture-dark.svg
+docs/assets/gallery/gpt-decoder-architecture-paper.svg
+docs/assets/gallery/gpt-decoder-architecture-dark.svg
+docs/assets/gallery/gpt-expanded-blueprint.svg
+docs/assets/gallery/gpt-textbook-overview.svg
+docs/assets/gallery/encoder-only-comparison.svg
+docs/assets/gallery/decoder-only-comparison.svg
+docs/assets/gallery/lsa-kv-indexing-paper.svg
+docs/assets/gallery/ngram-embedding-drawio.svg
+```
+
+## Older demo scripts
+
+These scripts still generate examples into ignored `artifacts/` paths:
 
 ```bash
 npm run demo:basic
-```
-
-Output:
-
-```text
-artifacts/demo/api-basic.svg
-```
-
-Expected labels:
-
-- `token embed`
-- `transformer 0`
-- `lm head`
-- `softmax`
-
-## Expanded transformer internals
-
-```bash
 npm run demo:expanded
-```
-
-Output:
-
-```text
-artifacts/demo/api-expanded.svg
-```
-
-Expected labels:
-
-- `q proj`
-- `k proj`
-- `v proj`
-- `att scores`
-- `att probs`
-- `mlp fc`
-- `mlp proj`
-
-## Custom ArchitectureSpec
-
-```bash
 npm run demo:custom
-```
-
-Output:
-
-```text
-artifacts/demo/api-custom-spec.svg
-```
-
-This demonstrates rendering a hand-written `ArchitectureSpec` rather than using the GPT generator.
-
-## Batch export
-
-```bash
-npm run demo:batch
-```
-
-Output:
-
-```text
-artifacts/demo/batch/gpt-template-small.svg
-artifacts/demo/batch/gpt-template-expanded-block-0.svg
-artifacts/demo/batch/gpt-template-wide.svg
-```
-
-The batch file is:
-
-```text
-examples/llm-svg-batch.json
-```
-
-## Direct CLI examples
-
-```bash
-npx llm-architecture-svg --preset gpt --T 64 --C 192 --nHeads 3 --nBlocks 3 --vocabSize 1000 --out artifacts/demo/direct.svg
-```
-
-```bash
-npx llm-architecture-svg --preset gpt --expand block_0 --theme blueprint --out artifacts/demo/direct-expanded.svg
-```
-
-## Profile gallery commands
-
-Generate all built-in profile demos:
-
-```bash
 npm run demo:profiles
-```
-
-Expected outputs:
-
-```text
-artifacts/demo/profiles/textbook-overview.svg
-artifacts/demo/profiles/gpt-overview.svg
-artifacts/demo/profiles/expanded-gpt-block.svg
-artifacts/demo/profiles/teaching-debug.svg
-artifacts/demo/profiles/slide-dark.svg
-```
-
-Single-file CLI examples:
-
-```bash
-npm run export -- --preset gpt --profile textbook-overview --out artifacts/demo/profiles/textbook-cli.svg
-npm run export -- --preset gpt --profile expanded-gpt-block --out artifacts/demo/profiles/expanded-cli.svg
-npm run export -- --preset gpt --profile slide-dark --out artifacts/demo/profiles/slide-dark-cli.svg
+npm run demo:figures
+npm run demo:batch
 ```

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="592.94" viewBox="0 0 1120 592.94" role="img" aria-label="Original Transformer encoder-decoder architecture">
+<defs><style>text{font-family:Helvetica,Arial,sans-serif;fill:#0b2533}.figure-label{font-weight:400}.figure-label-strong{font-weight:700}.figure-edge{fill:none;stroke-linecap:round;stroke-linejoin:round}</style><marker id="figure-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 Z" fill="#16384a"/></marker><marker id="figure-arrow-start" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M10,0 L0,5 L10,10 Z" fill="#16384a"/></marker></defs>
+<rect width="100%" height="100%" fill="#f3f8fb"/>
+<g class="llm-figure profile-architecture-blueprint">
+<path id="src_to_embed" class="figure-edge" d="M142.75 483.14 L142.75 452.39" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="src_pos_to_enc" class="figure-edge" d="M312.94 384.31 L252.55 345.88" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="embed_to_enc" class="figure-edge" d="M142.75 384.31 L142.75 345.88" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="enc_mha_to_ffn" class="figure-edge" d="M241.57 217.41 L241.57 258.04" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="encoder_to_cross" class="figure-edge" d="M406.27 241.57 L549.02 241.57 L708.24 241.57" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tgt_to_embed" class="figure-edge" d="M812.55 483.14 L812.55 452.39" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="tgt_pos_to_dec" class="figure-edge" d="M982.75 384.31 L883.92 365.65" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="embed_to_dec" class="figure-edge" d="M812.55 384.31 L812.55 365.65" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="masked_to_cross" class="figure-edge" d="M840 194.35 L840 214.12" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="cross_to_ffn" class="figure-edge" d="M840 271.22 L840 296.47" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="ffn_to_linear" class="figure-edge" d="M840 107.61 L840 90.04 L768.63 79.06" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<path id="linear_to_softmax" class="figure-edge" d="M829.02 54.9 L867.45 54.9" stroke="#16384a" stroke-width="2" marker-end="url(#figure-arrow)"/>
+<g id="title" class="figure-primitive annotation">
+<title>Original Transformer</title>
+<text x="417.25" y="44.35" font-size="26" text-anchor="start" font-weight="700" font-style="normal" fill="#0b2533">Original Transformer</text>
+</g>
+<g id="src_tokens" class="figure-primitive process-block">
+<title>Source Tokens</title>
+<rect x="76.86" y="483.14" width="131.76" height="61.49" rx="8" fill="#fbe7a3" stroke="#16384a" stroke-width="2"/>
+<text x="142.75" y="502.9" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Source</text>
+<text x="142.75" y="524.86" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Tokens</text>
+</g>
+<g id="input_embedding" class="figure-primitive process-block">
+<title>Input Embedding</title>
+<rect x="76.86" y="384.31" width="131.76" height="68.08" rx="8" fill="#f7f7f7" stroke="#16384a" stroke-width="2"/>
+<text x="142.75" y="407.37" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Input</text>
+<text x="142.75" y="429.33" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Embedding</text>
+</g>
+<g id="src_pos" class="figure-primitive process-block">
+<title>Positional Encoding</title>
+<rect x="241.57" y="384.31" width="142.75" height="68.08" rx="8" fill="#dbeafe" stroke="#16384a" stroke-width="2"/>
+<text x="312.94" y="407.37" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Positional</text>
+<text x="312.94" y="429.33" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Encoding</text>
+</g>
+<g id="encoder_box" class="figure-primitive group-box">
+<title>Encoder</title>
+<rect class="dashed-window-box" x="76.86" y="131.76" width="329.41" height="214.12" rx="0" fill="none" stroke="#16384a" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="241.57" y="123.76" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Encoder</text>
+</g>
+<g id="enc_mha" class="figure-primitive process-block">
+<title>Multi-Head Attention</title>
+<rect x="115.29" y="164.71" width="252.55" height="52.71" rx="8" fill="#fbe7a3" stroke="#16384a" stroke-width="2"/>
+<text x="241.57" y="180.08" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Multi-Head</text>
+<text x="241.57" y="202.04" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Attention</text>
+</g>
+<g id="enc_ffn" class="figure-primitive process-block">
+<title>Feed Forward</title>
+<rect x="115.29" y="258.04" width="252.55" height="52.71" rx="8" fill="#bfecf5" stroke="#16384a" stroke-width="2"/>
+<text x="241.57" y="284.39" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Feed Forward</text>
+</g>
+<g id="enc_stack" class="figure-primitive annotation">
+<title>Encoder Layer ×N</title>
+<text x="164.71" y="140.98" font-size="16" text-anchor="start" font-weight="700" font-style="normal" fill="#0b2533">Encoder Layer ×N</text>
+</g>
+<g id="tgt_tokens" class="figure-primitive process-block">
+<title>Target Tokens</title>
+<rect x="746.67" y="483.14" width="131.76" height="61.49" rx="8" fill="#fbe7a3" stroke="#16384a" stroke-width="2"/>
+<text x="812.55" y="502.9" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Target</text>
+<text x="812.55" y="524.86" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Tokens</text>
+</g>
+<g id="output_embedding" class="figure-primitive process-block">
+<title>Output Embedding</title>
+<rect x="746.67" y="384.31" width="131.76" height="68.08" rx="8" fill="#f7f7f7" stroke="#16384a" stroke-width="2"/>
+<text x="812.55" y="407.37" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Output</text>
+<text x="812.55" y="429.33" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Embedding</text>
+</g>
+<g id="tgt_pos" class="figure-primitive process-block">
+<title>Positional Encoding</title>
+<rect x="911.37" y="384.31" width="142.75" height="68.08" rx="8" fill="#dbeafe" stroke="#16384a" stroke-width="2"/>
+<text x="982.75" y="407.37" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Positional</text>
+<text x="982.75" y="429.33" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Encoding</text>
+</g>
+<g id="decoder_box" class="figure-primitive group-box">
+<title>Decoder</title>
+<rect class="dashed-window-box" x="658.82" y="107.61" width="362.35" height="258.04" rx="0" fill="none" stroke="#16384a" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="840" y="99.61" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Decoder</text>
+</g>
+<g id="dec_masked_mha" class="figure-primitive process-block">
+<title>Masked Multi-Head Attention</title>
+<rect x="708.24" y="137.25" width="263.53" height="57.1" rx="8" fill="#ffd8a8" stroke="#16384a" stroke-width="2"/>
+<text x="840" y="154.82" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Masked</text>
+<text x="840" y="176.78" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Multi-Head Attention</text>
+</g>
+<g id="dec_cross_mha" class="figure-primitive process-block">
+<title>Encoder-Decoder Attention</title>
+<rect x="708.24" y="214.12" width="263.53" height="57.1" rx="8" fill="#fbe7a3" stroke="#16384a" stroke-width="2"/>
+<text x="840" y="231.69" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Encoder-Decoder</text>
+<text x="840" y="253.65" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Attention</text>
+</g>
+<g id="dec_ffn" class="figure-primitive process-block">
+<title>Feed Forward</title>
+<rect x="708.24" y="296.47" width="263.53" height="52.71" rx="8" fill="#bfecf5" stroke="#16384a" stroke-width="2"/>
+<text x="840" y="322.82" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Feed Forward</text>
+</g>
+<g id="dec_stack" class="figure-primitive annotation">
+<title>Decoder Layer ×N</title>
+<text x="757.65" y="116.82" font-size="16" text-anchor="start" font-weight="700" font-style="normal" fill="#0b2533">Decoder Layer ×N</text>
+</g>
+<g id="linear" class="figure-primitive process-block">
+<title>Linear</title>
+<rect x="708.24" y="30.75" width="120.78" height="48.31" rx="8" fill="#dbeafe" stroke="#16384a" stroke-width="2"/>
+<text x="768.63" y="54.9" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Linear</text>
+</g>
+<g id="softmax" class="figure-primitive process-block">
+<title>Softmax</title>
+<rect x="867.45" y="30.75" width="120.78" height="48.31" rx="8" fill="#d8f0dc" stroke="#16384a" stroke-width="2"/>
+<text x="927.84" y="54.9" font-size="18" text-anchor="middle" font-weight="400" font-style="normal" fill="#0b2533">Softmax</text>
+</g>
+</g>
+</svg>

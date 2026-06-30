@@ -2,6 +2,18 @@
 import fs from "node:fs";
 import path from "node:path";
 import { DEFAULT_GPT_TEMPLATE_PARAMS, generateGptArchitecture, validateGptTemplateParams } from "./generator";
+import {
+  LlmFigureProfileName,
+  LlmFigureSpec,
+  renderBertArchitectureFigure,
+  renderDecoderOnlyFigure,
+  renderEncoderOnlyFigure,
+  renderGptDecoderFigure,
+  renderLlmFigureSvg,
+  renderLsaKvIndexingFigure,
+  renderNgramEmbeddingFigure,
+  renderTransformerPaperFigure
+} from "./figures";
 import { ArchitectureSpec, GptTemplateParams } from "./types";
 import { RenderArchitectureSvgOptions, renderArchitectureSvg } from "./svg";
 
@@ -21,6 +33,10 @@ function main(): void {
     printUsage();
     return;
   }
+  if (args.figurePreset || args["figure-preset"] || args.figureSpec || args["figure-spec"]) {
+    runFigure(args);
+    return;
+  }
   if (args.batch) {
     runBatch(args);
     return;
@@ -31,6 +47,59 @@ function main(): void {
   const architecture = args.spec ? readJson<ArchitectureSpec>(getString(args.spec)!) : generateFromArgs(args);
   writeFile(out, renderArchitectureSvg(architecture, optionsFromArgs(args, architecture.name)));
   console.log(`Wrote ${out}`);
+}
+
+function runFigure(args: Record<string, string | boolean | string[]>): void {
+  const out = getString(args.out);
+  if (!out) fail("Missing --out.");
+  const profile = getString(args.profile) as LlmFigureProfileName | undefined;
+  const title = getString(args.title);
+  const width = getNumber(args.width, 0) || undefined;
+  const specPath = getString(args.figureSpec) ?? getString(args["figure-spec"]);
+  if (specPath) {
+    const spec = readJson<LlmFigureSpec>(specPath);
+    writeFile(out, renderLlmFigureSvg(spec, { profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+
+  const preset = getString(args.figurePreset) ?? getString(args["figure-preset"]);
+  if (preset === "lsa-kv-indexing") {
+    writeFile(out, renderLsaKvIndexingFigure({ profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  if (preset === "ngram-embedding") {
+    writeFile(out, renderNgramEmbeddingFigure({ profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  if (preset === "transformer-paper") {
+    writeFile(out, renderTransformerPaperFigure({ profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  if (preset === "bert-encoder") {
+    writeFile(out, renderBertArchitectureFigure({ profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  if (preset === "gpt-decoder") {
+    writeFile(out, renderGptDecoderFigure({ profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  if (preset === "encoder-only") {
+    writeFile(out, renderEncoderOnlyFigure({ profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  if (preset === "decoder-only") {
+    writeFile(out, renderDecoderOnlyFigure({ profile, title, width }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  fail(`Unsupported --figure-preset ${preset}. Use "transformer-paper", "bert-encoder", "gpt-decoder", "encoder-only", "decoder-only", "lsa-kv-indexing", or "ngram-embedding".`);
 }
 
 function runBatch(args: Record<string, string | boolean | string[]>): void {
@@ -115,6 +184,12 @@ function printUsage(): void {
     "  llm-architecture-svg --preset gpt --expand block_0 --out artifacts/svg/gpt-expanded.svg",
     "  llm-architecture-svg --preset gpt --profile textbook-overview --out artifacts/svg/textbook.svg",
     "  llm-architecture-svg --preset gpt --profile slide-dark --out artifacts/svg/slide-dark.svg",
+    "  llm-architecture-svg --figure-preset lsa-kv-indexing --out artifacts/svg/lsa.svg",
+    "  llm-architecture-svg --figure-preset ngram-embedding --out artifacts/svg/ngram.svg",
+    "  llm-architecture-svg --figure-preset transformer-paper --out artifacts/svg/transformer.svg",
+    "  llm-architecture-svg --figure-preset bert-encoder --out artifacts/svg/bert.svg",
+    "  llm-architecture-svg --figure-preset gpt-decoder --out artifacts/svg/gpt-decoder.svg",
+    "  llm-architecture-svg --figure-spec examples/custom-figure.json --out artifacts/svg/custom.svg",
     "  llm-architecture-svg --batch examples/llm-svg-batch.json --out artifacts/svg"
   ].join("\n"));
 }
