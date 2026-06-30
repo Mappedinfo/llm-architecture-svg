@@ -1,0 +1,46 @@
+[
+  {
+    "name": "gpt-template-small",
+    "params": {
+      "T": 64,
+      "C": 192,
+      "nHeads": 3,
+      "nBlocks": 3,
+      "vocabSize": 1000,
+      "bias": false,
+      "tieEmbeddings": true
+    }
+  },
+  {
+    "name": "gpt-template-expanded-block-0",
+    "params": {
+      "T": 64,
+      "C": 192,
+      "nHeads": 3,
+      "nBlocks": 3,
+      "vocabSize": 1000,
+      "bias": false,
+      "tieEmbeddings": true
+    },
+    "options": {
+      "expandedGroups": ["block_0"],
+      "title": "GPT template with transformer 0 expanded"
+    }
+  },
+  {
+    "name": "gpt-template-wide",
+    "params": {
+      "T": 128,
+      "C": 384,
+      "nHeads": 6,
+      "nBlocks": 4,
+      "vocabSize": 4096,
+      "bias": false,
+      "tieEmbeddings": true
+    },
+    "options": {
+      "theme": "blueprint",
+      "width": 1280
+    }
+  }
+]
