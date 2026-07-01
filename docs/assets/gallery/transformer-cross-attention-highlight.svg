@@ -31,7 +31,7 @@
 <g id="encoder_group" class="node node-group">
 <title>Encoder</title>
 
-<rect x="76.03" y="379.55" width="297.13" height="313.64" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
+<rect x="76.03" y="379.55" width="297.13" height="313.64" rx="42" fill="#f8f8f8" fill-opacity="0.22" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
 
 
 
@@ -41,7 +41,7 @@
 <g id="decoder_group" class="node node-group">
 <title>Decoder</title>
 
-<rect x="540.43" y="247.49" width="313.64" height="445.69" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
+<rect x="540.43" y="247.49" width="313.64" height="445.69" rx="42" fill="#f8f8f8" fill-opacity="0.22" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
 
 
 
@@ -56,7 +56,7 @@
 <g id="enc_embedding" class="node node-token_embed">
 <title>Input Embedding</title>
 
-<rect x="98.04" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="98.04" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="202.58" y="783.53" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Input</text>
 <text x="202.58" y="800.93" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Embedding</text></g>
 
@@ -90,7 +90,7 @@
 <g id="enc_add_norm_2" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 
-<rect x="122.25" y="414.77" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="122.25" y="414.77" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="225.69" y="433.47" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
@@ -100,7 +100,7 @@
 <g id="enc_feed_forward" class="node node-mlp">
 <title>Feed Forward</title>
 
-<rect x="122.25" y="469.79" width="206.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="122.25" y="469.79" width="206.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="225.69" y="494.04" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Feed</text>
 <text x="225.69" y="513.76" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Forward</text></g>
 
@@ -111,7 +111,7 @@
 <g id="enc_add_norm_1" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 
-<rect x="122.25" y="557.83" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="122.25" y="557.83" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="225.69" y="576.54" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
@@ -121,7 +121,7 @@
 <g id="enc_mha" class="node node-attention">
 <title>Multi-Head Attention</title>
 
-<rect x="122.25" y="608.45" width="206.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="122.25" y="608.45" width="206.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="225.69" y="633.75" font-size="19" text-anchor="middle" dominant-baseline="middle" class="node-label">Multi-Head</text>
 <text x="225.69" y="655.79" font-size="19" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
 
@@ -138,7 +138,7 @@
 <g id="dec_embedding" class="node node-token_embed">
 <title>Output Embedding</title>
 
-<rect x="575.65" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="575.65" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="680.19" y="783.53" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Output</text>
 <text x="680.19" y="800.93" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Embedding</text></g>
 
@@ -172,7 +172,7 @@
 <g id="dec_add_norm_3" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 
-<rect x="589.95" y="282.71" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="589.95" y="282.71" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="698.9" y="301.42" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
@@ -182,7 +182,7 @@
 <g id="dec_feed_forward" class="node node-mlp">
 <title>Feed Forward</title>
 
-<rect x="589.95" y="337.73" width="217.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="589.95" y="337.73" width="217.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="698.9" y="361.99" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Feed</text>
 <text x="698.9" y="381.71" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Forward</text></g>
 
@@ -193,7 +193,7 @@
 <g id="dec_add_norm_2" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 
-<rect x="589.95" y="425.77" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="589.95" y="425.77" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="698.9" y="444.48" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
@@ -202,19 +202,19 @@
 </g>
 <g id="dec_cross_attn" class="node node-attention">
 <title>Encoder-Decoder Attention</title>
-
-<rect x="589.95" y="476.39" width="217.89" height="68.23" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect class="node-highlight-glow" x="583.95" y="470.39" width="229.89" height="80.23" rx="12" fill="#ef476f" fill-opacity="0.12" stroke="none"/><rect class="node-highlight-outline" x="583.95" y="470.39" width="229.89" height="80.23" rx="12" fill="none" stroke="#ef476f" stroke-width="4" stroke-opacity="0.95"/>
+<rect x="589.95" y="476.39" width="217.89" height="68.23" rx="8" fill="#ffd166" fill-opacity="1" stroke="#ef476f" stroke-width="4"/>
 <g class="text-annotation text-inside"><text x="698.9" y="500.65" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Encoder-Decoder</text>
 <text x="698.9" y="520.37" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
 
 
-
-
+<g class="node-highlight-badge"><circle cx="799.85" cy="484.39" r="12" fill="#ef476f" stroke="#ffffff" stroke-width="2"/><text x="799.85" y="484.39" font-size="11" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-weight="700">2</text></g>
+<g class="node-callout"><path class="node-callout-line" d="M807.85 510.51 H821.85" stroke="#ef476f" stroke-width="1.2" fill="none" stroke-dasharray="4 4"/><g class="text-annotation text-floating"><rect class="edge-label-bg" x="821.85" y="497.39" width="210" height="26.24" rx="10" fill="#ffffff" fill-opacity="0.9" stroke="none"/><text x="926.85" y="510.51" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-meta">Encoder memory enters here</text></g></g>
 </g>
 <g id="dec_add_norm_1" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 
-<rect x="589.95" y="564.43" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="589.95" y="564.43" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="698.9" y="583.14" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
@@ -224,7 +224,7 @@
 <g id="dec_masked_mha" class="node node-attention">
 <title>Masked Multi-Head Attention</title>
 
-<rect x="589.95" y="612.85" width="217.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="589.95" y="612.85" width="217.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="698.9" y="634.09" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Masked</text>
 <text x="698.9" y="649.17" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Multi-Head</text>
 <text x="698.9" y="664.25" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
@@ -236,7 +236,7 @@
 <g id="transformer_linear" class="node node-linear">
 <title>Linear</title>
 
-<rect x="593.25" y="170.46" width="214.59" height="41.82" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="593.25" y="170.46" width="214.59" height="41.82" rx="8" fill="#e0e3f2" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="700.55" y="191.37" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Linear</text></g>
 
 
@@ -246,7 +246,7 @@
 <g id="transformer_softmax" class="node node-softmax">
 <title>Softmax</title>
 
-<rect x="593.25" y="113.23" width="214.59" height="41.82" rx="8" fill="#d8f0dc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<rect x="593.25" y="113.23" width="214.59" height="41.82" rx="8" fill="#d8f0dc" fill-opacity="0.22" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="700.55" y="134.14" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Softmax</text></g>
 
 

@@ -21,7 +21,11 @@ export type ArchitectureDerivedSource =
   | "transformer-template"
   | "bert-template"
   | "encoder-only-template"
-  | "decoder-only-template";
+  | "decoder-only-template"
+  | "model-graph"
+  | "hf-config"
+  | "hf-model"
+  | "torch-fx";
 
 export interface GptTemplateParams {
   T: number;
@@ -139,6 +143,35 @@ export interface ArchitectureEdge {
   route?: ArchitectureEdgeRoute;
 }
 
+export interface ArchitecturePresentationSelector {
+  ids?: string[];
+  roles?: string[];
+  kinds?: ArchitectureNodeKind[];
+}
+
+export interface ArchitecturePresentationHighlight {
+  badge?: string;
+  glow?: boolean;
+}
+
+export interface ArchitecturePresentationOverride {
+  selector: ArchitecturePresentationSelector;
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+  opacity?: number;
+  label?: string;
+  labelColor?: string;
+  highlight?: boolean | ArchitecturePresentationHighlight;
+  muted?: boolean;
+  callout?: string;
+}
+
+export interface ArchitecturePresentationSpec {
+  muteUnmatched?: boolean;
+  overrides: ArchitecturePresentationOverride[];
+}
+
 export interface ArchitectureSpec {
   schemaVersion: 1;
   mode: ArchitectureMode;
@@ -152,6 +185,7 @@ export interface ArchitectureSpec {
     canvas: ArchitectureSize2d;
     scale3d?: number;
   };
+  presentation?: ArchitecturePresentationSpec;
   createdAt: string;
   updatedAt: string;
 }

@@ -158,6 +158,11 @@ h2 {
   background: #fffdf8;
 }
 
+.panel-stack {
+  display: grid;
+  gap: 12px;
+}
+
 .panel-card {
   padding: 14px;
 }
@@ -228,6 +233,14 @@ textarea {
 
 textarea[readonly] {
   color: #51483a;
+}
+
+.mini-editor {
+  height: 180px;
+  min-height: 180px;
+  margin-top: 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
 }
 
 .preview-pane {

@@ -2,6 +2,8 @@
 
 `ArchitectureSpec` is the data model rendered to SVG.
 
+For imported PyTorch/HuggingFace structures, use `ModelGraphSpec` first, then convert it with `modelGraphToArchitectureSpec()`. See [ModelGraphSpec guide](model-graph-spec.md).
+
 ## Top-level fields
 
 ```ts
@@ -18,6 +20,7 @@ interface ArchitectureSpec {
     canvas: { w: number; h: number };
     scale3d?: number;
   };
+  presentation?: ArchitecturePresentationSpec;
   createdAt: string;
   updatedAt: string;
 }
@@ -128,6 +131,36 @@ interface ArchitectureDerivedMeta {
 ```
 
 `overview=true` means the node is part of the compact architecture view. Derived children such as Q/K/V and MLP projections are shown when their parent group is expanded.
+
+## Presentation overlays
+
+`ArchitectureSpec.presentation` and `renderArchitectureSvg(..., { presentation })` can customize teaching output without changing model structure.
+
+```ts
+interface ArchitecturePresentationSpec {
+  muteUnmatched?: boolean;
+  overrides: ArchitecturePresentationOverride[];
+}
+
+interface ArchitecturePresentationOverride {
+  selector: {
+    ids?: string[];
+    roles?: string[];
+    kinds?: ArchitectureNodeKind[];
+  };
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+  opacity?: number;
+  label?: string;
+  labelColor?: string;
+  highlight?: boolean | { badge?: string; glow?: boolean };
+  muted?: boolean;
+  callout?: string;
+}
+```
+
+For `textbook-overview`, useful roles include `multi_head_attention`, `cross_attention`, `masked_attention`, `feed_forward`, `token_embedding`, `segment_embedding`, and `positional_encoding`.
 
 ## Common inferred shapes
 

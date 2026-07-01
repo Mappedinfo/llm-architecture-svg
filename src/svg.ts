@@ -1,4 +1,14 @@
-import { ArchitectureDerivedSource, ArchitectureEdge, ArchitectureNode, ArchitectureShape, ArchitectureSpec, GptTemplateParams } from "./types";
+import {
+  ArchitectureDerivedSource,
+  ArchitectureEdge,
+  ArchitectureNode,
+  ArchitecturePresentationOverride,
+  ArchitecturePresentationSpec,
+  ArchitectureShape,
+  ArchitectureSpec,
+  COMPONENT_TEMPLATES,
+  GptTemplateParams
+} from "./types";
 import { countArchitectureParameters, formatParamCount, generateGptArchitecture, shapeToLabel } from "./generator";
 import { resolveSvgProfile } from "./profiles";
 import type { ArchitectureSvgProfile, ArchitectureSvgProfileName } from "./profiles";
@@ -21,6 +31,7 @@ export interface RenderArchitectureSvgOptions {
   expandedGroups?: string[];
   theme?: "paper" | "blueprint";
   profile?: ArchitectureSvgProfileName | ArchitectureSvgProfile;
+  presentation?: ArchitecturePresentationSpec;
   width?: number;
   padding?: number;
 }
@@ -38,6 +49,7 @@ interface ResolvedRenderOptions {
   width: number;
   padding: number;
   profile: ArchitectureSvgProfile;
+  presentation?: ArchitecturePresentationSpec;
 }
 
 interface NodeRect {
@@ -49,6 +61,21 @@ interface NodeRect {
 
 type TextAnnotationKind = "floating" | "inside" | "edge";
 
+interface NodePresentationStyle {
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+  opacity?: number;
+  labelColor?: string;
+  highlight?: boolean;
+  highlightBadge?: string;
+  highlightGlow?: boolean;
+  muted?: boolean;
+  callout?: string;
+}
+
+type PresentedNode = ArchitectureNode & { presentation?: NodePresentationStyle };
+
 interface TextAnnotationOptions {
   kind: TextAnnotationKind;
   fontSize: number;
@@ -57,6 +84,7 @@ interface TextAnnotationOptions {
   className?: string;
   italic?: boolean;
   pill?: boolean;
+  color?: string;
 }
 
 const COLLAPSED_GROUP_HEIGHT = 72;
@@ -68,7 +96,10 @@ export function renderGptArchitectureSvg(params: GptTemplateParams, options: Ren
 
 export function renderArchitectureSvg(architecture: ArchitectureSpec, options: RenderArchitectureSvgOptions = {}): string {
   const opts = resolveOptions(architecture, options);
-  const architectureForRender = adaptArchitectureForProfile(architecture, opts.profile);
+  const architectureForRender = applyArchitecturePresentation(
+    adaptArchitectureForProfile(architecture, opts.profile),
+    mergePresentation(architecture.presentation, opts.presentation)
+  );
   const expanded = new Set(opts.expandedGroups);
   const renderNodes = createRenderNodes(architectureForRender.nodes, expanded);
   const visibleNodeIds = new Set(renderNodes.map((item) => item.node.id));
@@ -120,7 +151,16 @@ function resolveOptions(architecture: ArchitectureSpec, options: RenderArchitect
     expandedGroups: options.expandedGroups ?? profile.expandedGroups,
     width: options.width ?? defaultWidthForArchitecture(architecture, profile),
     padding: options.padding ?? profile.defaultPadding ?? 36,
-    profile
+    profile,
+    presentation: options.presentation
+  };
+}
+
+export function applyArchitecturePresentation(architecture: ArchitectureSpec, presentation?: ArchitecturePresentationSpec): ArchitectureSpec {
+  if (!presentation || presentation.overrides.length === 0 && !presentation.muteUnmatched) return architecture;
+  return {
+    ...architecture,
+    nodes: architecture.nodes.map((node) => applyPresentationToNode(node, presentation))
   };
 }
 
@@ -206,35 +246,42 @@ function renderNode(
   if (shouldRenderPositionalIcon(node, profile)) return renderPositionalIconNode(node, rect, profile);
   if (shouldRenderCircleAdd(node, profile)) return renderCircleAddNode(node, rect, profile);
 
-  const fill = nodeFill(node, profile);
-  const stroke = profile.showShapeWarnings && hasShapeMismatch(node) ? profile.palette.warning : isGroup ? profile.palette.groupStroke : profile.palette.blockStroke;
+  const presentation = nodePresentation(node);
+  const fill = presentation.fill ?? nodeFill(node, profile);
+  const stroke = presentation.stroke ?? (profile.showShapeWarnings && hasShapeMismatch(node) ? profile.palette.warning : isGroup ? profile.palette.groupStroke : profile.palette.blockStroke);
   const dash = isGroup ? ` stroke-dasharray="8 6"` : "";
-  const strokeWidth = isGroup ? profile.groupStrokeWidth : profile.blockStrokeWidth;
-  const opacity = isGroup ? profile.groupFillOpacity : profile.blockFillOpacity;
+  const strokeWidth = presentation.strokeWidth ?? (isGroup ? profile.groupStrokeWidth : profile.blockStrokeWidth);
+  const opacity = presentation.opacity ?? (presentation.muted ? 0.22 : isGroup ? profile.groupFillOpacity : profile.blockFillOpacity);
   const labelFontSize = isGroup ? profile.groupFontSize : profile.labelFontSize;
-  const label = renderNodeLabel(node, rect, depth, profile, isGroup, labelFontSize);
+  const label = renderNodeLabel(node, rect, depth, profile, isGroup, labelFontSize, presentation);
 
   return [
     `<g id="${escAttr(node.id)}" class="node node-${escAttr(node.kind)}">`,
     renderNodeTitle(node),
+    renderNodeHighlight(rect, profile, presentation, isGroup),
     `<rect x="${round(rect.x)}" y="${round(rect.y)}" width="${round(rect.w)}" height="${round(rect.h)}" rx="${isGroup ? profile.groupRadius : profile.radius}" fill="${fill}" fill-opacity="${opacity}" stroke="${stroke}" stroke-width="${strokeWidth}"${dash}/>`,
     label,
     renderNodeMeta(node, rect, opts, isGroup),
     renderOverlayIcon(node, rect, profile),
+    renderNodeBadge(rect, profile, presentation),
+    renderNodeCallout(rect, profile, presentation),
     `</g>`
   ].join("\n");
 }
 
 function renderTextLabelNode(node: ArchitectureNode, rect: NodeRect, profile: ArchitectureSvgProfile): string {
+  const presentation = nodePresentation(node);
   return [
     `<g id="${escAttr(node.id)}" class="node node-text-label">`,
     renderNodeTitle(node),
-    renderTextAnnotation(node.label, rect, profile, { kind: "floating", fontSize: profile.textLabelFontSize, anchor: "middle", verticalAlign: "center", className: "node-label" }),
+    renderTextAnnotation(node.label, rect, profile, { kind: "floating", fontSize: profile.textLabelFontSize, anchor: "middle", verticalAlign: "center", className: "node-label", color: presentation.labelColor }),
+    renderNodeCallout(rect, profile, presentation),
     `</g>`
   ].join("\n");
 }
 
 function renderPositionalIconNode(node: ArchitectureNode, rect: NodeRect, profile: ArchitectureSvgProfile): string {
+  const presentation = nodePresentation(node);
   const r = Math.min(24, rect.h / 2 - 4);
   const cx = rect.x + r + 8;
   const cy = rect.y + rect.h / 2;
@@ -245,22 +292,29 @@ function renderPositionalIconNode(node: ArchitectureNode, rect: NodeRect, profil
   return [
     `<g id="${escAttr(node.id)}" class="node node-positional-icon">`,
     renderNodeTitle(node),
-    `<circle class="icon-sine-circle" cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}" fill="${nodeFill(node, profile)}" fill-opacity="0.08" stroke="${profile.palette.edge}" stroke-width="${profile.blockStrokeWidth}"/>`,
+    renderNodeHighlight(rect, profile, presentation, false),
+    `<circle class="icon-sine-circle" cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}" fill="${presentation.fill ?? nodeFill(node, profile)}" fill-opacity="0.08" stroke="${presentation.stroke ?? profile.palette.edge}" stroke-width="${presentation.strokeWidth ?? profile.blockStrokeWidth}"/>`,
     `<path class="icon-stroke icon-sine" d="M${round(waveStart)} ${round(cy)} C${round(cx - r * 0.36)} ${round(cy - r * 0.8)} ${round(cx - r * 0.12)} ${round(cy - r * 0.8)} ${round(cx)} ${round(cy)} C${round(cx + r * 0.2)} ${round(cy + r * 0.8)} ${round(cx + r * 0.44)} ${round(cy + r * 0.8)} ${round(waveEnd)} ${round(cy)}" stroke-width="${profile.edgeStrokeWidth}"/>`,
-    renderTextAnnotation(node.label, labelBox, profile, { kind: "floating", fontSize: profile.labelFontSize, anchor: "start", verticalAlign: "center", className: "node-label" }),
+    renderTextAnnotation(node.label, labelBox, profile, { kind: "floating", fontSize: profile.labelFontSize, anchor: "start", verticalAlign: "center", className: "node-label", color: presentation.labelColor }),
+    renderNodeBadge(rect, profile, presentation),
+    renderNodeCallout(rect, profile, presentation),
     `</g>`
   ].join("\n");
 }
 
 function renderCircleAddNode(node: ArchitectureNode, rect: NodeRect, profile: ArchitectureSvgProfile): string {
+  const presentation = nodePresentation(node);
   const cx = rect.x + rect.w / 2;
   const cy = rect.y + rect.h / 2;
   const r = Math.min(rect.w, rect.h) / 2 - 2;
   return [
     `<g id="${escAttr(node.id)}" class="node node-residual-add node-plus-circle">`,
     renderNodeTitle(node),
-    `<circle class="icon-plus-circle" cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}" fill="${nodeFill(node, profile)}" stroke="${profile.palette.edge}" stroke-width="${profile.blockStrokeWidth}"/>`,
+    renderNodeHighlight(rect, profile, presentation, false),
+    `<circle class="icon-plus-circle" cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}" fill="${presentation.fill ?? nodeFill(node, profile)}" stroke="${presentation.stroke ?? profile.palette.edge}" stroke-width="${presentation.strokeWidth ?? profile.blockStrokeWidth}"/>`,
     `<path class="icon-stroke icon-plus" d="M${round(cx - r * 0.58)} ${round(cy)} H${round(cx + r * 0.58)} M${round(cx)} ${round(cy - r * 0.58)} V${round(cy + r * 0.58)}" stroke-width="${profile.edgeStrokeWidth}"/>`,
+    renderNodeBadge(rect, profile, presentation),
+    renderNodeCallout(rect, profile, presentation),
     `</g>`
   ].join("\n");
 }
@@ -452,8 +506,103 @@ function renderEdgePath(edge: ArchitectureEdge, path: string, profile: Architect
 }
 
 function adaptArchitectureForProfile(architecture: ArchitectureSpec, profile: ArchitectureSvgProfile): ArchitectureSpec {
-  if (profile.structureAdapter === "textbook-overview") return createTextbookOverviewSpec(architecture);
+  if (profile.structureAdapter === "textbook-overview") return inheritNodeColorsFromArchitecture(createTextbookOverviewSpec(architecture), architecture);
   return architecture;
+}
+
+function mergePresentation(base?: ArchitecturePresentationSpec, override?: ArchitecturePresentationSpec): ArchitecturePresentationSpec | undefined {
+  if (!base && !override) return undefined;
+  return {
+    muteUnmatched: override?.muteUnmatched ?? base?.muteUnmatched,
+    overrides: [...(base?.overrides ?? []), ...(override?.overrides ?? [])]
+  };
+}
+
+function applyPresentationToNode(node: ArchitectureNode, presentation: ArchitecturePresentationSpec): ArchitectureNode {
+  const selfStyle = resolvePresentationForNode(node, presentation);
+  const nextNode: PresentedNode = {
+    ...node,
+    label: selfStyle.label ?? node.label,
+    color: selfStyle.fill ?? node.color,
+    presentation: {
+      fill: selfStyle.fill,
+      stroke: selfStyle.stroke,
+      strokeWidth: selfStyle.strokeWidth,
+      opacity: selfStyle.opacity,
+      labelColor: selfStyle.labelColor,
+      highlight: selfStyle.highlight,
+      highlightBadge: selfStyle.highlightBadge,
+      highlightGlow: selfStyle.highlightGlow,
+      muted: selfStyle.muted,
+      callout: selfStyle.callout
+    },
+    children: node.children?.map((child) => applyPresentationToNode(child, presentation))
+  };
+  return nextNode;
+}
+
+function resolvePresentationForNode(node: ArchitectureNode, presentation: ArchitecturePresentationSpec): NodePresentationStyle & { label?: string } {
+  const matched = presentation.overrides.filter((override) => presentationOverrideMatches(node, override));
+  const style: NodePresentationStyle & { label?: string } = {};
+  for (const override of matched) {
+    if (override.fill !== undefined) style.fill = override.fill;
+    if (override.stroke !== undefined) style.stroke = override.stroke;
+    if (override.strokeWidth !== undefined) style.strokeWidth = override.strokeWidth;
+    if (override.opacity !== undefined) style.opacity = override.opacity;
+    if (override.label !== undefined) style.label = override.label;
+    if (override.labelColor !== undefined) style.labelColor = override.labelColor;
+    if (override.callout !== undefined) style.callout = override.callout;
+    if (override.muted !== undefined) style.muted = override.muted;
+    if (override.highlight !== undefined) {
+      style.highlight = Boolean(override.highlight);
+      if (typeof override.highlight === "object") {
+        style.highlightBadge = override.highlight.badge;
+        style.highlightGlow = override.highlight.glow;
+      }
+    }
+  }
+  if (presentation.muteUnmatched && matched.length === 0 && !isTextLabelNode(node) && node.kind !== "residual_add") {
+    style.muted = true;
+  }
+  return style;
+}
+
+function presentationOverrideMatches(node: ArchitectureNode, override: ArchitecturePresentationOverride): boolean {
+  const selector = override.selector;
+  return Boolean(
+    selector.ids?.includes(node.id) ||
+    selector.roles?.includes(node.derived?.role ?? "") ||
+    selector.kinds?.includes(node.kind)
+  );
+}
+
+function inheritNodeColorsFromArchitecture(textbook: ArchitectureSpec, original: ArchitectureSpec): ArchitectureSpec {
+  const roleColors = new Map<string, string>();
+  const kindColors = new Map<string, string>();
+  for (const node of flattenArchitectureNodes(original.nodes)) {
+    const defaultColor = COMPONENT_TEMPLATES[node.kind]?.color;
+    if (!node.color || node.color === defaultColor) continue;
+    if (node.derived?.role) roleColors.set(node.derived.role, node.color);
+    kindColors.set(node.kind, node.color);
+  }
+  if (roleColors.size === 0 && kindColors.size === 0) return textbook;
+  return {
+    ...textbook,
+    nodes: textbook.nodes.map((node) => inheritNodeColor(node, roleColors, kindColors))
+  };
+}
+
+function inheritNodeColor(node: ArchitectureNode, roleColors: Map<string, string>, kindColors: Map<string, string>): ArchitectureNode {
+  const color = roleColors.get(node.derived?.role ?? "") ?? kindColors.get(node.kind) ?? node.color;
+  return {
+    ...node,
+    color,
+    children: node.children?.map((child) => inheritNodeColor(child, roleColors, kindColors))
+  };
+}
+
+function flattenArchitectureNodes(nodes: ArchitectureNode[]): ArchitectureNode[] {
+  return nodes.flatMap((node) => [node, ...flattenArchitectureNodes(node.children ?? [])]);
 }
 
 function createTextbookOverviewSpec(architecture: ArchitectureSpec): ArchitectureSpec {
@@ -855,7 +1004,7 @@ function shouldRenderCircleAdd(node: ArchitectureNode, profile: ArchitectureSvgP
   return ["classic", "tensor", "math"].includes(profile.iconPreset) && node.kind === "residual_add";
 }
 
-function renderNodeLabel(node: ArchitectureNode, rect: NodeRect, depth: number, profile: ArchitectureSvgProfile, isGroup: boolean, fontSize: number): string {
+function renderNodeLabel(node: ArchitectureNode, rect: NodeRect, depth: number, profile: ArchitectureSvgProfile, isGroup: boolean, fontSize: number, presentation: NodePresentationStyle): string {
   if (!node.label) return "";
   if (isGroup) {
     if (node.derived?.role === "textbook_expanded_group") return "";
@@ -864,7 +1013,8 @@ function renderNodeLabel(node: ArchitectureNode, rect: NodeRect, depth: number, 
       fontSize,
       anchor: "start",
       verticalAlign: "top",
-      className: "node-label"
+      className: "node-label",
+      color: presentation.labelColor
     });
   }
   const padding = textInsidePadding(profile);
@@ -873,8 +1023,55 @@ function renderNodeLabel(node: ArchitectureNode, rect: NodeRect, depth: number, 
     fontSize,
     anchor: "middle",
     verticalAlign: "center",
-    className: "node-label"
+    className: "node-label",
+    color: presentation.labelColor
   });
+}
+
+function nodePresentation(node: ArchitectureNode): NodePresentationStyle {
+  return (node as PresentedNode).presentation ?? {};
+}
+
+function renderNodeHighlight(rect: NodeRect, profile: ArchitectureSvgProfile, presentation: NodePresentationStyle, isGroup: boolean): string {
+  if (!presentation.highlight) return "";
+  const pad = isGroup ? 5 : 6;
+  const rx = isGroup ? profile.groupRadius + 2 : profile.radius + 4;
+  const stroke = presentation.stroke ?? "#ff6b00";
+  const strokeWidth = Math.max(3, presentation.strokeWidth ?? (isGroup ? profile.groupStrokeWidth : profile.blockStrokeWidth) + 1.5);
+  const glow = presentation.highlightGlow === false ? "" : `<rect class="node-highlight-glow" x="${round(rect.x - pad)}" y="${round(rect.y - pad)}" width="${round(rect.w + pad * 2)}" height="${round(rect.h + pad * 2)}" rx="${rx}" fill="${stroke}" fill-opacity="0.12" stroke="none"/>`;
+  const outline = `<rect class="node-highlight-outline" x="${round(rect.x - pad)}" y="${round(rect.y - pad)}" width="${round(rect.w + pad * 2)}" height="${round(rect.h + pad * 2)}" rx="${rx}" fill="none" stroke="${stroke}" stroke-width="${strokeWidth}" stroke-opacity="0.95"/>`;
+  return `${glow}${outline}`;
+}
+
+function renderNodeBadge(rect: NodeRect, profile: ArchitectureSvgProfile, presentation: NodePresentationStyle): string {
+  if (!presentation.highlightBadge) return "";
+  const r = 12;
+  const cx = rect.x + rect.w - r + 4;
+  const cy = rect.y + r - 4;
+  return [
+    `<g class="node-highlight-badge">`,
+    `<circle cx="${round(cx)}" cy="${round(cy)}" r="${r}" fill="${presentation.stroke ?? "#ff6b00"}" stroke="${profile.palette.background}" stroke-width="2"/>`,
+    `<text x="${round(cx)}" y="${round(cy)}" font-size="11" text-anchor="middle" dominant-baseline="middle" fill="${profile.palette.background}" font-weight="700">${esc(presentation.highlightBadge)}</text>`,
+    `</g>`
+  ].join("");
+}
+
+function renderNodeCallout(rect: NodeRect, profile: ArchitectureSvgProfile, presentation: NodePresentationStyle): string {
+  if (!presentation.callout) return "";
+  const fontSize = Math.max(10, Math.min(14, profile.edgeLabelFontSize ?? 12));
+  const width = Math.min(210, Math.max(92, estimateTextWidth(presentation.callout, fontSize) + 22));
+  const height = Math.max(26, fontSize * textLineHeight(profile) + 10);
+  const box = { x: rect.x + rect.w + 14, y: rect.y + rect.h / 2 - height / 2, w: width, h: height };
+  const connector = `<path class="node-callout-line" d="M${round(rect.x + rect.w)} ${round(rect.y + rect.h / 2)} H${round(box.x)}" stroke="${presentation.stroke ?? profile.palette.edge}" stroke-width="1.2" fill="none" stroke-dasharray="4 4"/>`;
+  const label = renderTextAnnotation(presentation.callout, box, profile, {
+    kind: "floating",
+    fontSize,
+    anchor: "middle",
+    verticalAlign: "center",
+    className: "node-meta",
+    pill: true
+  });
+  return `<g class="node-callout">${connector}${label}</g>`;
 }
 
 function renderEdgeLabel(edge: ArchitectureEdge, point: { x: number; y: number } | undefined, profile: ArchitectureSvgProfile): string {
@@ -935,6 +1132,7 @@ function renderTextAnnotation(label: string, box: NodeRect, profile: Architectur
       `text-anchor="${anchor}"`,
       `dominant-baseline="middle"`,
       `class="${className}"`,
+      options.color ? `fill="${options.color}"` : "",
       options.italic ? `font-style="italic"` : ""
     ].filter(Boolean).join(" ");
     return `<text ${attrs}>${esc(line)}</text>`;

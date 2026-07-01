@@ -17,7 +17,10 @@
 <path class="edge edge-data edge-rounded-orthogonal" d="M215.88 1034 L215.88 1055.76 L215.88 1077.53" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
 <g id="transformer_group" class="node node-group">
 <title>Transformer ×3</title>
+
 <rect x="10" y="395.18" width="411.76" height="458.82" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
+
+
 
 
 
@@ -25,68 +28,96 @@
 <g id="text_inputs" class="node node-text-label">
 <title>Inputs</title>
 <g class="text-annotation text-floating"><text x="215.88" y="58.71" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">Inputs</text></g>
+
 </g>
 <g id="input_embedding" class="node node-token_embed">
 <title>Input Embedding</title>
+
 <rect x="39.41" y="128.12" width="352.94" height="112.94" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="215.88" y="170.67" font-size="24" text-anchor="middle" dominant-baseline="middle" class="node-label">Input</text>
 <text x="215.88" y="198.51" font-size="24" text-anchor="middle" dominant-baseline="middle" class="node-label">Embedding</text></g>
 
 
+
+
 </g>
 <g id="embed_add" class="node node-residual-add node-plus-circle">
 <title>+</title>
+
 <circle class="icon-plus-circle" cx="215.88" cy="326.94" r="18" fill="#ffffff" stroke="#0b0b0b" stroke-width="2.4"/>
 <path class="icon-stroke icon-plus" d="M205.44 326.94 H226.32 M215.88 316.5 V337.38" stroke-width="1.8"/>
+
+
 </g>
 <g id="positional_encoding" class="node node-positional-icon">
 <title>Positional Encoding</title>
+
 <circle class="icon-sine-circle" cx="300.82" cy="326.94" r="24" fill="#ffffff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
 <path class="icon-stroke icon-sine" d="M285.94 326.94 C292.18 307.74 297.94 307.74 300.82 326.94 C305.62 346.14 311.38 346.14 315.7 326.94" stroke-width="1.8"/>
 <g class="text-annotation text-floating"><text x="352.82" y="313.02" font-size="24" text-anchor="start" dominant-baseline="middle" class="node-label">Positional</text>
 <text x="352.82" y="340.86" font-size="24" text-anchor="start" dominant-baseline="middle" class="node-label">Encoding</text></g>
+
+
 </g>
 <g id="mha" class="node node-attention">
 <title>Multi-Head Attention</title>
+
 <rect x="86.47" y="495.18" width="258.82" height="87.06" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="215.88" y="524.79" font-size="24" text-anchor="middle" dominant-baseline="middle" class="node-label">Multi-Head</text>
 <text x="215.88" y="552.63" font-size="24" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
 
 
+
+
 </g>
 <g id="add_norm_1" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
+
 <rect x="87.65" y="595.18" width="256.47" height="47.06" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="215.88" y="618.71" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
+
+
 
 
 </g>
 <g id="feed_forward" class="node node-mlp">
 <title>Feed Forward</title>
+
 <rect x="87.65" y="701.06" width="256.47" height="77.65" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="215.88" y="727.7" font-size="21" text-anchor="middle" dominant-baseline="middle" class="node-label">Feed</text>
 <text x="215.88" y="752.06" font-size="21" text-anchor="middle" dominant-baseline="middle" class="node-label">Forward</text></g>
 
 
+
+
 </g>
 <g id="add_norm_2" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
+
 <rect x="87.65" y="795.18" width="256.47" height="47.06" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="215.88" y="818.71" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
+
+
 
 
 </g>
 <g id="linear" class="node node-linear">
 <title>Linear</title>
+
 <rect x="98.24" y="906.94" width="235.29" height="44.71" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="215.88" y="929.29" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Linear</text></g>
+
+
 
 
 </g>
 <g id="softmax" class="node node-softmax">
 <title>Softmax</title>
+
 <rect x="98.24" y="989.29" width="235.29" height="44.71" rx="8" fill="#d8f0dc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
 <g class="text-annotation text-inside"><text x="215.88" y="1011.65" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Softmax</text></g>
+
+
 
 
 </g>
@@ -94,6 +125,7 @@
 <title>Output Probabilities</title>
 <g class="text-annotation text-floating"><text x="215.88" y="1104.84" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">Output</text>
 <text x="215.88" y="1139.64" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">Probabilities</text></g>
+
 </g>
 </g>
 </svg>

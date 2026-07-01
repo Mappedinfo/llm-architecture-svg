@@ -69,6 +69,41 @@ npm run export -- --figure-preset encoder-only --profile architecture-blueprint 
 npm run export -- --figure-preset decoder-only --profile architecture-blueprint --out docs/assets/gallery/decoder-only-comparison.svg
 ```
 
+## Teaching highlights
+
+### GPT attention highlighted
+
+![GPT attention highlighted](assets/gallery/gpt-attention-highlight.svg)
+
+### Transformer cross-attention highlighted
+
+![Transformer cross-attention highlighted](assets/gallery/transformer-cross-attention-highlight.svg)
+
+### BERT embedding components highlighted
+
+![BERT embeddings highlighted](assets/gallery/bert-embeddings-highlight.svg)
+
+### Encoder feed-forward highlighted
+
+![Encoder FFN highlighted](assets/gallery/encoder-ffn-highlight.svg)
+
+## Imported model graphs
+
+These figures are generated from `ModelGraphSpec` objects created from HuggingFace-style config dictionaries. A 100-layer decoder is compressed rather than rendered as 100 large blocks.
+
+![LLaMA-like ModelGraph overview](assets/gallery/llama-modelgraph-overview.svg)
+
+![LLaMA-like representative block](assets/gallery/llama-modelgraph-representative-block.svg)
+
+![LLaMA-like layer strip](assets/gallery/llama-modelgraph-layer-strip.svg)
+
+![BERT ModelGraph overview](assets/gallery/bert-modelgraph-overview.svg)
+
+```bash
+npm run demo:model-graph
+npm run export -- --model-graph artifacts/model-graph.json --level overview --out artifacts/svg/model-overview.svg
+```
+
 ## Mechanism figures
 
 ### LSA KV indexing
@@ -102,6 +137,14 @@ docs/assets/gallery/transformer-textbook-overview.svg
 docs/assets/gallery/bert-textbook-overview.svg
 docs/assets/gallery/encoder-only-textbook-overview.svg
 docs/assets/gallery/decoder-only-textbook-overview.svg
+docs/assets/gallery/gpt-attention-highlight.svg
+docs/assets/gallery/transformer-cross-attention-highlight.svg
+docs/assets/gallery/bert-embeddings-highlight.svg
+docs/assets/gallery/encoder-ffn-highlight.svg
+docs/assets/gallery/llama-modelgraph-overview.svg
+docs/assets/gallery/llama-modelgraph-representative-block.svg
+docs/assets/gallery/llama-modelgraph-layer-strip.svg
+docs/assets/gallery/bert-modelgraph-overview.svg
 docs/assets/gallery/encoder-only-comparison.svg
 docs/assets/gallery/decoder-only-comparison.svg
 docs/assets/gallery/lsa-kv-indexing-paper.svg

@@ -26,8 +26,9 @@ import {
   renderNgramEmbeddingFigure,
   renderTransformerPaperFigure
 } from "./figures";
-import { ArchitectureSpec, BertTemplateParams, DecoderOnlyTemplateParams, EncoderOnlyTemplateParams, GptTemplateParams, TransformerTemplateParams } from "./types";
+import { ArchitecturePresentationSpec, ArchitectureSpec, BertTemplateParams, DecoderOnlyTemplateParams, EncoderOnlyTemplateParams, GptTemplateParams, TransformerTemplateParams } from "./types";
 import { RenderArchitectureSvgOptions, renderArchitectureSvg } from "./svg";
+import { ModelGraphLevel, ModelGraphSpec, renderModelGraphSvg } from "./modelGraph";
 
 interface BatchTask {
   name?: string;
@@ -56,7 +57,19 @@ function main(): void {
 
   const out = getString(args.out);
   if (!out) fail("Missing --out.");
-  const architecture = args.spec ? readJson<ArchitectureSpec>(getString(args.spec)!) : generateFromArgs(args);
+  const modelGraphPath = getString(args.modelGraph) ?? getString(args["model-graph"]);
+  if (modelGraphPath) {
+    const modelGraph = readJson<ModelGraphSpec>(modelGraphPath);
+    writeFile(out, renderModelGraphSvg(modelGraph, {
+      ...optionsFromArgs(args, modelGraph.modelName),
+      level: getModelGraphLevel(args),
+      block: getString(args.block)
+    }));
+    console.log(`Wrote ${out}`);
+    return;
+  }
+  const specPath = getString(args.spec) ?? getString(args.architectureSpec) ?? getString(args["architecture-spec"]);
+  const architecture = specPath ? readJson<ArchitectureSpec>(specPath) : generateFromArgs(args);
   writeFile(out, renderArchitectureSvg(architecture, optionsFromArgs(args, architecture.name)));
   console.log(`Wrote ${out}`);
 }
@@ -152,7 +165,7 @@ function generateFromParams(params: GptTemplateParams, title?: string): Architec
 function optionsFromArgs(args: Record<string, string | boolean | string[]>, fallbackTitle: string): RenderArchitectureSvgOptions {
   const theme = getString(args.theme);
   const profile = getString(args.profile);
-  return {
+  const options: RenderArchitectureSvgOptions = {
     title: getString(args.title) ?? fallbackTitle,
     width: getOptionalNumber(args.width),
     padding: getOptionalNumber(args.padding),
@@ -162,6 +175,9 @@ function optionsFromArgs(args: Record<string, string | boolean | string[]>, fall
     theme: theme === "blueprint" ? "blueprint" : theme === "paper" ? "paper" : undefined,
     profile: profile as RenderArchitectureSvgOptions["profile"]
   };
+  const presentationPath = getString(args.presentation);
+  if (presentationPath) options.presentation = readJson<ArchitecturePresentationSpec>(presentationPath);
+  return options;
 }
 
 function gptParamsFromArgs(args: Record<string, string | boolean | string[]>): GptTemplateParams {
@@ -258,6 +274,8 @@ function printUsage(): void {
     "  llm-architecture-svg --preset gpt --T 64 --C 192 --nHeads 3 --nBlocks 3 --vocabSize 1000 --out artifacts/svg/gpt.svg",
     "  llm-architecture-svg --preset gpt --expand block_0 --out artifacts/svg/gpt-expanded.svg",
     "  llm-architecture-svg --preset gpt --profile textbook-overview --out artifacts/svg/textbook.svg",
+    "  llm-architecture-svg --architecture-spec architecture.json --presentation presentation.json --profile textbook-overview --out artifacts/svg/custom.svg",
+    "  llm-architecture-svg --model-graph model-graph.json --level representative-block --block layers.0 --out artifacts/svg/model-block.svg",
     "  llm-architecture-svg --preset transformer --profile textbook-overview --out artifacts/svg/transformer-textbook.svg",
     "  llm-architecture-svg --preset bert --profile textbook-overview --out artifacts/svg/bert-textbook.svg",
     "  llm-architecture-svg --preset encoder-only --profile textbook-overview --out artifacts/svg/encoder-textbook.svg",
@@ -314,6 +332,12 @@ function getList(value: string | boolean | string[] | undefined): string[] {
 
 function splitList(value: string): string[] {
   return value.split(",").map((item) => item.trim()).filter(Boolean);
+}
+
+function getModelGraphLevel(args: Record<string, string | boolean | string[]>): ModelGraphLevel | undefined {
+  const level = getString(args.level);
+  if (level === "overview" || level === "representative-block" || level === "layer-strip" || level === "debug-graph") return level;
+  return undefined;
 }
 
 function slug(value: string): string {

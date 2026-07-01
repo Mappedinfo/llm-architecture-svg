@@ -44,58 +44,80 @@
 <path class="edge edge-data" d="M539.38 1617.25 C539.38 1632.71 539.38 1632.71 539.38 1648.18" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
 <g id="llm" class="node node-group">
 <title>LLM</title>
+
 <rect x="36" y="126" width="1048" height="1652.75" rx="10" fill="#eeeeee" fill-opacity="0.32" stroke="#6d8b99" stroke-width="1.4" stroke-dasharray="8 6"/>
 <g class="text-annotation text-inside"><text x="48" y="144.62" font-size="18" text-anchor="start" dominant-baseline="middle" class="node-label">LLM</text></g>
+
+
 
 
 </g>
 <g id="block_0" class="node node-group">
 <title>transformer 0</title>
+
 <rect x="121.9" y="394.01" width="859.02" height="532.59" rx="10" fill="#eeeeee" fill-opacity="0.32" stroke="#6d8b99" stroke-width="1.4" stroke-dasharray="8 6"/>
 <g class="text-annotation text-inside"><text x="133.9" y="412.63" font-size="18" text-anchor="start" dominant-baseline="middle" class="node-label">transformer 0</text></g>
 <text x="968.92" y="418.01" font-size="11" text-anchor="end" class="node-meta">13 derived blocks</text>
 
+
+
 </g>
 <g id="block_1" class="node node-group">
 <title>transformer 1</title>
+
 <rect x="121.9" y="1012.5" width="859.02" height="123.7" rx="10" fill="#eeeeee" fill-opacity="0.32" stroke="#6d8b99" stroke-width="1.4" stroke-dasharray="8 6"/>
 <g class="text-annotation text-inside"><text x="133.9" y="1031.12" font-size="18" text-anchor="start" dominant-baseline="middle" class="node-label">transformer 1</text></g>
 <text x="968.92" y="1036.5" font-size="11" text-anchor="end" class="node-meta">13 derived blocks</text>
 
+
+
 </g>
 <g id="block_2" class="node node-group">
 <title>transformer 2</title>
+
 <rect x="121.9" y="1222.1" width="859.02" height="123.7" rx="10" fill="#eeeeee" fill-opacity="0.32" stroke="#6d8b99" stroke-width="1.4" stroke-dasharray="8 6"/>
 <g class="text-annotation text-inside"><text x="133.9" y="1240.72" font-size="18" text-anchor="start" dominant-baseline="middle" class="node-label">transformer 2</text></g>
 <text x="968.92" y="1246.1" font-size="11" text-anchor="end" class="node-meta">13 derived blocks</text>
 
+
+
 </g>
 <g id="tok_embed" class="node node-token_embed">
 <title>token embed</title>
+
 <rect x="417.4" y="198.16" width="240.52" height="58.41" rx="6" fill="#f0a8fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="537.67" y="227.36" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">token embed</text></g>
 <text x="537.67" y="238.57" font-size="10" text-anchor="middle" class="node-meta">[1000, 192]</text>
 <text x="537.67" y="251.57" font-size="10" text-anchor="middle" class="node-meta">192.00K</text>
 
+
+
 </g>
 <g id="pos_embed" class="node node-pos_embed">
 <title>pos embed</title>
+
 <rect x="417.4" y="287.5" width="240.52" height="54.98" rx="6" fill="#d9d9d9" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="537.67" y="314.98" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">pos embed</text></g>
 <text x="537.67" y="324.47" font-size="10" text-anchor="middle" class="node-meta">[64, 192]</text>
 <text x="537.67" y="337.47" font-size="10" text-anchor="middle" class="node-meta">12.29K</text>
 
+
+
 </g>
 <g id="block_0_ln1" class="node node-layer_norm">
 <title>ln1</title>
+
 <rect x="180.31" y="455.86" width="147.75" height="51.54" rx="6" fill="#e9f29e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="254.19" y="481.63" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">ln1</text></g>
 <text x="254.19" y="489.4" font-size="10" text-anchor="middle" class="node-meta">[192]</text>
 <text x="254.19" y="502.4" font-size="10" text-anchor="middle" class="node-meta">192</text>
 
+
+
 </g>
 <g id="block_0_q" class="node node-linear">
 <title>q proj</title>
+
 <rect x="376.17" y="435.25" width="140.88" height="48.1" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="446.61" y="459.3" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">q proj</text></g>
 <text x="446.61" y="465.35" font-size="10" text-anchor="middle" class="node-meta">[64, 64] x 3</text>
@@ -104,9 +126,12 @@
 <rect x="384.17" y="443.25" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M390.17 443.25 V457.25 M396.17 443.25 V457.25 M384.17 450.25 H402.17" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_k" class="node node-linear">
 <title>k proj</title>
+
 <rect x="376.17" y="500.53" width="140.88" height="48.1" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="446.61" y="524.58" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">k proj</text></g>
 <text x="446.61" y="530.64" font-size="10" text-anchor="middle" class="node-meta">[64, 64] x 3</text>
@@ -115,9 +140,12 @@
 <rect x="384.17" y="508.53" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M390.17 508.53 V522.53 M396.17 508.53 V522.53 M384.17 515.53 H402.17" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_v" class="node node-linear">
 <title>v proj</title>
+
 <rect x="376.17" y="565.82" width="140.88" height="48.1" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="446.61" y="589.87" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">v proj</text></g>
 <text x="446.61" y="595.92" font-size="10" text-anchor="middle" class="node-meta">[64, 64] x 3</text>
@@ -126,9 +154,12 @@
 <rect x="384.17" y="573.82" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M390.17 573.82 V587.82 M396.17 573.82 V587.82 M384.17 580.82 H402.17" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_att_scores" class="node node-attention">
 <title>att scores</title>
+
 <rect x="565.15" y="466.17" width="171.8" height="58.41" rx="6" fill="#f2d59e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="651.06" y="495.38" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">att scores</text></g>
 <text x="651.06" y="506.58" font-size="10" text-anchor="middle" class="node-meta">[64, 64] x 3</text>
@@ -136,9 +167,12 @@
 <rect x="573.15" y="474.17" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M579.15 474.17 V488.17 M585.15 474.17 V488.17 M573.15 481.17 H591.15" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_att_probs" class="node node-attention">
 <title>att probs</title>
+
 <rect x="565.15" y="545.2" width="171.8" height="58.41" rx="6" fill="#f2d59e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="651.06" y="574.41" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">att probs</text></g>
 <text x="651.06" y="585.61" font-size="10" text-anchor="middle" class="node-meta">[64, 64] x 3</text>
@@ -146,9 +180,12 @@
 <rect x="573.15" y="553.2" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M579.15 553.2 V567.2 M585.15 553.2 V567.2 M573.15 560.2 H591.15" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_att_proj" class="node node-linear">
 <title>attn out proj</title>
+
 <rect x="781.63" y="507.4" width="154.62" height="58.41" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="858.94" y="536.61" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">attn out proj</text></g>
 <text x="858.94" y="547.82" font-size="10" text-anchor="middle" class="node-meta">[64, 192]</text>
@@ -157,22 +194,31 @@
 <rect x="789.63" y="515.4" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M795.63 515.4 V529.4 M801.63 515.4 V529.4 M789.63 522.4 H807.63" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_add1" class="node node-residual-add node-plus-circle">
 <title>+</title>
+
 <circle class="icon-plus-circle" cx="539.38" cy="667.18" r="27.21" fill="#ffffff" stroke="#16384a" stroke-width="1"/>
 <path class="icon-stroke icon-plus" d="M523.6 667.18 H555.16 M539.38 651.4 V682.96" stroke-width="1.35"/>
+
+
 </g>
 <g id="block_0_ln2" class="node node-layer_norm">
 <title>ln2</title>
+
 <rect x="180.31" y="741.06" width="147.75" height="51.54" rx="6" fill="#e9f29e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="254.19" y="766.83" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">ln2</text></g>
 <text x="254.19" y="774.6" font-size="10" text-anchor="middle" class="node-meta">[192]</text>
 <text x="254.19" y="787.6" font-size="10" text-anchor="middle" class="node-meta">192</text>
 
+
+
 </g>
 <g id="block_0_mlp_fc" class="node node-linear">
 <title>mlp fc</title>
+
 <rect x="376.17" y="720.44" width="151.19" height="58.41" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="451.76" y="749.65" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">mlp fc</text></g>
 <text x="451.76" y="760.85" font-size="10" text-anchor="middle" class="node-meta">[192, 768]</text>
@@ -181,9 +227,12 @@
 <rect x="384.17" y="728.44" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M390.17 728.44 V742.44 M396.17 728.44 V742.44 M384.17 735.44 H402.17" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_gelu" class="node node-generic_tensor">
 <title>gelu</title>
+
 <rect x="572.03" y="720.44" width="130.57" height="58.41" rx="6" fill="#d8dee9" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="637.31" y="749.65" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">gelu</text></g>
 <text x="637.31" y="760.85" font-size="10" text-anchor="middle" class="node-meta">[64, 768]</text>
@@ -191,9 +240,12 @@
 <rect x="580.03" y="728.44" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M586.03 728.44 V742.44 M592.03 728.44 V742.44 M580.03 735.44 H598.03" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_mlp_proj" class="node node-linear">
 <title>mlp proj</title>
+
 <rect x="747.27" y="720.44" width="158.06" height="58.41" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="826.3" y="749.65" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">mlp proj</text></g>
 <text x="826.3" y="760.85" font-size="10" text-anchor="middle" class="node-meta">[768, 192]</text>
@@ -202,22 +254,31 @@
 <rect x="755.27" y="728.44" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M761.27 728.44 V742.44 M767.27 728.44 V742.44 M755.27 735.44 H773.27" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="block_0_add2" class="node node-residual-add node-plus-circle">
 <title>+</title>
+
 <circle class="icon-plus-circle" cx="539.38" cy="856.16" r="27.21" fill="#ffffff" stroke="#16384a" stroke-width="1"/>
 <path class="icon-stroke icon-plus" d="M523.6 856.16 H555.16 M539.38 840.38 V871.94" stroke-width="1.35"/>
+
+
 </g>
 <g id="ln_f" class="node node-layer_norm">
 <title>final layer norm</title>
+
 <rect x="403.66" y="1469.5" width="271.45" height="58.41" rx="6" fill="#e9f29e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="539.38" y="1498.71" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">final layer norm</text></g>
 <text x="539.38" y="1509.91" font-size="10" text-anchor="middle" class="node-meta">[192]</text>
 <text x="539.38" y="1522.91" font-size="10" text-anchor="middle" class="node-meta">192</text>
 
+
+
 </g>
 <g id="lm_head" class="node node-linear">
 <title>lm head</title>
+
 <rect x="403.66" y="1558.84" width="271.45" height="58.41" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="539.38" y="1588.05" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">lm head</text></g>
 <text x="539.38" y="1599.25" font-size="10" text-anchor="middle" class="node-meta">[192, 1000]</text>
@@ -225,12 +286,17 @@
 <rect x="411.66" y="1566.84" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
 <path d="M417.66 1566.84 V1580.84 M423.66 1566.84 V1580.84 M411.66 1573.84 H429.66" stroke="#16384a" stroke-width="0.65"/>
 </g>
+
+
 </g>
 <g id="softmax" class="node node-softmax">
 <title>softmax</title>
+
 <rect x="403.66" y="1648.18" width="271.45" height="58.41" rx="6" fill="#a8fcaf" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
 <g class="text-annotation text-inside"><text x="539.38" y="1677.38" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">softmax</text></g>
 <text x="539.38" y="1688.59" font-size="10" text-anchor="middle" class="node-meta">[1000]</text>
+
+
 
 </g>
 </g>

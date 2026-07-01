@@ -69,15 +69,44 @@ npx llm-architecture-svg --preset encoder-only --profile textbook-overview --T 1
 npx llm-architecture-svg --preset decoder-only --profile textbook-overview --T 64 --C 192 --nHeads 3 --nBlocks 3 --vocabSize 1000 --out artifacts/svg/decoder-only.svg
 ```
 
+Apply teaching highlights from JSON:
+
+```bash
+npx llm-architecture-svg \
+  --preset transformer \
+  --profile textbook-overview \
+  --presentation examples/presentation-cross-attention.json \
+  --out artifacts/svg/transformer-highlight.svg
+```
+
+Render a model graph exported by the optional Python tracer:
+
+```bash
+npx llm-architecture-svg \
+  --model-graph artifacts/model-graph.json \
+  --level overview \
+  --profile textbook-overview \
+  --out artifacts/svg/model-overview.svg
+
+npx llm-architecture-svg \
+  --model-graph artifacts/model-graph.json \
+  --level representative-block \
+  --block layers.0 \
+  --profile expanded-gpt-block \
+  --out artifacts/svg/model-block.svg
+```
+
 ## Node API
 
 ```ts
 import {
+  createModelGraphFromHfConfig,
   generateBertArchitecture,
   generateGptArchitecture,
   generateTransformerArchitecture,
   renderArchitectureSvg,
-  renderGptArchitectureSvg
+  renderGptArchitectureSvg,
+  renderModelGraphSvg
 } from "@mappedinfo/llm-architecture-svg";
 
 const params = {
@@ -124,6 +153,37 @@ const bert = generateBertArchitecture({
   bias: true
 });
 const svgD = renderArchitectureSvg(bert, { profile: "textbook-overview" });
+
+const modelGraph = createModelGraphFromHfConfig({
+  model_type: "llama",
+  hidden_size: 4096,
+  num_attention_heads: 32,
+  num_hidden_layers: 100,
+  vocab_size: 32000,
+  max_position_embeddings: 4096
+}, { modelName: "LLaMA-like 100-layer model" });
+const svgE = renderModelGraphSvg(modelGraph, { level: "overview", profile: "textbook-overview" });
+```
+
+## Teaching presentation overlays
+
+`presentation` customizes rendering without changing the underlying architecture. Selectors can target node ids, component kinds, or `derived.role`.
+
+```ts
+renderArchitectureSvg(spec, {
+  profile: "textbook-overview",
+  presentation: {
+    muteUnmatched: true,
+    overrides: [{
+      selector: { roles: ["multi_head_attention"] },
+      fill: "#ffd166",
+      stroke: "#ef476f",
+      strokeWidth: 4,
+      highlight: { badge: "1", glow: true },
+      callout: "Teaching focus"
+    }]
+  }
+});
 ```
 
 ## Batch JSON format

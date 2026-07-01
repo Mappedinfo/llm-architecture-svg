@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="751" viewBox="0 0 1500 751" role="img" aria-label="LLaMA-like 100-layer model representative block">
+<defs><style>text{font-family:Georgia,"Times New Roman",serif}.node-label{font-weight:700;fill:#0b2533}.node-meta{fill:#537180}.shape-warning{fill:#e67700;font-weight:700}.edge{fill:none;stroke-linecap:round;stroke-linejoin:round}.icon-stroke{fill:none;stroke:#16384a;stroke-linecap:round;stroke-linejoin:round}</style><marker id="arrow-data" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#16384a"/></marker><marker id="arrow-residual" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#198754"/></marker><marker id="arrow-dependency" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#2b59c3"/></marker></defs>
+<rect width="100%" height="100%" fill="#f3f8fb"/>
+<g class="grid" opacity="0.7"><path d="M0 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M24 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M48 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M72 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M96 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M120 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M144 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M168 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M192 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M216 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M240 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M264 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M288 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M312 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M336 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M360 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M384 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M408 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M432 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M456 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M480 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M504 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M528 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M552 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M576 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M600 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M624 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M648 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M672 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M696 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M720 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M744 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M768 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M792 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M816 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M840 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M864 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M888 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M912 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M936 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M960 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M984 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1008 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1032 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1056 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1080 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1104 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1128 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1152 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1176 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1200 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1224 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1248 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1272 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1296 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1320 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1344 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1368 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1392 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1416 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1440 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1464 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M1488 0 V751" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 0 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 24 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 48 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 72 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 96 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 120 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 144 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 168 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 192 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 216 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 240 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 264 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 288 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 312 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 336 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 360 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 384 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 408 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 432 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 456 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 480 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 504 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 528 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 552 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 576 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 600 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 624 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 648 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 672 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 696 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 720 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/><path d="M0 744 H1500" stroke="#d7e8ef" stroke-width="1" opacity="0.42"/></g>
+<g class="header"><text x="36" y="36" font-size="24" class="node-label">LLaMA-like 100-layer model representative block</text></g>
+<g class="architecture profile-expanded-gpt-block">
+<path class="edge edge-data" d="M243.11 426.86 C292.17 426.86 292.17 239.37 341.22 239.37" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-fan-in" d="M504.73 239.37 C531.98 239.37 531.98 173.96 559.24 173.96" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-fan-in" d="M504.73 239.37 C531.98 239.37 531.98 250.27 559.24 250.27" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data edge-fan-in" d="M504.73 239.37 C531.98 239.37 531.98 326.57 559.24 326.57" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-dependency" d="M632.82 203.4 C632.82 194.67 872.63 194.67 872.63 185.95" stroke="#2b59c3" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-dependency)" stroke-dasharray="4 4"/>
+<path class="edge edge-dependency" d="M706.4 250.27 C739.1 250.27 739.1 223.02 771.8 223.02" stroke="#2b59c3" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-dependency)" stroke-dasharray="4 4"/>
+<path class="edge edge-data" d="M872.63 260.08 C872.63 272.07 872.63 272.07 872.63 284.06" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-dependency" d="M973.47 321.12 C1000.72 321.12 1000.72 272.07 1027.97 272.07" stroke="#2b59c3" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-dependency)" stroke-dasharray="4 4"/>
+<path class="edge edge-dependency" d="M706.4 326.57 C867.18 326.57 867.18 272.07 1027.97 272.07" stroke="#2b59c3" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-dependency)" stroke-dasharray="4 4"/>
+<path class="edge edge-data" d="M1109.73 309.13 C1109.73 353.83 898.25 353.83 898.25 398.52" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-residual edge-residual-loop" d="M243.11 426.86 H963.14 C973.14 426.86 973.14 421.41 963.14 421.41 H921.14" stroke="#198754" stroke-width="2.2" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data" d="M898.25 444.3 C898.25 473.19 422.98 473.19 422.98 502.08" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M504.73 533.69 C531.98 533.69 531.98 524.97 559.24 524.97" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M755.45 524.97 C777.25 524.97 777.25 527.15 799.05 527.15" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M962.56 527.15 C984.37 527.15 984.37 527.15 1006.17 527.15" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M1087.92 565.3 C1087.92 601.82 898.25 601.82 898.25 638.34" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-residual edge-residual-loop" d="M921.14 421.41 H963.14 C973.14 421.41 973.14 661.23 963.14 661.23 H921.14" stroke="#198754" stroke-width="2.2" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data" d="M921.14 661.23 C1089.01 661.23 1089.01 426.86 1256.89 426.86" stroke="#16384a" stroke-width="1.35" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g id="representative_block" class="node node-group">
+<title>Decoder Block ×100</title>
+
+<rect x="297.62" y="126" width="893.86" height="588.64" rx="10" fill="#eeeeee" fill-opacity="0.32" stroke="#6d8b99" stroke-width="1.4" stroke-dasharray="8 6"/>
+<g class="text-annotation text-inside"><text x="309.62" y="144.62" font-size="18" text-anchor="start" dominant-baseline="middle" class="node-label">Decoder Block ×100</text></g>
+<text x="1179.48" y="150" font-size="11" text-anchor="end" class="node-meta">13 derived blocks</text>
+
+
+
+</g>
+<g id="block_input" class="node node-generic_tensor">
+<title>Block Input</title>
+
+<rect x="36" y="393.07" width="207.11" height="67.58" rx="6" fill="#d8dee9" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="139.56" y="426.86" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Block Input</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="44" y="401.07" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M50 401.07 V415.07 M56 401.07 V415.07 M44 408.07 H62" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_ln1" class="node node-layer_norm">
+<title>RMSNorm</title>
+
+<rect x="341.22" y="207.76" width="163.51" height="63.22" rx="6" fill="#e9f29e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="422.98" y="239.37" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">RMSNorm</text></g>
+
+
+
+
+</g>
+<g id="block_q" class="node node-linear">
+<title>Q Proj</title>
+
+<rect x="559.24" y="144.53" width="147.16" height="58.86" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="632.82" y="173.96" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Q Proj</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="567.24" y="152.53" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M573.24 152.53 V166.53 M579.24 152.53 V166.53 M567.24 159.53 H585.24" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_k" class="node node-linear">
+<title>K Proj</title>
+
+<rect x="559.24" y="220.84" width="147.16" height="58.86" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="632.82" y="250.27" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">K Proj</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="567.24" y="228.84" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M573.24 228.84 V242.84 M579.24 228.84 V242.84 M567.24 235.84 H585.24" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_v" class="node node-linear">
+<title>V Proj</title>
+
+<rect x="559.24" y="297.14" width="147.16" height="58.86" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="632.82" y="326.57" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">V Proj</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="567.24" y="305.14" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M573.24 305.14 V319.14 M579.24 305.14 V319.14 M567.24 312.14 H585.24" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_scores" class="node node-attention">
+<title>Attention Scores</title>
+
+<rect x="771.8" y="185.95" width="201.66" height="74.13" rx="6" fill="#f2d59e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="872.63" y="214.76" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text>
+<text x="872.63" y="231.28" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Scores</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="779.8" y="193.95" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M785.8 193.95 V207.95 M791.8 193.95 V207.95 M779.8 200.95 H797.8" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_probs" class="node node-attention">
+<title>Softmax Weights</title>
+
+<rect x="771.8" y="284.06" width="201.66" height="74.13" rx="6" fill="#f2d59e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="872.63" y="312.86" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Softmax</text>
+<text x="872.63" y="329.38" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Weights</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="779.8" y="292.06" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M785.8 292.06 V306.06 M791.8 292.06 V306.06 M779.8 299.06 H797.8" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_attn_out" class="node node-linear">
+<title>Output Projection</title>
+
+<rect x="1027.97" y="235.01" width="163.51" height="74.13" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="1109.73" y="263.81" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Output</text>
+<text x="1109.73" y="280.33" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Projection</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="1035.97" y="243.01" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M1041.97 243.01 V257.01 M1047.97 243.01 V257.01 M1035.97 250.01 H1053.97" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_add1" class="node node-residual-add node-plus-circle">
+<title>+</title>
+
+<circle class="icon-plus-circle" cx="898.25" cy="421.41" r="20.89" fill="#ffffff" stroke="#16384a" stroke-width="1"/>
+<path class="icon-stroke icon-plus" d="M886.13 421.41 H910.37 M898.25 409.29 V433.53" stroke-width="1.35"/>
+
+
+</g>
+<g id="block_ln2" class="node node-layer_norm">
+<title>RMSNorm</title>
+
+<rect x="341.22" y="502.08" width="163.51" height="63.22" rx="6" fill="#e9f29e" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="422.98" y="533.69" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">RMSNorm</text></g>
+
+
+
+
+</g>
+<g id="block_mlp_fc" class="node node-linear">
+<title>Gate/Up Projection</title>
+
+<rect x="559.24" y="480.27" width="196.21" height="89.39" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="657.34" y="516.71" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Gate/Up</text>
+<text x="657.34" y="533.23" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Projection</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="567.24" y="488.27" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M573.24 488.27 V502.27 M579.24 488.27 V502.27 M567.24 495.27 H585.24" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_activation" class="node node-generic_tensor">
+<title>GELU / SiLU</title>
+
+<rect x="799.05" y="497.72" width="163.51" height="58.86" rx="6" fill="#d8dee9" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="880.81" y="527.15" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">GELU / SiLU</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="807.05" y="505.72" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M813.05 505.72 V519.72 M819.05 505.72 V519.72 M807.05 512.72 H825.05" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_mlp_proj" class="node node-linear">
+<title>Down Projection</title>
+
+<rect x="1006.17" y="489" width="163.51" height="76.31" rx="6" fill="#a8c3fc" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="1087.92" y="518.89" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Down</text>
+<text x="1087.92" y="535.41" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Projection</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="1014.17" y="497" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M1020.17 497 V511 M1026.17 497 V511 M1014.17 504 H1032.17" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+<g id="block_add2" class="node node-residual-add node-plus-circle">
+<title>+</title>
+
+<circle class="icon-plus-circle" cx="898.25" cy="661.23" r="20.89" fill="#ffffff" stroke="#16384a" stroke-width="1"/>
+<path class="icon-stroke icon-plus" d="M886.13 661.23 H910.37 M898.25 649.11 V673.34" stroke-width="1.35"/>
+
+
+</g>
+<g id="block_output" class="node node-generic_tensor">
+<title>Block Output</title>
+
+<rect x="1256.89" y="393.07" width="207.11" height="67.58" rx="6" fill="#d8dee9" fill-opacity="0.92" stroke="#24465a" stroke-width="1"/>
+<g class="text-annotation text-inside"><text x="1360.44" y="426.86" font-size="14" text-anchor="middle" dominant-baseline="middle" class="node-label">Block Output</text></g>
+
+<g class="icon-tensor-grid" opacity="0.55">
+<rect x="1264.89" y="401.07" width="18" height="14" rx="2" fill="none" stroke="#16384a" stroke-width="0.8"/>
+<path d="M1270.89 401.07 V415.07 M1276.89 401.07 V415.07 M1264.89 408.07 H1282.89" stroke="#16384a" stroke-width="0.65"/>
+</g>
+
+
+</g>
+</g>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "muteUnmatched": true,
+  "overrides": [
+    {
+      "selector": {
+        "roles": ["cross_attention"]
+      },
+      "fill": "#ffd166",
+      "stroke": "#ef476f",
+      "strokeWidth": 4,
+      "highlight": {
+        "badge": "1",
+        "glow": true
+      },
+      "callout": "Encoder memory enters here"
+    }
+  ]
+}
