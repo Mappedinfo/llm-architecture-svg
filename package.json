@@ -1,6 +1,6 @@
 {
   "name": "@mappedinfo/llm-architecture-svg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate standalone SVG diagrams for GPT/LLM architectures without model weights.",
   "keywords": [
     "llm",
