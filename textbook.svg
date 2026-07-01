@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="2258" viewBox="0 0 1100 2258" role="img" aria-label="GPT Template Architecture">
+<defs><style>text{font-family:Georgia,"Times New Roman",serif}.node-label{font-weight:700;fill:#000000}.node-meta{fill:#273238}.shape-warning{fill:#c92a2a;font-weight:700}.edge{fill:none;stroke-linecap:round;stroke-linejoin:round}.icon-stroke{fill:none;stroke:#0b0b0b;stroke-linecap:round;stroke-linejoin:round}</style><marker id="arrow-data" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b0b0b"/></marker><marker id="arrow-residual" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b2b38"/></marker><marker id="arrow-dependency" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 Z" fill="#0b2b38"/></marker></defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<g class="architecture profile-textbook-overview">
+<path class="edge edge-data" d="M447.64 148.05 C447.64 183.27 403.61 183.27 403.61 218.49" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M403.61 429.82 C403.61 493.65 405.82 493.65 405.82 557.49" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M513.68 599.31 C479.56 599.31 479.56 597.11 445.44 597.11" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M405.82 636.74 C405.82 788.63 410.22 788.63 410.22 940.51" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-residual edge-residual-loop" d="M445.44 597.11 H677.55 C687.55 597.11 687.55 1182.66 677.55 1182.66 H643.55" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data" d="M410.22 1103.41 C410.22 1121.02 410.22 1121.02 410.22 1138.63" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M410.22 1226.68 C410.22 1281.71 410.22 1281.71 410.22 1336.75" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-residual edge-residual-loop" d="M643.55 1182.66 H677.55 C687.55 1182.66 687.55 1556.87 677.55 1556.87 H643.55" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
+<path class="edge edge-data" d="M410.22 1482.03 C410.22 1497.44 410.22 1497.44 410.22 1512.85" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M410.22 1600.9 C410.22 1655.93 410.22 1655.93 410.22 1710.96" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M410.22 1794.61 C410.22 1834.24 410.22 1834.24 410.22 1873.86" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<path class="edge edge-data" d="M410.22 1957.51 C410.22 2010.34 414.62 2010.34 414.62 2063.17" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
+<g id="transformer_group" class="node node-group">
+
+<rect x="36" y="742.4" width="748.44" height="814.48" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
+
+
+
+</g>
+<g id="text_inputs" class="node node-text-label">
+<title>Inputs</title>
+<text x="447.64" y="104.03" font-size="30" text-anchor="middle" class="node-label">Inputs</text>
+</g>
+<g id="input_embedding" class="node node-token_embed">
+<title>Input Embedding</title>
+<rect x="73.42" y="218.49" width="660.39" height="211.32" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="403.61" y="228.33" font-size="24" text-anchor="middle" class="node-label">Input</text>
+<text x="403.61" y="256.65" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+<text x="403.61" y="411.82" font-size="10" text-anchor="middle" class="node-meta">n/a</text>
+
+</g>
+<g id="embed_add" class="node node-residual-add node-plus-circle">
+<title>+</title>
+<circle class="icon-plus-circle" cx="405.82" cy="597.11" r="37.62" fill="#ffffff" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-plus" d="M383.99 597.11 H427.64 M405.82 575.29 V618.93" stroke-width="1.8"/>
+</g>
+<g id="positional_encoding" class="node node-positional-icon">
+<title>Positional Encoding</title>
+<circle class="icon-sine-circle" cx="545.68" cy="599.31" r="24" fill="#e8f7ff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
+<path class="icon-stroke icon-sine" d="M530.8 599.31 C537.04 580.11 542.8 580.11 545.68 599.31 C550.48 618.51 556.24 618.51 560.56 599.31" stroke-width="1.8"/>
+<text x="597.68" y="585.15" font-size="24" text-anchor="start" class="node-label">Positional</text>
+<text x="597.68" y="613.47" font-size="24" text-anchor="start" class="node-label">Encoding</text>
+</g>
+<g id="mha" class="node node-attention">
+<title>Multi-Head Attention</title>
+<rect x="172.48" y="940.51" width="475.48" height="162.9" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="410.22" y="950.35" font-size="24" text-anchor="middle" class="node-label">Multi-Head</text>
+<text x="410.22" y="978.67" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+<text x="410.22" y="1085.41" font-size="10" text-anchor="middle" class="node-meta">n/a</text>
+
+</g>
+<g id="add_norm_1" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="176.88" y="1138.63" width="466.67" height="88.05" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="410.22" y="1162.63" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<text x="410.22" y="1208.68" font-size="10" text-anchor="middle" class="node-meta">n/a</text>
+
+</g>
+<g id="feed_forward" class="node node-mlp">
+<title>Feed Forward</title>
+<rect x="176.88" y="1336.75" width="466.67" height="145.28" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="410.22" y="1346.59" font-size="24" text-anchor="middle" class="node-label">Feed</text>
+<text x="410.22" y="1374.91" font-size="24" text-anchor="middle" class="node-label">Forward</text>
+<text x="410.22" y="1464.03" font-size="10" text-anchor="middle" class="node-meta">n/a</text>
+
+</g>
+<g id="add_norm_2" class="node node-layer_norm">
+<title>Add &amp; Norm</title>
+<rect x="176.88" y="1512.85" width="466.67" height="88.05" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="410.22" y="1536.85" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<text x="410.22" y="1582.9" font-size="10" text-anchor="middle" class="node-meta">n/a</text>
+
+</g>
+<g id="linear" class="node node-linear">
+<title>Linear</title>
+<rect x="183.49" y="1710.96" width="453.46" height="83.65" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="410.22" y="1734.96" font-size="24" text-anchor="middle" class="node-label">Linear</text>
+<text x="410.22" y="1776.61" font-size="10" text-anchor="middle" class="node-meta">n/a</text>
+
+</g>
+<g id="softmax" class="node node-softmax">
+<title>Softmax</title>
+<rect x="183.49" y="1873.86" width="453.46" height="83.65" rx="8" fill="#d8f0dc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
+<text x="410.22" y="1897.86" font-size="24" text-anchor="middle" class="node-label">Softmax</text>
+<text x="410.22" y="1939.51" font-size="10" text-anchor="middle" class="node-meta">n/a</text>
+
+</g>
+<g id="text_output" class="node node-text-label">
+<title>Output Probabilities</title>
+<text x="414.62" y="2124.72" font-size="30" text-anchor="middle" class="node-label">Output</text>
+<text x="414.62" y="2160.12" font-size="30" text-anchor="middle" class="node-label">Probabilities</text>
+</g>
+</g>
+</svg>
