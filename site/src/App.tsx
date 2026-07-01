@@ -37,6 +37,7 @@ import {
 } from "@mappedinfo/llm-architecture-svg";
 
 type PlaygroundMode = "architecture" | "architecture-json" | "model-graph" | "figure" | "custom";
+type PlaygroundSource = "architecture" | "model-graph" | "figure" | "custom-json";
 type ArchitecturePresetName = ArchitectureTemplateType;
 type PresentationSelectorKey = "roles" | "kinds" | "ids";
 type FigurePresetName =
@@ -48,45 +49,56 @@ type FigurePresetName =
   | "lsa-kv-indexing"
   | "ngram-embedding";
 
-const ARCHITECTURE_PROFILES: ArchitectureSvgProfileName[] = [
-  "gpt-overview",
-  "textbook-overview",
-  "expanded-gpt-block",
-  "teaching-debug",
-  "slide-dark"
+const SOURCE_OPTIONS: Array<{ value: PlaygroundSource; label: string; description: string }> = [
+  { value: "architecture", label: "Generate from model parameters", description: "Pick GPT, Transformer, BERT, encoder-only, or decoder-only and edit the key hyperparameters." },
+  { value: "model-graph", label: "Import model structure JSON", description: "Paste ModelGraphSpec JSON exported from HuggingFace/PyTorch tracing." },
+  { value: "figure", label: "Use a mechanism figure template", description: "Start from a hand-designed LLM explanation figure such as LSA KV indexing or n-gram embedding." },
+  { value: "custom-json", label: "Edit custom JSON", description: "Directly edit ArchitectureSpec or LlmFigureSpec JSON when you need full control." }
 ];
 
-const MODEL_GRAPH_LEVELS: ModelGraphLevel[] = [
-  "overview",
-  "representative-block",
-  "layer-strip",
-  "debug-graph"
+const DIAGRAM_LEVEL_OPTIONS: Array<{ value: ModelGraphLevel; label: string; description: string }> = [
+  { value: "overview", label: "Overview", description: "Compresses repeated layers into a concept-level paper diagram." },
+  { value: "representative-block", label: "Representative block", description: "Expands one block to explain internals without drawing every repeated layer." },
+  { value: "layer-strip", label: "Layer strip", description: "Shows many repeated layers as compact tiles for highlighting ranges." },
+  { value: "debug-graph", label: "Debug graph", description: "Shows lower-level imported graph nodes for inspection, not publication figures." }
 ];
 
-const ARCHITECTURE_PRESETS: Array<{ value: ArchitecturePresetName; label: string; preferredProfile: ArchitectureSvgProfileName }> = [
-  { value: "gpt", label: "GPT decoder-only", preferredProfile: "expanded-gpt-block" },
-  { value: "transformer", label: "Original Transformer", preferredProfile: "textbook-overview" },
-  { value: "bert", label: "BERT encoder", preferredProfile: "textbook-overview" },
-  { value: "encoder-only", label: "Encoder-only", preferredProfile: "textbook-overview" },
-  { value: "decoder-only", label: "Decoder-only", preferredProfile: "textbook-overview" }
+const ARCHITECTURE_PRESETS: Array<{ value: ArchitecturePresetName; label: string; description: string; preferredProfile: ArchitectureSvgProfileName }> = [
+  { value: "gpt", label: "GPT decoder-only", description: "GPT-style decoder stack with token embedding, transformer blocks, final norm, LM head, and softmax.", preferredProfile: "expanded-gpt-block" },
+  { value: "transformer", label: "Original Transformer", description: "Encoder-decoder Transformer with source/target embeddings, encoder stack, decoder stack, cross-attention, linear, and softmax.", preferredProfile: "textbook-overview" },
+  { value: "bert", label: "BERT encoder", description: "Encoder-only BERT view with token, segment, position embeddings, encoder stack, MLM head, and classifier head.", preferredProfile: "textbook-overview" },
+  { value: "encoder-only", label: "Encoder-only", description: "Compact teaching template for encoder-only Transformer families.", preferredProfile: "textbook-overview" },
+  { value: "decoder-only", label: "Decoder-only", description: "Compact teaching template for decoder-only Transformer families.", preferredProfile: "textbook-overview" }
 ];
 
-const FIGURE_PROFILES: LlmFigureProfileName[] = [
-  "architecture-paper",
-  "architecture-blueprint",
-  "architecture-dark",
-  "paper-algorithm",
-  "drawio-mechanism"
+const ARCHITECTURE_PROFILE_OPTIONS: Array<{ value: ArchitectureSvgProfileName; label: string; description: string }> = [
+  { value: "textbook-overview", label: "Textbook overview", description: "Paper-style concept diagram with thick strokes, large labels, residual loops, and no dense metadata." },
+  { value: "gpt-overview", label: "GPT overview", description: "Clean architecture overview with tensor shapes and parameter summaries." },
+  { value: "expanded-gpt-block", label: "Expanded block blueprint", description: "Technical blueprint style for Q/K/V, attention, and MLP internals." },
+  { value: "teaching-debug", label: "Teaching debug", description: "Shows shape warnings and debugging-oriented colors." },
+  { value: "slide-dark", label: "Slide dark", description: "High-contrast dark style for presentations and video." }
 ];
 
-const FIGURE_PRESETS: Array<{ value: FigurePresetName; label: string; preferredProfile: LlmFigureProfileName }> = [
-  { value: "transformer-paper", label: "Transformer paper", preferredProfile: "architecture-paper" },
-  { value: "bert-encoder", label: "BERT encoder", preferredProfile: "architecture-paper" },
-  { value: "gpt-decoder", label: "GPT decoder", preferredProfile: "architecture-dark" },
-  { value: "encoder-only", label: "Encoder-only", preferredProfile: "architecture-blueprint" },
-  { value: "decoder-only", label: "Decoder-only", preferredProfile: "architecture-blueprint" },
-  { value: "lsa-kv-indexing", label: "LSA KV indexing", preferredProfile: "paper-algorithm" },
-  { value: "ngram-embedding", label: "N-gram embedding", preferredProfile: "drawio-mechanism" }
+const ARCHITECTURE_PROFILES = ARCHITECTURE_PROFILE_OPTIONS.map((option) => option.value);
+
+const FIGURE_PROFILE_OPTIONS: Array<{ value: LlmFigureProfileName; label: string; description: string }> = [
+  { value: "architecture-paper", label: "Paper architecture", description: "White-background architecture diagram for papers and docs." },
+  { value: "architecture-blueprint", label: "Blueprint", description: "Light technical blueprint style for architecture comparisons." },
+  { value: "architecture-dark", label: "Dark architecture", description: "High-contrast dark style for slides." },
+  { value: "paper-algorithm", label: "Paper algorithm", description: "Algorithm-flow style for paper mechanism figures." },
+  { value: "drawio-mechanism", label: "Draw.io mechanism", description: "Rounded-card teaching style for blog/PPT mechanism diagrams." }
+];
+
+const FIGURE_PROFILES = FIGURE_PROFILE_OPTIONS.map((option) => option.value);
+
+const FIGURE_PRESETS: Array<{ value: FigurePresetName; label: string; description: string; preferredProfile: LlmFigureProfileName }> = [
+  { value: "transformer-paper", label: "Transformer paper", description: "Hand-designed original Transformer architecture figure.", preferredProfile: "architecture-paper" },
+  { value: "bert-encoder", label: "BERT encoder", description: "Hand-designed BERT encoder explanation figure.", preferredProfile: "architecture-paper" },
+  { value: "gpt-decoder", label: "GPT decoder", description: "Hand-designed GPT decoder-only architecture figure.", preferredProfile: "architecture-dark" },
+  { value: "encoder-only", label: "Encoder-only", description: "Compact architecture comparison figure for encoder-only models.", preferredProfile: "architecture-blueprint" },
+  { value: "decoder-only", label: "Decoder-only", description: "Compact architecture comparison figure for decoder-only models.", preferredProfile: "architecture-blueprint" },
+  { value: "lsa-kv-indexing", label: "LSA KV indexing", description: "Mechanism figure for token/KV indexing and selector flow.", preferredProfile: "paper-algorithm" },
+  { value: "ngram-embedding", label: "N-gram embedding", description: "Mechanism figure for n-gram windows, embedding branches, and aggregation.", preferredProfile: "drawio-mechanism" }
 ];
 
 const TEACHING_TARGETS = [
@@ -140,7 +152,7 @@ export function App(): JSX.Element {
   const [architectureJson, setArchitectureJson] = useState(() => JSON.stringify(DEFAULT_ARCHITECTURE_SPEC, null, 2));
   const [presentationJson, setPresentationJson] = useState(() => JSON.stringify(DEFAULT_PRESENTATION, null, 2));
   const [modelGraphJson, setModelGraphJson] = useState(() => JSON.stringify(DEFAULT_MODEL_GRAPH, null, 2));
-  const [modelGraphLevel, setModelGraphLevel] = useState<ModelGraphLevel>("overview");
+  const [diagramLevel, setDiagramLevel] = useState<ModelGraphLevel>("overview");
   const [modelGraphBlock, setModelGraphBlock] = useState("layers.0");
   const [figurePreset, setFigurePreset] = useState<FigurePresetName>("ngram-embedding");
   const [figureProfile, setFigureProfile] = useState<LlmFigureProfileName>("drawio-mechanism");
@@ -165,7 +177,8 @@ export function App(): JSX.Element {
             callout: presentationCallout
           });
         const expandableBlockCount = architecturePreset === "gpt" ? gptParams.nBlocks : architecturePreset === "decoder-only" ? decoderOnlyParams.nBlocks : 0;
-        const activeExpandedBlockId = normalizeExpandedBlockId(expandedBlockId, expandableBlockCount);
+        const activeLevel = effectiveDiagramLevel(mode, architecturePreset, diagramLevel);
+        const activeExpandedBlockId = activeLevel === "representative-block" ? normalizeExpandedBlockId(expandedBlockId, expandableBlockCount) : "none";
         return {
           svg: renderArchitectureSvg(spec, {
             profile: architectureProfile,
@@ -193,7 +206,7 @@ export function App(): JSX.Element {
         });
         return {
           svg: renderModelGraphSvg(modelGraph, {
-            level: modelGraphLevel,
+            level: effectiveDiagramLevel(mode, architecturePreset, diagramLevel),
             block: modelGraphBlock,
             profile: architectureProfile,
             title: modelGraph.modelName,
@@ -218,15 +231,24 @@ export function App(): JSX.Element {
         error: error instanceof Error ? error.message : String(error)
       };
     }
-  }, [architectureJson, architecturePreset, architectureProfile, bertParams, customJson, decoderOnlyParams, encoderOnlyParams, expandedBlockId, figurePreset, figureProfile, gptParams, mode, modelGraphBlock, modelGraphJson, modelGraphLevel, presentationCallout, presentationFill, presentationHighlight, presentationJson, presentationMute, presentationSelector, presentationStroke, presentationTarget, transformerParams]);
+  }, [architectureJson, architecturePreset, architectureProfile, bertParams, customJson, decoderOnlyParams, encoderOnlyParams, diagramLevel, expandedBlockId, figurePreset, figureProfile, gptParams, mode, modelGraphBlock, modelGraphJson, presentationCallout, presentationFill, presentationHighlight, presentationJson, presentationMute, presentationSelector, presentationStroke, presentationTarget, transformerParams]);
 
   const activeJson = mode === "custom" ? customJson : mode === "architecture-json" ? architectureJson : mode === "model-graph" ? modelGraphJson : renderState.json;
   const activeProfile = mode === "architecture" || mode === "architecture-json" || mode === "model-graph" ? architectureProfile : figureProfile;
+  const source = modeToSource(mode);
+  const activeLevel = effectiveDiagramLevel(mode, architecturePreset, diagramLevel);
+  const activeSource = optionByValue(SOURCE_OPTIONS, source);
+  const activeLevelOption = optionByValue(DIAGRAM_LEVEL_OPTIONS, activeLevel);
+  const activeContentLabel = contentLabel(mode, architecturePreset, figurePreset);
+  const activeContentDescription = contentDescription(mode, architecturePreset, figurePreset);
+  const activeStyleLabel = styleLabel(mode, architectureProfile, figureProfile);
+  const activeStyleDescription = styleDescription(mode, architectureProfile, figureProfile);
+  const diagramLevelDisabledReason = levelDisabledReason(mode, architecturePreset, diagramLevel);
 
   function applyAutoStyle(): void {
     if (mode === "architecture" || mode === "architecture-json" || mode === "model-graph") {
       const preferredProfile = ARCHITECTURE_PRESETS.find((preset) => preset.value === architecturePreset)?.preferredProfile ?? "textbook-overview";
-      setArchitectureProfile(mode === "model-graph" ? modelGraphLevel === "overview" ? "textbook-overview" : "expanded-gpt-block" : preferredProfile);
+      setArchitectureProfile(mode === "model-graph" ? activeLevel === "overview" ? "textbook-overview" : "expanded-gpt-block" : preferredProfile);
       setExpandedBlockId(architecturePreset === "gpt" ? "block_0" : "none");
       return;
     }
@@ -261,6 +283,30 @@ export function App(): JSX.Element {
     window.setTimeout(() => setStatus(""), 1600);
   }
 
+  function handleSourceChange(value: PlaygroundSource): void {
+    if (value === "custom-json") {
+      setMode("architecture-json");
+      setDiagramLevel("overview");
+      return;
+    }
+    setMode(value);
+    setDiagramLevel(value === "model-graph" ? diagramLevel : "overview");
+  }
+
+  function handleDiagramLevelChange(value: ModelGraphLevel): void {
+    if (levelDisabledReason(mode, architecturePreset, value)) return;
+    setDiagramLevel(value);
+    if (value === "representative-block" && (architecturePreset === "gpt" || architecturePreset === "decoder-only")) {
+      setExpandedBlockId(expandedBlockId === "none" ? "block_0" : expandedBlockId);
+    }
+  }
+
+  function handleArchitecturePresetChange(value: ArchitecturePresetName): void {
+    setArchitecturePreset(value);
+    if (levelDisabledReason("architecture", value, diagramLevel)) setDiagramLevel("overview");
+    if (value === "gpt" || value === "decoder-only") setExpandedBlockId("block_0");
+  }
+
   return (
     <main className="app-shell">
       <header className="topbar">
@@ -268,60 +314,79 @@ export function App(): JSX.Element {
           <p className="eyebrow">@mappedinfo/llm-architecture-svg</p>
           <h1>LLM Architecture Playground</h1>
         </div>
-        <div className="topbar-controls">
-          <label>
-            Mode
-            <select value={mode} onChange={(event) => setMode(event.target.value as PlaygroundMode)}>
-              <option value="architecture">Architecture Template</option>
-              <option value="architecture-json">Architecture JSON</option>
-              <option value="model-graph">ModelGraph JSON</option>
-              <option value="figure">Figure Preset</option>
-              <option value="custom">Custom Figure Spec</option>
+        <div className="topbar-controls workflow-controls">
+          <label className="step-control">
+            <span>1. Source</span>
+            <select value={source} onChange={(event) => handleSourceChange(event.target.value as PlaygroundSource)}>
+              {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
+            <small>{activeSource.description}</small>
           </label>
-          {mode === "architecture" && (
-            <label>
-              Model family
-              <select value={architecturePreset} onChange={(event) => setArchitecturePreset(event.target.value as ArchitecturePresetName)}>
+
+          <label className="step-control">
+            <span>2. Diagram level</span>
+            <select value={activeLevel} disabled={isDiagramLevelSelectDisabled(mode)} onChange={(event) => handleDiagramLevelChange(event.target.value as ModelGraphLevel)}>
+              {DIAGRAM_LEVEL_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value} disabled={Boolean(levelDisabledReason(mode, architecturePreset, option.value))}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <small>{diagramLevelDisabledReason ?? activeLevelOption.description}</small>
+          </label>
+
+          <label className="step-control">
+            <span>3. Content</span>
+            {mode === "architecture" ? (
+              <select value={architecturePreset} onChange={(event) => handleArchitecturePresetChange(event.target.value as ArchitecturePresetName)}>
                 {ARCHITECTURE_PRESETS.map((preset) => <option key={preset.value} value={preset.value}>{preset.label}</option>)}
               </select>
-            </label>
-          )}
-          {mode === "figure" && (
-            <label>
-              Figure preset
+            ) : mode === "figure" ? (
               <select value={figurePreset} onChange={(event) => setFigurePreset(event.target.value as FigurePresetName)}>
                 {FIGURE_PRESETS.map((preset) => <option key={preset.value} value={preset.value}>{preset.label}</option>)}
               </select>
-            </label>
-          )}
-          {mode === "model-graph" && (
-            <label>
-              Level
-              <select value={modelGraphLevel} onChange={(event) => setModelGraphLevel(event.target.value as ModelGraphLevel)}>
-                {MODEL_GRAPH_LEVELS.map((level) => <option key={level} value={level}>{level}</option>)}
+            ) : source === "custom-json" ? (
+              <select value={mode === "architecture-json" ? "architecture-json" : "custom"} onChange={(event) => setMode(event.target.value as PlaygroundMode)}>
+                <option value="architecture-json">ArchitectureSpec JSON</option>
+                <option value="custom">LlmFigureSpec JSON</option>
               </select>
-            </label>
-          )}
-          <label>
-            Profile
-            {mode === "architecture" || mode === "architecture-json" || mode === "model-graph" ? (
+            ) : (
+              <select value="model-graph" disabled>
+                <option value="model-graph">ModelGraphSpec JSON</option>
+              </select>
+            )}
+            <small>{activeContentDescription}</small>
+          </label>
+
+          <label className="step-control">
+            <span>4. Visual style</span>
+            {usesArchitectureStyle(mode) ? (
               <select value={architectureProfile} onChange={(event) => setArchitectureProfile(event.target.value as ArchitectureSvgProfileName)}>
-                {ARCHITECTURE_PROFILES.map((profile) => <option key={profile} value={profile}>{profile}</option>)}
+                {ARCHITECTURE_PROFILE_OPTIONS.map((profile) => <option key={profile.value} value={profile.value}>{profile.label}</option>)}
               </select>
             ) : (
               <select value={figureProfile} onChange={(event) => setFigureProfile(event.target.value as LlmFigureProfileName)}>
-                {FIGURE_PROFILES.map((profile) => <option key={profile} value={profile}>{profile}</option>)}
+                {FIGURE_PROFILE_OPTIONS.map((profile) => <option key={profile.value} value={profile.value}>{profile.label}</option>)}
               </select>
             )}
+            <small>{activeStyleDescription}</small>
           </label>
-          <button type="button" onClick={applyAutoStyle}>Auto style</button>
-          <button type="button" onClick={shuffleStyle}>Shuffle style</button>
+
+          <div className="style-actions">
+            <button type="button" onClick={applyAutoStyle}>Auto style</button>
+            <button type="button" onClick={shuffleStyle}>Shuffle style</button>
+          </div>
         </div>
       </header>
 
       <section className="workspace">
         <aside className="left-pane">
+          <WorkflowSummary
+            source={activeSource.label}
+            level={activeLevelOption.label}
+            content={activeContentLabel}
+            style={activeStyleLabel}
+          />
           {mode === "architecture" ? (
             <div className="panel-stack">
               <ArchitectureParamPanel
@@ -359,7 +424,7 @@ export function App(): JSX.Element {
           ) : mode === "model-graph" ? (
             <div className="panel-stack">
               <div className="panel-card">
-                <h2>ModelGraphSpec JSON</h2>
+                <h2>Imported JSON</h2>
                 <p>Paste JSON exported by the optional Python tracer, then switch levels for overview, representative block, layer strip, or debug graph.</p>
                 <label>
                   Representative block
@@ -386,7 +451,7 @@ export function App(): JSX.Element {
           ) : mode === "architecture-json" ? (
             <div className="panel-stack">
               <div className="panel-card">
-                <h2>ArchitectureSpec JSON</h2>
+                <h2>Imported JSON</h2>
                 <p>Edit the full architecture spec below. Presentation JSON is applied as a render-time teaching overlay.</p>
               </div>
               <div className="panel-card">
@@ -396,7 +461,7 @@ export function App(): JSX.Element {
             </div>
           ) : (
             <div className="panel-card">
-              <h2>{mode === "figure" ? "Preset config" : "Custom LlmFigureSpec"}</h2>
+              <h2>{mode === "figure" ? "Mechanism template" : "Imported JSON"}</h2>
               <p>{mode === "figure" ? "Preset JSON is generated from package helpers." : "Edit JSON directly. The preview renders after valid JSON parses."}</p>
             </div>
           )}
@@ -440,6 +505,78 @@ export function App(): JSX.Element {
   );
 }
 
+function WorkflowSummary({ source, level, content, style }: { source: string; level: string; content: string; style: string }): JSX.Element {
+  return (
+    <div className="panel-card workflow-summary">
+      <h2>Current workflow</h2>
+      <p>{source} → {level} → {content} → {style} → SVG</p>
+    </div>
+  );
+}
+
+function modeToSource(mode: PlaygroundMode): PlaygroundSource {
+  if (mode === "architecture-json" || mode === "custom") return "custom-json";
+  return mode;
+}
+
+function usesArchitectureStyle(mode: PlaygroundMode): boolean {
+  return mode === "architecture" || mode === "architecture-json" || mode === "model-graph";
+}
+
+function isDiagramLevelSelectDisabled(mode: PlaygroundMode): boolean {
+  return mode === "figure" || mode === "custom" || mode === "architecture-json";
+}
+
+function effectiveDiagramLevel(mode: PlaygroundMode, preset: ArchitecturePresetName, level: ModelGraphLevel): ModelGraphLevel {
+  return levelDisabledReason(mode, preset, level) ? "overview" : level;
+}
+
+function levelDisabledReason(mode: PlaygroundMode, preset: ArchitecturePresetName, level: ModelGraphLevel): string | undefined {
+  if (mode === "model-graph") return undefined;
+  if (mode === "figure") return "Mechanism figures use their own fixed layout; diagram levels are not applied.";
+  if (mode === "custom") return "Custom LlmFigureSpec JSON controls its own layout; diagram levels are not applied.";
+  if (mode === "architecture-json") return "ArchitectureSpec JSON is rendered directly; use the JSON structure or expandedGroups for detail control.";
+  if (level === "overview") return undefined;
+  if (level === "representative-block") {
+    return preset === "gpt" || preset === "decoder-only" ? undefined : "Representative block is available for GPT/decoder-only templates and imported ModelGraphSpec JSON.";
+  }
+  if (level === "layer-strip") return "Layer strip is available for imported ModelGraphSpec JSON, where repeated layer counts are known.";
+  if (level === "debug-graph") return "Debug graph is available for imported ModelGraphSpec JSON from PyTorch/HuggingFace tracing.";
+  return undefined;
+}
+
+function contentLabel(mode: PlaygroundMode, architecturePreset: ArchitecturePresetName, figurePreset: FigurePresetName): string {
+  if (mode === "architecture") return optionByValue(ARCHITECTURE_PRESETS, architecturePreset).label;
+  if (mode === "model-graph") return "ModelGraphSpec JSON";
+  if (mode === "architecture-json") return "ArchitectureSpec JSON";
+  if (mode === "custom") return "LlmFigureSpec JSON";
+  return optionByValue(FIGURE_PRESETS, figurePreset).label;
+}
+
+function contentDescription(mode: PlaygroundMode, architecturePreset: ArchitecturePresetName, figurePreset: FigurePresetName): string {
+  if (mode === "architecture") return optionByValue(ARCHITECTURE_PRESETS, architecturePreset).description;
+  if (mode === "model-graph") return "Paste JSON produced by the optional Python tracer, then choose a diagram level.";
+  if (mode === "architecture-json") return "Edit a model architecture JSON object rendered by the architecture SVG renderer.";
+  if (mode === "custom") return "Edit a freeform mechanism figure JSON object with manual coordinates.";
+  return optionByValue(FIGURE_PRESETS, figurePreset).description;
+}
+
+function styleLabel(mode: PlaygroundMode, architectureProfile: ArchitectureSvgProfileName, figureProfile: LlmFigureProfileName): string {
+  return usesArchitectureStyle(mode)
+    ? optionByValue(ARCHITECTURE_PROFILE_OPTIONS, architectureProfile).label
+    : optionByValue(FIGURE_PROFILE_OPTIONS, figureProfile).label;
+}
+
+function styleDescription(mode: PlaygroundMode, architectureProfile: ArchitectureSvgProfileName, figureProfile: LlmFigureProfileName): string {
+  return usesArchitectureStyle(mode)
+    ? optionByValue(ARCHITECTURE_PROFILE_OPTIONS, architectureProfile).description
+    : optionByValue(FIGURE_PROFILE_OPTIONS, figureProfile).description;
+}
+
+function optionByValue<T extends { value: string }>(items: T[], value: string): T {
+  return items.find((item) => item.value === value) ?? items[0];
+}
+
 function ArchitectureParamPanel({
   preset,
   gptParams,
@@ -472,7 +609,7 @@ function ArchitectureParamPanel({
   if (preset === "transformer") {
     return (
       <div className="panel-card param-grid">
-        <h2>Original Transformer params</h2>
+        <h2>Model parameters: Original Transformer</h2>
         <NumberField label="srcT" value={transformerParams.srcT} min={1} max={2048} onChange={(value) => onTransformerChange({ ...transformerParams, srcT: Number(value) })} />
         <NumberField label="tgtT" value={transformerParams.tgtT} min={1} max={2048} onChange={(value) => onTransformerChange({ ...transformerParams, tgtT: Number(value) })} />
         <SharedFields params={transformerParams} onChange={onTransformerChange} />
@@ -487,7 +624,7 @@ function ArchitectureParamPanel({
   if (preset === "bert") {
     return (
       <div className="panel-card param-grid">
-        <h2>BERT encoder params</h2>
+        <h2>Model parameters: BERT encoder</h2>
         <SharedFields params={bertParams} onChange={onBertChange} />
         <NumberField label="nBlocks" value={bertParams.nBlocks} min={1} max={96} onChange={(value) => onBertChange({ ...bertParams, nBlocks: Number(value) })} />
         <NumberField label="typeVocabSize" value={bertParams.typeVocabSize} min={1} max={1024} onChange={(value) => onBertChange({ ...bertParams, typeVocabSize: Number(value) })} />
@@ -500,7 +637,7 @@ function ArchitectureParamPanel({
   if (preset === "encoder-only") {
     return (
       <div className="panel-card param-grid">
-        <h2>Encoder-only params</h2>
+        <h2>Model parameters: Encoder-only</h2>
         <SharedFields params={encoderOnlyParams} onChange={onEncoderOnlyChange} />
         <NumberField label="nBlocks" value={encoderOnlyParams.nBlocks} min={1} max={96} onChange={(value) => onEncoderOnlyChange({ ...encoderOnlyParams, nBlocks: Number(value) })} />
         <BoolField label="bias" checked={encoderOnlyParams.bias} onChange={(checked) => onEncoderOnlyChange({ ...encoderOnlyParams, bias: checked })} />
@@ -511,7 +648,7 @@ function ArchitectureParamPanel({
   if (preset === "decoder-only") {
     return (
       <div className="panel-card param-grid">
-        <h2>Decoder-only params</h2>
+        <h2>Model parameters: Decoder-only</h2>
         <SharedFields params={decoderOnlyParams} onChange={onDecoderOnlyChange} />
         <NumberField label="nBlocks" value={decoderOnlyParams.nBlocks} min={1} max={96} onChange={(value) => onDecoderOnlyChange({ ...decoderOnlyParams, nBlocks: Number(value) })} />
         <ExpandableBlockField nBlocks={decoderOnlyParams.nBlocks} expandedBlockId={expandedBlockId} onExpandedBlockChange={onExpandedBlockChange} />
@@ -523,7 +660,7 @@ function ArchitectureParamPanel({
 
   return (
     <div className="panel-card param-grid">
-      <h2>GPT template params</h2>
+      <h2>Model parameters: GPT</h2>
       <SharedFields params={gptParams} onChange={onGptChange} />
       <NumberField label="nBlocks" value={gptParams.nBlocks} min={1} max={96} onChange={(value) => onGptChange({ ...gptParams, nBlocks: Number(value) })} />
       <ExpandableBlockField nBlocks={gptParams.nBlocks} expandedBlockId={expandedBlockId} onExpandedBlockChange={onExpandedBlockChange} />
@@ -566,7 +703,7 @@ function PresentationPanel({
 }): JSX.Element {
   return (
     <div className="panel-card param-grid">
-      <h2>Teaching highlight</h2>
+      <h2>Teaching highlights</h2>
       <label>
         Selector
         <select value={selector} onChange={(event) => onSelectorChange(event.target.value as PresentationSelectorKey)}>

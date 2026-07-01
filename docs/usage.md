@@ -165,6 +165,21 @@ const modelGraph = createModelGraphFromHfConfig({
 const svgE = renderModelGraphSvg(modelGraph, { level: "overview", profile: "textbook-overview" });
 ```
 
+## Playground workflow
+
+The web playground avoids raw implementation terms like `Mode`, `Profile`, and `Preset`. It is organized into four steps:
+
+- `Source`: model parameters, imported model graph JSON, mechanism figure template, or custom JSON.
+- `Diagram level`: overview, representative block, layer strip, or debug graph. Levels that do not apply are shown but disabled.
+- `Content`: the concrete model family, mechanism template, or spec type.
+- `Visual style`: human-readable style presets, such as Textbook overview or Expanded block blueprint.
+
+Spec choice:
+
+- `ArchitectureSpec`: use for parameterized GPT, Transformer, BERT, encoder-only, and decoder-only diagrams.
+- `ModelGraphSpec`: use for HuggingFace/PyTorch-imported model structure before rendering to SVG.
+- `LlmFigureSpec`: use for freeform mechanism diagrams with manual coordinates.
+
 ## Teaching presentation overlays
 
 `presentation` customizes rendering without changing the underlying architecture. Selectors can target node ids, component kinds, or `derived.role`.

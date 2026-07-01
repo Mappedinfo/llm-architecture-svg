@@ -111,6 +111,17 @@ npm run site:build
 
 The playground supports GPT template parameters, built-in figure presets, custom `LlmFigureSpec` JSON, profile switching, SVG export, SVG copy, and JSON download. GitHub Pages deployment is handled by `.github/workflows/pages.yml`.
 
+### Playground workflow
+
+The playground is organized as four explicit choices:
+
+1. `Source`: choose where the diagram comes from, such as model parameters, imported `ModelGraphSpec`, mechanism templates, or custom JSON.
+2. `Diagram level`: choose overview, representative block, layer strip, or debug graph. Unsupported levels are disabled with an explanation.
+3. `Content`: choose the model family, mechanism template, or JSON spec type.
+4. `Visual style`: choose a human-readable style such as Textbook overview, Expanded block blueprint, Paper architecture, or Draw.io mechanism.
+
+Use `ArchitectureSpec` for generated model-family templates, `ModelGraphSpec` for imported HuggingFace/PyTorch structures, and `LlmFigureSpec` for freeform mechanism figures.
+
 ## API
 
 - `generateGptArchitecture(params)`
