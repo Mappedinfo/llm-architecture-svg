@@ -19,7 +19,7 @@
 <path class="edge edge-residual edge-residual-loop" d="M698.9 726.2 L826.85 726.2 Q841.85 726.2 841.85 711.2 L841.85 598.14 Q841.85 583.14 826.85 583.14 L807.85 583.14" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
 <path class="edge edge-data edge-rounded-orthogonal" d="M698.9 612.85 L698.9 607.35 L698.9 601.85" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
 <g class="edge edge-data edge-attention-fan-in"><path d="M698.9 601.85 L698.9 463.43 Q698.9 450.47 698.9 463.43 L698.9 476.39" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M698.9 450.47 C680.9 450.47 637.89 458.39 637.89 476.39" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/><path d="M698.9 450.47 C716.9 450.47 759.91 458.39 759.91 476.39" fill="none" stroke="#0b0b0b" stroke-width="1.8" opacity="0.86" marker-end="url(#arrow-data)"/></g>
-<path class="edge edge-dependency edge-rounded-orthogonal" d="M329.14 433.47 L444.55 433.47 Q459.55 433.47 459.55 448.47 L459.55 495.51 Q459.55 510.51 474.55 510.51 L589.95 510.51" stroke="#0b2b38" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-dependency)" stroke-dasharray="4 4"/>
+<g class="edge-with-label"><path class="edge edge-dependency edge-rounded-orthogonal" d="M329.14 433.47 L444.55 433.47 Q459.55 433.47 459.55 448.47 L459.55 495.51 Q459.55 510.51 474.55 510.51 L589.95 510.51" stroke="#0b2b38" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-dependency)" stroke-dasharray="4 4"/><g class="text-annotation text-edge"><rect class="edge-label-bg" x="394.71" y="459.87" width="129.68" height="24.24" rx="10" fill="#ffffff" fill-opacity="0.9" stroke="none"/><text x="459.55" y="471.99" font-size="14" text-anchor="middle" dominant-baseline="middle" class="edge-label" font-style="italic">encoder memory</text></g></g>
 <path class="edge edge-residual edge-residual-loop" d="M807.85 583.14 L826.85 583.14 Q841.85 583.14 841.85 568.14 L841.85 459.48 Q841.85 444.48 826.85 444.48 L807.85 444.48" stroke="#0b2b38" stroke-width="2.6" opacity="0.82" marker-end="url(#arrow-residual)"/>
 <path class="edge edge-data edge-rounded-orthogonal" d="M698.9 476.39 L698.9 469.79 L698.9 463.19" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
 <path class="edge edge-data edge-rounded-orthogonal" d="M698.9 425.77 L698.9 415.87 L698.9 405.96" stroke="#0b0b0b" stroke-width="1.8" opacity="0.82" marker-end="url(#arrow-data)"/>
@@ -31,26 +31,26 @@
 <g id="encoder_group" class="node node-group">
 <title>Encoder</title>
 <rect x="76.03" y="379.55" width="297.13" height="313.64" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
-<text x="88.03" y="403.55" font-size="13" text-anchor="start" class="node-label">Encoder</text>
+
 
 
 </g>
 <g id="decoder_group" class="node node-group">
 <title>Decoder</title>
 <rect x="540.43" y="247.49" width="313.64" height="445.69" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
-<text x="552.43" y="271.49" font-size="13" text-anchor="start" class="node-label">Decoder</text>
+
 
 
 </g>
 <g id="enc_inputs" class="node node-text-label">
 <title>Inputs</title>
-<text x="202.58" y="870.36" font-size="30" text-anchor="middle" class="node-label">Inputs</text>
+<g class="text-annotation text-floating"><text x="202.58" y="870.36" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">Inputs</text></g>
 </g>
 <g id="enc_embedding" class="node node-token_embed">
 <title>Input Embedding</title>
 <rect x="98.04" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="202.58" y="770.16" font-size="24" text-anchor="middle" class="node-label">Input</text>
-<text x="202.58" y="798.48" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+<g class="text-annotation text-inside"><text x="202.58" y="783.53" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Input</text>
+<text x="202.58" y="800.93" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Embedding</text></g>
 
 
 </g>
@@ -63,53 +63,53 @@
 <title>Positional Encoding</title>
 <circle class="icon-sine-circle" cx="42" cy="726.2" r="24" fill="#ffffff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
 <path class="icon-stroke icon-sine" d="M27.12 726.2 C33.36 707 39.12 707 42 726.2 C46.8 745.4 52.56 745.4 56.88 726.2" stroke-width="1.8"/>
-<text x="94" y="712.04" font-size="24" text-anchor="start" class="node-label">Positional</text>
-<text x="94" y="740.36" font-size="24" text-anchor="start" class="node-label">Encoding</text>
+<g class="text-annotation text-floating"><text x="94" y="715.18" font-size="19" text-anchor="start" dominant-baseline="middle" class="node-label">Positional</text>
+<text x="94" y="737.22" font-size="19" text-anchor="start" dominant-baseline="middle" class="node-label">Encoding</text></g>
 </g>
 <g id="enc_nx" class="node node-text-label">
 <title>N×</title>
-<text x="50.72" y="545.72" font-size="30" text-anchor="middle" class="node-label">N×</text>
+<g class="text-annotation text-floating"><text x="50.72" y="545.72" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">N×</text></g>
 </g>
 <g id="enc_add_norm_2" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 <rect x="122.25" y="414.77" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="225.69" y="438.47" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<g class="text-annotation text-inside"><text x="225.69" y="433.47" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
 </g>
 <g id="enc_feed_forward" class="node node-mlp">
 <title>Feed Forward</title>
 <rect x="122.25" y="469.79" width="206.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="225.69" y="479.63" font-size="24" text-anchor="middle" class="node-label">Feed</text>
-<text x="225.69" y="507.95" font-size="24" text-anchor="middle" class="node-label">Forward</text>
+<g class="text-annotation text-inside"><text x="225.69" y="494.04" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Feed</text>
+<text x="225.69" y="513.76" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Forward</text></g>
 
 
 </g>
 <g id="enc_add_norm_1" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 <rect x="122.25" y="557.83" width="206.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="225.69" y="581.54" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<g class="text-annotation text-inside"><text x="225.69" y="576.54" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
 </g>
 <g id="enc_mha" class="node node-attention">
 <title>Multi-Head Attention</title>
 <rect x="122.25" y="608.45" width="206.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="225.69" y="618.29" font-size="24" text-anchor="middle" class="node-label">Multi-Head</text>
-<text x="225.69" y="646.61" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+<g class="text-annotation text-inside"><text x="225.69" y="633.75" font-size="19" text-anchor="middle" dominant-baseline="middle" class="node-label">Multi-Head</text>
+<text x="225.69" y="655.79" font-size="19" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
 
 
 </g>
 <g id="dec_outputs" class="node node-text-label">
 <title>Outputs (shifted right)</title>
-<text x="700" y="849.36" font-size="30" text-anchor="middle" class="node-label">Outputs</text>
-<text x="700" y="884.76" font-size="30" text-anchor="middle" class="node-label">(shifted right)</text>
+<g class="text-annotation text-floating"><text x="700" y="851.98" font-size="26" text-anchor="middle" dominant-baseline="middle" class="node-label">Outputs</text>
+<text x="700" y="882.14" font-size="26" text-anchor="middle" dominant-baseline="middle" class="node-label">(shifted right)</text></g>
 </g>
 <g id="dec_embedding" class="node node-token_embed">
 <title>Output Embedding</title>
 <rect x="575.65" y="760.32" width="209.09" height="63.83" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="680.19" y="770.16" font-size="24" text-anchor="middle" class="node-label">Output</text>
-<text x="680.19" y="798.48" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+<g class="text-annotation text-inside"><text x="680.19" y="783.53" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Output</text>
+<text x="680.19" y="800.93" font-size="15" text-anchor="middle" dominant-baseline="middle" class="node-label">Embedding</text></g>
 
 
 </g>
@@ -122,77 +122,77 @@
 <title>Positional Encoding</title>
 <circle class="icon-sine-circle" cx="752.91" cy="726.2" r="24" fill="#ffffff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
 <path class="icon-stroke icon-sine" d="M738.03 726.2 C744.27 707 750.03 707 752.91 726.2 C757.71 745.4 763.47 745.4 767.79 726.2" stroke-width="1.8"/>
-<text x="804.91" y="712.04" font-size="24" text-anchor="start" class="node-label">Positional</text>
-<text x="804.91" y="740.36" font-size="24" text-anchor="start" class="node-label">Encoding</text>
+<g class="text-annotation text-floating"><text x="804.91" y="714.02" font-size="21" text-anchor="start" dominant-baseline="middle" class="node-label">Positional</text>
+<text x="804.91" y="738.38" font-size="21" text-anchor="start" dominant-baseline="middle" class="node-label">Encoding</text></g>
 </g>
 <g id="dec_nx" class="node node-text-label">
 <title>N×</title>
-<text x="873.88" y="501.7" font-size="30" text-anchor="middle" class="node-label">N×</text>
+<g class="text-annotation text-floating"><text x="873.88" y="501.7" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">N×</text></g>
 </g>
 <g id="dec_add_norm_3" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 <rect x="589.95" y="282.71" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="698.9" y="306.42" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<g class="text-annotation text-inside"><text x="698.9" y="301.42" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
 </g>
 <g id="dec_feed_forward" class="node node-mlp">
 <title>Feed Forward</title>
 <rect x="589.95" y="337.73" width="217.89" height="68.23" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="698.9" y="347.57" font-size="24" text-anchor="middle" class="node-label">Feed</text>
-<text x="698.9" y="375.89" font-size="24" text-anchor="middle" class="node-label">Forward</text>
+<g class="text-annotation text-inside"><text x="698.9" y="361.99" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Feed</text>
+<text x="698.9" y="381.71" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Forward</text></g>
 
 
 </g>
 <g id="dec_add_norm_2" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 <rect x="589.95" y="425.77" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="698.9" y="449.48" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<g class="text-annotation text-inside"><text x="698.9" y="444.48" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
 </g>
 <g id="dec_cross_attn" class="node node-attention">
 <title>Encoder-Decoder Attention</title>
 <rect x="589.95" y="476.39" width="217.89" height="68.23" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="698.9" y="486.23" font-size="24" text-anchor="middle" class="node-label">Encoder-Decoder</text>
-<text x="698.9" y="514.55" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+<g class="text-annotation text-inside"><text x="698.9" y="500.65" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Encoder-Decoder</text>
+<text x="698.9" y="520.37" font-size="17" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
 
 
 </g>
 <g id="dec_add_norm_1" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 <rect x="589.95" y="564.43" width="217.89" height="37.42" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="698.9" y="588.14" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<g class="text-annotation text-inside"><text x="698.9" y="583.14" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
 </g>
 <g id="dec_masked_mha" class="node node-attention">
 <title>Masked Multi-Head Attention</title>
 <rect x="589.95" y="612.85" width="217.89" height="72.63" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="698.9" y="608.53" font-size="24" text-anchor="middle" class="node-label">Masked</text>
-<text x="698.9" y="636.85" font-size="24" text-anchor="middle" class="node-label">Multi-Head</text>
-<text x="698.9" y="665.17" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+<g class="text-annotation text-inside"><text x="698.9" y="634.09" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Masked</text>
+<text x="698.9" y="649.17" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Multi-Head</text>
+<text x="698.9" y="664.25" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
 
 
 </g>
 <g id="transformer_linear" class="node node-linear">
 <title>Linear</title>
 <rect x="593.25" y="170.46" width="214.59" height="41.82" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="700.55" y="194.46" font-size="24" text-anchor="middle" class="node-label">Linear</text>
+<g class="text-annotation text-inside"><text x="700.55" y="191.37" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Linear</text></g>
 
 
 </g>
 <g id="transformer_softmax" class="node node-softmax">
 <title>Softmax</title>
 <rect x="593.25" y="113.23" width="214.59" height="41.82" rx="8" fill="#d8f0dc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="700.55" y="137.23" font-size="24" text-anchor="middle" class="node-label">Softmax</text>
+<g class="text-annotation text-inside"><text x="700.55" y="134.14" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Softmax</text></g>
 
 
 </g>
 <g id="transformer_output" class="node node-text-label">
 <title>Output Probabilities</title>
-<text x="700.55" y="50.41" font-size="30" text-anchor="middle" class="node-label">Output</text>
-<text x="700.55" y="85.81" font-size="30" text-anchor="middle" class="node-label">Probabilities</text>
+<g class="text-annotation text-floating"><text x="700.55" y="51.29" font-size="29" text-anchor="middle" dominant-baseline="middle" class="node-label">Output</text>
+<text x="700.55" y="84.93" font-size="29" text-anchor="middle" dominant-baseline="middle" class="node-label">Probabilities</text></g>
 </g>
 </g>
 </svg>

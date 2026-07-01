@@ -52,6 +52,15 @@ export interface ArchitectureSvgProfile {
   expandedGroups: string[];
   defaultWidth?: number;
   defaultPadding?: number;
+  textInsidePadding?: number;
+  textLineHeight?: number;
+  textMinFontSize?: number;
+  edgeLabelFontSize?: number;
+  edgeLabelPaddingX?: number;
+  edgeLabelPaddingY?: number;
+  edgeLabelRadius?: number;
+  edgeLabelBackground?: string;
+  edgeLabelItalic: boolean;
   edgeCornerRadius: number;
   iconPreset: ArchitectureSvgIconPreset;
   residualRouting: ArchitectureSvgResidualRouting;
@@ -157,6 +166,15 @@ const BASE_PROFILE: Omit<ArchitectureSvgProfile, "name" | "description" | "theme
   showShapeWarnings: false,
   maxMetaLines: 2,
   expandedGroups: [],
+  textInsidePadding: 10,
+  textLineHeight: 1.18,
+  textMinFontSize: 9,
+  edgeLabelFontSize: 11,
+  edgeLabelPaddingX: 7,
+  edgeLabelPaddingY: 3,
+  edgeLabelRadius: 8,
+  edgeLabelBackground: "#ffffff",
+  edgeLabelItalic: false,
   edgeCornerRadius: 10,
   iconPreset: "minimal",
   residualRouting: "curved",
@@ -213,6 +231,15 @@ export const BUILTIN_SVG_PROFILES: Record<ArchitectureSvgProfileName, Architectu
     expandedGroups: [],
     defaultWidth: 520,
     defaultPadding: 10,
+    textInsidePadding: 14,
+    textLineHeight: 1.16,
+    textMinFontSize: 13,
+    edgeLabelFontSize: 14,
+    edgeLabelPaddingX: 8,
+    edgeLabelPaddingY: 4,
+    edgeLabelRadius: 10,
+    edgeLabelBackground: "#ffffff",
+    edgeLabelItalic: true,
     edgeCornerRadius: 15,
     iconPreset: "classic",
     residualRouting: "right-loop",
@@ -250,6 +277,7 @@ export const BUILTIN_SVG_PROFILES: Record<ArchitectureSvgProfileName, Architectu
     groupStrokeWidth: 1.8,
     edgeStrokeWidth: 1.6,
     residualStrokeWidth: 2.4,
+    edgeLabelBackground: "#0f172a",
     blockFillOpacity: 0.96,
     groupFillOpacity: 0.22,
     kindColors: {

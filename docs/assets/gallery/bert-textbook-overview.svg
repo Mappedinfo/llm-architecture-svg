@@ -20,19 +20,19 @@
 <g id="bert_encoder_group" class="node node-group">
 <title>BERT Encoder</title>
 <rect x="104.8" y="370.8" width="399.17" height="355.51" rx="42" fill="#f8f8f8" fill-opacity="0.18" stroke="#0b2b38" stroke-width="2.8" stroke-dasharray="8 6"/>
-<text x="116.8" y="394.8" font-size="13" text-anchor="start" class="node-label">BERT Encoder</text>
+
 
 
 </g>
 <g id="bert_inputs" class="node node-text-label">
 <title>Inputs</title>
-<text x="304.39" y="962.07" font-size="30" text-anchor="middle" class="node-label">Inputs</text>
+<g class="text-annotation text-floating"><text x="304.39" y="962.07" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">Inputs</text></g>
 </g>
 <g id="bert_token_embedding" class="node node-token_embed">
 <title>Token Embedding</title>
 <rect x="142.22" y="837.33" width="311.85" height="72.35" rx="8" fill="#f6dada" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="298.15" y="847.17" font-size="24" text-anchor="middle" class="node-label">Token</text>
-<text x="298.15" y="875.49" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+<g class="text-annotation text-inside"><text x="298.15" y="862.48" font-size="19" text-anchor="middle" dominant-baseline="middle" class="node-label">Token</text>
+<text x="298.15" y="884.52" font-size="19" text-anchor="middle" dominant-baseline="middle" class="node-label">Embedding</text></g>
 
 
 </g>
@@ -44,8 +44,8 @@
 <g id="bert_segment_embedding" class="node node-generic_tensor">
 <title>Segment Embedding</title>
 <rect x="10" y="726.31" width="199.58" height="67.36" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="109.79" y="736.15" font-size="24" text-anchor="middle" class="node-label">Segment</text>
-<text x="109.79" y="764.47" font-size="24" text-anchor="middle" class="node-label">Embedding</text>
+<g class="text-annotation text-inside"><text x="109.79" y="750.71" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Segment</text>
+<text x="109.79" y="769.27" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Embedding</text></g>
 
 
 </g>
@@ -53,75 +53,75 @@
 <title>Position Embedding</title>
 <circle class="icon-sine-circle" cx="386.28" cy="763.73" r="24" fill="#ffffff" fill-opacity="0.08" stroke="#0b0b0b" stroke-width="2.4"/>
 <path class="icon-stroke icon-sine" d="M371.4 763.73 C377.64 744.53 383.4 744.53 386.28 763.73 C391.08 782.93 396.84 782.93 401.16 763.73" stroke-width="1.8"/>
-<text x="438.28" y="749.57" font-size="24" text-anchor="start" class="node-label">Position</text>
-<text x="438.28" y="777.89" font-size="24" text-anchor="start" class="node-label">Embedding</text>
+<g class="text-annotation text-floating"><text x="438.28" y="749.81" font-size="24" text-anchor="start" dominant-baseline="middle" class="node-label">Position</text>
+<text x="438.28" y="777.65" font-size="24" text-anchor="start" dominant-baseline="middle" class="node-label">Embedding</text></g>
 </g>
 <g id="bert_nx" class="node node-text-label">
 <title>N×</title>
-<text x="71.12" y="552.92" font-size="30" text-anchor="middle" class="node-label">N×</text>
+<g class="text-annotation text-floating"><text x="71.12" y="552.92" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">N×</text></g>
 </g>
 <g id="bert_add_norm_2" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 <rect x="167.17" y="410.72" width="274.43" height="42.41" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="304.39" y="434.72" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<g class="text-annotation text-inside"><text x="304.39" y="431.92" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
 </g>
 <g id="bert_feed_forward" class="node node-mlp">
 <title>Feed Forward</title>
 <rect x="167.17" y="473.09" width="274.43" height="77.34" rx="8" fill="#bfecf5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="304.39" y="482.93" font-size="24" text-anchor="middle" class="node-label">Feed</text>
-<text x="304.39" y="511.25" font-size="24" text-anchor="middle" class="node-label">Forward</text>
+<g class="text-annotation text-inside"><text x="304.39" y="499.57" font-size="21" text-anchor="middle" dominant-baseline="middle" class="node-label">Feed</text>
+<text x="304.39" y="523.93" font-size="21" text-anchor="middle" dominant-baseline="middle" class="node-label">Forward</text></g>
 
 
 </g>
 <g id="bert_add_norm_1" class="node node-layer_norm">
 <title>Add &amp; Norm</title>
 <rect x="167.17" y="572.88" width="274.43" height="42.41" rx="8" fill="#f5f5c0" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="304.39" y="596.88" font-size="24" text-anchor="middle" class="node-label">Add &amp; Norm</text>
+<g class="text-annotation text-inside"><text x="304.39" y="594.08" font-size="13" text-anchor="middle" dominant-baseline="middle" class="node-label">Add &amp; Norm</text></g>
 
 
 </g>
 <g id="bert_mha" class="node node-attention">
 <title>Multi-Head Attention</title>
 <rect x="167.17" y="630.26" width="274.43" height="82.33" rx="8" fill="#ffe3b5" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="304.39" y="640.1" font-size="24" text-anchor="middle" class="node-label">Multi-Head</text>
-<text x="304.39" y="668.42" font-size="24" text-anchor="middle" class="node-label">Attention</text>
+<g class="text-annotation text-inside"><text x="304.39" y="658.08" font-size="23" text-anchor="middle" dominant-baseline="middle" class="node-label">Multi-Head</text>
+<text x="304.39" y="684.76" font-size="23" text-anchor="middle" dominant-baseline="middle" class="node-label">Attention</text></g>
 
 
 </g>
 <g id="bert_layer_count" class="node node-text-label">
 <title>Encoder Layer ×12</title>
-<text x="304.39" y="335.87" font-size="30" text-anchor="middle" class="node-label">Encoder Layer ×12</text>
+<g class="text-annotation text-floating"><text x="304.39" y="335.87" font-size="30" text-anchor="middle" dominant-baseline="middle" class="node-label">Encoder Layer ×12</text></g>
 </g>
 <g id="bert_contextual" class="node node-generic_tensor">
 <title>Contextual Token Outputs</title>
 <rect x="142.22" y="231.09" width="311.85" height="67.36" rx="8" fill="#e8eefc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="298.15" y="240.93" font-size="24" text-anchor="middle" class="node-label">Contextual</text>
-<text x="298.15" y="269.25" font-size="24" text-anchor="middle" class="node-label">Token Outputs</text>
+<g class="text-annotation text-inside"><text x="298.15" y="255.49" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Contextual</text>
+<text x="298.15" y="274.05" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Token Outputs</text></g>
 
 
 </g>
 <g id="bert_cls" class="node node-generic_tensor">
 <title>[CLS]</title>
 <rect x="67.38" y="126.31" width="162.16" height="52.39" rx="8" fill="#d8f0dc" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="148.46" y="150.31" font-size="24" text-anchor="middle" class="node-label">[CLS]</text>
+<g class="text-annotation text-inside"><text x="148.46" y="152.5" font-size="21" text-anchor="middle" dominant-baseline="middle" class="node-label">[CLS]</text></g>
 
 
 </g>
 <g id="bert_classifier" class="node node-linear">
 <title>Classifier Head</title>
 <rect x="29.96" y="34" width="237.01" height="67.36" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="148.46" y="43.84" font-size="24" text-anchor="middle" class="node-label">Classifier</text>
-<text x="148.46" y="72.16" font-size="24" text-anchor="middle" class="node-label">Head</text>
+<g class="text-annotation text-inside"><text x="148.46" y="58.4" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Classifier</text>
+<text x="148.46" y="76.96" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Head</text></g>
 
 
 </g>
 <g id="bert_mlm_head" class="node node-linear">
 <title>MLM Head</title>
 <rect x="354.28" y="34" width="212.06" height="67.36" rx="8" fill="#e0e3f2" fill-opacity="1" stroke="#0b0b0b" stroke-width="2.4"/>
-<text x="460.31" y="43.84" font-size="24" text-anchor="middle" class="node-label">MLM</text>
-<text x="460.31" y="72.16" font-size="24" text-anchor="middle" class="node-label">Head</text>
+<g class="text-annotation text-inside"><text x="460.31" y="58.4" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">MLM</text>
+<text x="460.31" y="76.96" font-size="16" text-anchor="middle" dominant-baseline="middle" class="node-label">Head</text></g>
 
 
 </g>

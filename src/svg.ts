@@ -47,6 +47,18 @@ interface NodeRect {
   h: number;
 }
 
+type TextAnnotationKind = "floating" | "inside" | "edge";
+
+interface TextAnnotationOptions {
+  kind: TextAnnotationKind;
+  fontSize: number;
+  anchor?: "start" | "middle" | "end";
+  verticalAlign?: "top" | "center";
+  className?: string;
+  italic?: boolean;
+  pill?: boolean;
+}
+
 const COLLAPSED_GROUP_HEIGHT = 72;
 const OUTER_GROUP_MARGIN_Y = 42;
 
@@ -200,10 +212,7 @@ function renderNode(
   const strokeWidth = isGroup ? profile.groupStrokeWidth : profile.blockStrokeWidth;
   const opacity = isGroup ? profile.groupFillOpacity : profile.blockFillOpacity;
   const labelFontSize = isGroup ? profile.groupFontSize : profile.labelFontSize;
-  const labelX = isGroup ? rect.x + 12 + depth * 4 : rect.x + rect.w / 2;
-  const labelY = isGroup ? rect.y + 24 : rect.y + Math.min(24, rect.h / 2 + 5);
-  const anchor = isGroup ? "start" : "middle";
-  const label = node.label ? renderTextLines(node.label, labelX, labelY, labelFontSize, anchor, "node-label", isGroup ? "top" : "center") : "";
+  const label = renderNodeLabel(node, rect, depth, profile, isGroup, labelFontSize);
 
   return [
     `<g id="${escAttr(node.id)}" class="node node-${escAttr(node.kind)}">`,
@@ -220,7 +229,7 @@ function renderTextLabelNode(node: ArchitectureNode, rect: NodeRect, profile: Ar
   return [
     `<g id="${escAttr(node.id)}" class="node node-text-label">`,
     renderNodeTitle(node),
-    renderTextLines(node.label, rect.x + rect.w / 2, rect.y + rect.h / 2, profile.textLabelFontSize, "middle", "node-label", "center"),
+    renderTextAnnotation(node.label, rect, profile, { kind: "floating", fontSize: profile.textLabelFontSize, anchor: "middle", verticalAlign: "center", className: "node-label" }),
     `</g>`
   ].join("\n");
 }
@@ -232,12 +241,13 @@ function renderPositionalIconNode(node: ArchitectureNode, rect: NodeRect, profil
   const waveStart = cx - r * 0.62;
   const waveEnd = cx + r * 0.62;
   const labelX = cx + r + 28;
+  const labelBox = { x: labelX, y: rect.y, w: Math.max(80, rect.x + rect.w - labelX), h: rect.h };
   return [
     `<g id="${escAttr(node.id)}" class="node node-positional-icon">`,
     renderNodeTitle(node),
     `<circle class="icon-sine-circle" cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}" fill="${nodeFill(node, profile)}" fill-opacity="0.08" stroke="${profile.palette.edge}" stroke-width="${profile.blockStrokeWidth}"/>`,
     `<path class="icon-stroke icon-sine" d="M${round(waveStart)} ${round(cy)} C${round(cx - r * 0.36)} ${round(cy - r * 0.8)} ${round(cx - r * 0.12)} ${round(cy - r * 0.8)} ${round(cx)} ${round(cy)} C${round(cx + r * 0.2)} ${round(cy + r * 0.8)} ${round(cx + r * 0.44)} ${round(cy + r * 0.8)} ${round(waveEnd)} ${round(cy)}" stroke-width="${profile.edgeStrokeWidth}"/>`,
-    renderTextLines(node.label, labelX, cy, profile.labelFontSize, "start", "node-label", "center"),
+    renderTextAnnotation(node.label, labelBox, profile, { kind: "floating", fontSize: profile.labelFontSize, anchor: "start", verticalAlign: "center", className: "node-label" }),
     `</g>`
   ].join("\n");
 }
@@ -339,7 +349,7 @@ function renderRoundedOrthogonalEdge(
   const points = vertical
     ? [{ x: start.x, y: start.y }, { x: start.x, y: (start.y + end.y) / 2 }, { x: end.x, y: (start.y + end.y) / 2 }, { x: end.x, y: end.y }]
     : [{ x: start.x, y: start.y }, { x: (start.x + end.x) / 2, y: start.y }, { x: (start.x + end.x) / 2, y: end.y }, { x: end.x, y: end.y }];
-  return renderEdgePath(edge, roundedPolylinePath(points, profile.edgeCornerRadius), profile, edge.kind === "dependency" ? ` stroke-dasharray="4 4"` : "", "edge-rounded-orthogonal");
+  return renderEdgePath(edge, roundedPolylinePath(points, profile.edgeCornerRadius), profile, edge.kind === "dependency" ? ` stroke-dasharray="4 4"` : "", "edge-rounded-orthogonal", midpoint(points[1], points[2]));
 }
 
 function renderAttentionFanInEdge(
@@ -391,7 +401,7 @@ function renderDefaultEdge(
   const path = vertical
     ? `M${round(start.x)} ${round(start.y)} C${round(start.x)} ${round(midY)} ${round(end.x)} ${round(midY)} ${round(end.x)} ${round(end.y)}`
     : `M${round(start.x)} ${round(start.y)} C${round((start.x + end.x) / 2)} ${round(start.y)} ${round((start.x + end.x) / 2)} ${round(end.y)} ${round(end.x)} ${round(end.y)}`;
-  return renderEdgePath(edge, path, profile, edge.kind === "dependency" ? ` stroke-dasharray="4 4"` : "");
+  return renderEdgePath(edge, path, profile, edge.kind === "dependency" ? ` stroke-dasharray="4 4"` : "", "", midpoint(start, end));
 }
 
 function renderRightLoopEdge(
@@ -411,7 +421,7 @@ function renderRightLoopEdge(
   const path = edge.route === "right-loop"
     ? roundedPolylinePath([start, { x: loopX, y: start.y }, { x: loopX, y: end.y }, end], profile.edgeCornerRadius)
     : `M${round(start.x)} ${round(start.y)} H${round(loopX)} C${round(loopX + 10)} ${round(start.y)} ${round(loopX + 10)} ${round(end.y)} ${round(loopX)} ${round(end.y)} H${round(end.x)}`;
-  return renderEdgePath(edge, path, profile, "", "edge-residual-loop");
+  return renderEdgePath(edge, path, profile, "", "edge-residual-loop", { x: loopX, y: (start.y + end.y) / 2 });
 }
 
 function renderFanEdge(
@@ -429,14 +439,16 @@ function renderFanEdge(
   const end = sideCenter(targetRect, "left");
   const ctrlX = (start.x + end.x) / 2;
   const path = `M${round(start.x)} ${round(start.y)} C${round(ctrlX)} ${round(start.y)} ${round(ctrlX)} ${round(end.y)} ${round(end.x)} ${round(end.y)}`;
-  return renderEdgePath(edge, path, profile, edge.kind === "dependency" ? ` stroke-dasharray="4 4"` : "", "edge-fan-in");
+  return renderEdgePath(edge, path, profile, edge.kind === "dependency" ? ` stroke-dasharray="4 4"` : "", "edge-fan-in", { x: ctrlX, y: (start.y + end.y) / 2 });
 }
 
-function renderEdgePath(edge: ArchitectureEdge, path: string, profile: ArchitectureSvgProfile, extraAttrs = "", extraClass = ""): string {
+function renderEdgePath(edge: ArchitectureEdge, path: string, profile: ArchitectureSvgProfile, extraAttrs = "", extraClass = "", labelPoint?: { x: number; y: number }): string {
   const color = edge.kind === "residual" ? profile.palette.residual : edge.kind === "dependency" ? profile.palette.dependency : profile.palette.data;
   const strokeWidth = edge.kind === "residual" ? profile.residualStrokeWidth : profile.edgeStrokeWidth;
   const className = ["edge", `edge-${edge.kind}`, extraClass].filter(Boolean).join(" ");
-  return `<path class="${className}" d="${path}" stroke="${color}" stroke-width="${strokeWidth}" opacity="0.82" marker-end="url(#arrow-${edge.kind})"${extraAttrs}/>`;
+  const pathMarkup = `<path class="${className}" d="${path}" stroke="${color}" stroke-width="${strokeWidth}" opacity="0.82" marker-end="url(#arrow-${edge.kind})"${extraAttrs}/>`;
+  const label = renderEdgeLabel(edge, labelPoint, profile);
+  return label ? `<g class="edge-with-label">${pathMarkup}${label}</g>` : pathMarkup;
 }
 
 function adaptArchitectureForProfile(architecture: ArchitectureSpec, profile: ArchitectureSvgProfile): ArchitectureSpec {
@@ -843,6 +855,44 @@ function shouldRenderCircleAdd(node: ArchitectureNode, profile: ArchitectureSvgP
   return ["classic", "tensor", "math"].includes(profile.iconPreset) && node.kind === "residual_add";
 }
 
+function renderNodeLabel(node: ArchitectureNode, rect: NodeRect, depth: number, profile: ArchitectureSvgProfile, isGroup: boolean, fontSize: number): string {
+  if (!node.label) return "";
+  if (isGroup) {
+    if (node.derived?.role === "textbook_expanded_group") return "";
+    return renderTextAnnotation(node.label, { x: rect.x + 12 + depth * 4, y: rect.y + 8, w: Math.max(1, rect.w - 24), h: fontSize * textLineHeight(profile) + 4 }, profile, {
+      kind: "inside",
+      fontSize,
+      anchor: "start",
+      verticalAlign: "top",
+      className: "node-label"
+    });
+  }
+  const padding = textInsidePadding(profile);
+  return renderTextAnnotation(node.label, insetRect(rect, padding, padding), profile, {
+    kind: "inside",
+    fontSize,
+    anchor: "middle",
+    verticalAlign: "center",
+    className: "node-label"
+  });
+}
+
+function renderEdgeLabel(edge: ArchitectureEdge, point: { x: number; y: number } | undefined, profile: ArchitectureSvgProfile): string {
+  if (!edge.label || edge.label === "residual" || !point) return "";
+  const fontSize = edgeLabelFontSize(profile);
+  const width = estimateTextWidth(edge.label, fontSize) + edgeLabelPaddingX(profile) * 2;
+  const height = fontSize * textLineHeight(profile) + edgeLabelPaddingY(profile) * 2;
+  return renderTextAnnotation(edge.label, { x: point.x - width / 2, y: point.y - height / 2, w: width, h: height }, profile, {
+    kind: "edge",
+    fontSize,
+    anchor: "middle",
+    verticalAlign: "center",
+    className: "edge-label",
+    italic: profile.edgeLabelItalic,
+    pill: true
+  });
+}
+
 function isQkvFanEdge(source: ArchitectureNode, target: ArchitectureNode): boolean {
   const sourceIsLn1 = /_ln1$/.test(source.id);
   const targetIsQkv = /_(q|k|v)$/.test(target.id);
@@ -862,11 +912,94 @@ function hasShapeMismatch(node: ArchitectureNode): boolean {
   return false;
 }
 
-function renderTextLines(label: string, x: number, y: number, fontSize: number, anchor: string, className: string, align: "top" | "center"): string {
-  const lines = label.split("\n");
-  const lineHeight = fontSize * 1.18;
-  const startY = align === "center" ? y - ((lines.length - 1) * lineHeight) / 2 : y;
-  return lines.map((line, i) => `<text x="${round(x)}" y="${round(startY + i * lineHeight)}" font-size="${fontSize}" text-anchor="${anchor}" class="${className}">${esc(line)}</text>`).join("\n");
+function renderTextAnnotation(label: string, box: NodeRect, profile: ArchitectureSvgProfile, options: TextAnnotationOptions): string {
+  const className = options.className ?? "node-label";
+  const anchor = options.anchor ?? "middle";
+  const verticalAlign = options.verticalAlign ?? "center";
+  const layout = layoutText(label, box, profile, options.fontSize);
+  const lineHeight = layout.fontSize * textLineHeight(profile);
+  const textX = anchor === "start" ? box.x : anchor === "end" ? box.x + box.w : box.x + box.w / 2;
+  const centerY = box.y + box.h / 2;
+  const firstY = verticalAlign === "top"
+    ? box.y + lineHeight / 2
+    : centerY - ((layout.lines.length - 1) * lineHeight) / 2;
+  const background = options.pill && profile.edgeLabelBackground
+    ? `<rect class="edge-label-bg" x="${round(box.x)}" y="${round(box.y)}" width="${round(box.w)}" height="${round(box.h)}" rx="${edgeLabelRadius(profile)}" fill="${profile.edgeLabelBackground}" fill-opacity="0.9" stroke="none"/>`
+    : "";
+  const text = layout.lines.map((line, index) => {
+    const y = firstY + index * lineHeight;
+    const attrs = [
+      `x="${round(textX)}"`,
+      `y="${round(y)}"`,
+      `font-size="${layout.fontSize}"`,
+      `text-anchor="${anchor}"`,
+      `dominant-baseline="middle"`,
+      `class="${className}"`,
+      options.italic ? `font-style="italic"` : ""
+    ].filter(Boolean).join(" ");
+    return `<text ${attrs}>${esc(line)}</text>`;
+  }).join("\n");
+  return `<g class="text-annotation text-${options.kind}">${background}${text}</g>`;
+}
+
+function layoutText(label: string, box: NodeRect, profile: ArchitectureSvgProfile, requestedFontSize: number): { lines: string[]; fontSize: number } {
+  const lines = label.split("\n").map((line) => line.trim());
+  let fontSize = requestedFontSize;
+  while (fontSize > textMinFontSize(profile) && !textFits(lines, box, profile, fontSize)) {
+    fontSize -= 1;
+  }
+  return { lines, fontSize };
+}
+
+function textFits(lines: string[], box: NodeRect, profile: ArchitectureSvgProfile, fontSize: number): boolean {
+  const maxLineWidth = lines.reduce((max, line) => Math.max(max, estimateTextWidth(line, fontSize)), 0);
+  const totalHeight = lines.length * fontSize * textLineHeight(profile);
+  return maxLineWidth <= box.w && totalHeight <= box.h;
+}
+
+function estimateTextWidth(text: string, fontSize: number): number {
+  return text.length * fontSize * 0.58;
+}
+
+function insetRect(rect: NodeRect, padX: number, padY: number): NodeRect {
+  return {
+    x: rect.x + padX,
+    y: rect.y + padY,
+    w: Math.max(1, rect.w - padX * 2),
+    h: Math.max(1, rect.h - padY * 2)
+  };
+}
+
+function midpoint(a: { x: number; y: number }, b: { x: number; y: number }): { x: number; y: number } {
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+}
+
+function textInsidePadding(profile: ArchitectureSvgProfile): number {
+  return profile.textInsidePadding ?? 10;
+}
+
+function textLineHeight(profile: ArchitectureSvgProfile): number {
+  return profile.textLineHeight ?? 1.18;
+}
+
+function textMinFontSize(profile: ArchitectureSvgProfile): number {
+  return profile.textMinFontSize ?? 9;
+}
+
+function edgeLabelFontSize(profile: ArchitectureSvgProfile): number {
+  return profile.edgeLabelFontSize ?? 11;
+}
+
+function edgeLabelPaddingX(profile: ArchitectureSvgProfile): number {
+  return profile.edgeLabelPaddingX ?? 7;
+}
+
+function edgeLabelPaddingY(profile: ArchitectureSvgProfile): number {
+  return profile.edgeLabelPaddingY ?? 3;
+}
+
+function edgeLabelRadius(profile: ArchitectureSvgProfile): number {
+  return profile.edgeLabelRadius ?? 8;
 }
 
 function renderNodeTitle(node: ArchitectureNode): string {
